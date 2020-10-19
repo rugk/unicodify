@@ -7,7 +7,8 @@
 
 <img height="200" width="200" src="assets/header.svg">
 
-This is a (Firefox) add-on (WebExtension) …
+This is a (Firefox) add-on (WebExtension) that allows you to autocorrect common text sequences and convert text characters to a look like a special font.
+For instance, it converts quotes like `"these"` to `“these”`, which are typographically more correct.
 
 In contrast to many other add-ons, …
 
