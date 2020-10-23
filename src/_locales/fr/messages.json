@@ -1,0 +1,116 @@
+{
+  // manifest.json
+  "extensionName": {
+    "message": "Unicodify – Text reshaper",
+    "description": "Name of the extension.",
+    "hash": "8ffc35b75acae55033a021608d7fe41e"
+  },
+  "extensionNameShort": {
+    "message": "Unicodify",
+    "description": "Name of the extension.",
+    "hash": "e64f147712822c45d13476bb79638225"
+  },
+  "extensionDescription": {
+    "message": "Te permet de faire de grandes choses.",
+    "description": "Description of the extension.",
+    "hash": "c10920cdbd6aaea062dbf4098e019bcb"
+  },
+  "browserActionButtonTitle": {
+    "message": "Unicodify – Text reshaper",
+    "description": "The title for the button, which opens the popup.",
+    "hash": "8ffc35b75acae55033a021608d7fe41e"
+  },
+
+  // errors or other messages (mostly for settings)
+  "errorShowingMessage": {
+    "message": "Impossible d'afficher ce message.",
+    "description": "When there is an error when showing the error/info/….",
+    "hash": "a9440e4f824a372841d4de2b7e2643ee"
+  },
+  "couldNotLoadOptions": {
+    "message": "Impossible de charger les paramètres.",
+    "description": "When one or all settings could not be loaded.",
+    "hash": "9497a5d2c9473aeb2ed9601f46c456be"
+  },
+  "couldNotSaveOption": {
+    "message": "Impossible de sauvegarder ce paramètre.",
+    "description": "When a setting could not be saved.",
+    "hash": "6bcb9e36d2c33172b948515a9c50aa8e"
+  },
+  "messageUndoButton": {
+    "message": "Annuler",
+    "description": "The text of a button that undoes the last action.",
+    "hash": "a85e775d7404b86c8060a20efd31241c"
+  },
+  "couldNotUndoAction": {
+    "message": "Impossible d'annuler l'action.",
+    "description": "Shown when an action cannot be undone.",
+    "hash": "d2883c6ca0164afc4f360f3e02e3166a"
+  },
+  "resettingOptionsWorked": {
+    "message": "Tous les paramètres sont maintenant réinitialisés !",
+    "description": "The message shown, when the options of the settings were reset.",
+    "hash": "257b99ed2a074fccbfc658d770b50107"
+  },
+  "resettingOptionsFailed": {
+    "message": "Impossible de réinitialiser les paramètres !",
+    "description": "The message shown, when the options of the settings could not have been reset.",
+    "hash": "76e950d2db72a824482411ca6564fb1f"
+  },
+
+  // options
+  "someSettingsAreManaged": {
+    "message": "Certains paramètres sont gérés par l'administrateur de ton système et ne peuvent pas être changés.",
+    "description": "The message, which appears, when settings are pre-defined (as managed options) by administrators.",
+    "hash": "148604ebbeb7df28974d8233f1418d1f"
+  },
+  "optionIsDisabledBecauseManaged": {
+    "message": "Cette option a été désactivée par l'administrateur de ton système.",
+    "description": "The title (tooltip) shown, when hovering over a disabled, managed option.",
+    "hash": "50fb70682c64e1a1fb4d8884b33cca64"
+  },
+  "optionLearnMore": {
+    "message": "En savoir plus",
+    "description": "When a link to an explainer needs to be added, this is the link text.",
+    "hash": "9085b09f4748be12ab0c241d2e643b31"
+  },
+  "optionsResetButton": {
+    "message": "Réinitialiser tous les paramètres",
+    "description": "The button to delete all current settings and load the defaults, shown in the add-on settings.",
+    "hash": "4bb60c6c7e7b9e2ff987c244e76ee044"
+  },
+
+  // ARIA labels/descriptions
+  "dismissIconDescription": {
+    "message": "Fermer ce message",
+    "description": "the aria label for the close button of the message box",
+    "hash": "632720ab193dcacba4286cb364124856"
+  },
+  "ariaMessageLoading": {
+    "message": "message de chargement",
+    "description": "the aria label to label the message box as an info message box",
+    "hash": "570016a957498a1fa1b3e818eb282adb"
+  },
+  "ariaMessageInfo": {
+    "message": "message d'information",
+    "description": "the aria label to label the message box as an info message box",
+    "hash": "5f54e42067e19895a2641b17a5233418"
+  },
+  "ariaMessageSuccess": {
+    "message": "message de succès",
+    "description": "the aria label to label the message box as an success message box",
+    "hash": "334387b4ae53483d17f11519a70dd3af"
+  },
+  "ariaMessageError": {
+    "message": "message d'erreur",
+    "description": "the aria label to label the message box as an error message box",
+    "hash": "fcda6eedc61727fe8aae7392a0a541a5"
+  },
+  "ariaMessageWarning": {
+    "message": "message d'avertissement",
+    "description": "the aria label to label the message box as an warning message box",
+    "hash": "8a5dd7528bead1ccd27cb7430d797bd2"
+  },
+
+  "__WET_LOCALE__": { "message": "fr" }
+}

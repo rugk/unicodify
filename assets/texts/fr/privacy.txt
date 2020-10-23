@@ -1,0 +1,9 @@
+Cette extension ne transmet aucune donnée à son auteur ou à des tiers.
+
+Une explication de toutes les permissions nécessaires au fonctionnement de l'extension peut être trouvée ici : https://github.com/rugk/unicodify/blob/master/assets/texts/fr/permissions.md.
+
+== SERVICES TIERS ==
+
+Cette extension utilise le “stockage synchronisé” de ton navigateur pour enregistrer les paramètres. Si l'utilisateur active la “Synchronisation” dans le navigateur, les paramètres sont téléversés et synchronisés entre ses appareils connectés à son compte. Dans le cas contraire, les paramètres sont sauvegardés uniquement localement.
+Dans Mozilla Firefox les données sont chiffrées de bout-en-bout avant d'être téléversées et stockées sur les serveurs de Mozilla.
+Consulter https://accounts.firefox.com/legal/privacy et https://www.mozilla.org/privacy/firefox/#c-privacy-topic-8 pour en savoir plus sur les données personnelles chez Mozilla.
