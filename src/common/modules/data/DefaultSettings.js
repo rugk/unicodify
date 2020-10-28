@@ -19,6 +19,10 @@ const defaultSettings = {
         autocorrectSymbols: true,
         autocorrectUnicodeQuotes: true,
         autocorrectUnicodeFracts: true,
+    },
+    unicodeFont: {
+        changeFont: true,
+        changeCase: true
     }
 };
 
