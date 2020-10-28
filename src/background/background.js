@@ -1,3 +1,4 @@
-"use strict";
+import * as AutocorrectHandler from "/common/modules/AutocorrectHandler.js";
 
-import "./modules/….js";
+// init modules
+AutocorrectHandler.init();
