@@ -45,12 +45,14 @@ let longest = 0;
 // Regular expressions
 let symbolpatterns = null;
 // Do not autocorrect for these patterns
-let apatterns = null;
+let antipatterns = null;
 
 // Thunderbird
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1641573
 const THUNDERBIRD = typeof messenger !== "undefined";
 
 // Chrome
+// Adapted from: https://github.com/mozilla/webextension-polyfill/blob/master/src/browser-polyfill.js
 const CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 
 /**
@@ -118,7 +120,7 @@ function insertAtCaret(target, atext) {
  * @returns {void}
  */
 function insertIntoPage(atext) {
-    return insertCaret(document.activeElement, atext);
+    return insertAtCaret(document.activeElement, atext);
 }
 
 /**
@@ -188,15 +190,15 @@ function outputLabel(anumber, afraction) {
     let intpart = Math.trunc(number);
     const fractionpart = afraction ? parseFloat(afraction) : Math.abs(number % 1);
 
-    let strm = "";
+    let str = "";
 
     for (const fraction in fractions) {
         if (Math.abs(fractionpart - fractions[fraction]) < Number.EPSILON) {
             if (intpart !== 0) {
-                strm += intpart;
+                str += intpart;
             }
 
-            strm += fraction;
+            str += fraction;
 
             output = true;
             break;
@@ -209,12 +211,12 @@ function outputLabel(anumber, afraction) {
                 intpart = number / constants[constant];
 
                 if (intpart === -1) {
-                    strm += "-";
+                    str += "-";
                 } else if (intpart !== 1) {
-                    strm += intpart;
+                    str += intpart;
                 }
 
-                strm += constant;
+                str += constant;
 
                 output = true;
                 break;
@@ -223,10 +225,10 @@ function outputLabel(anumber, afraction) {
     }
 
     if (!output) {
-        strm += anumber;
+        str += anumber;
     }
 
-    return strm;
+    return str;
 }
 
 /**
@@ -255,6 +257,7 @@ function firstDifferenceIndex(a, b) {
  */
 function autocorrect(event) {
     // console.log('keydown', event.key, event.key.length, event.keyCode);
+    // Exclude all keys that do not produce a single Unicode character
     if (!((event.key.length === 0 || event.key.length === 1 || event.keyCode === 13 || event.key === "Unidentified") && !event.ctrlKey && !event.metaKey && !event.altKey)) {
         return;
     }
@@ -274,20 +277,20 @@ function autocorrect(event) {
             // White space
             const re = /^\s*$/;
             if (insert === "'") {
-                insert = re.test(prevouschar) ? "‘" : "’";
+                insert = re.test(previouschar) ? "‘" : "’";
             } else if (insert === '"') {
-                insert = re.test(prevouschar) ? "“" : "”";
+                insert = re.test(previouschar) ? "“" : "”";
             }
             deletecount = 1;
             output = true;
         }
-        const previoustext = value.slice(caretposition < (longest + 1) ? 0 : caretposition - (longest + 1), caretposition - 1);
-        const regexResult = symbolpatterns.exec(prevoustext);
+        const preivousText = value.slice(caretposition < (longest + 1) ? 0 : caretposition - (longest + 1), caretposition - 1);
+        const regexResult = symbolpatterns.exec(preivousText);
         // Autocorrect Unicode Symbols
         if (regexResult) {
             const text = value.slice(caretposition < longest ? 0 : caretposition - longest, caretposition);
             const aregexResult = symbolpatterns.exec(text);
-            const aaregexResult = apatterns.exec(text);
+            const aaregexResult = antipatterns.exec(text);
             if (!aaregexResult && (!aregexResult || (caretposition <= longest ? regexResult.index < aregexResult.index : regexResult.index <= aregexResult.index))) {
                 insert = autocorrections[regexResult[0]] + (event.keyCode === 13 ? "\n" : insert);
                 deletecount = regexResult[0].length + 1;
@@ -299,10 +302,10 @@ function autocorrect(event) {
                 // Numbers: https://regex101.com/r/7jUaSP/2
                 const numberRegex = /[0-9]+(\.[0-9]+)?$/;
                 const preivousText = value.slice(0, caretposition - 1);
-                const regexResult = re.exec(prevoustext);
+                const regexResult = numberRegex.exec(preivousText);
                 if (regexResult) {
                     const text = value.slice(0, caretposition);
-                    const aregexResult = re.exec(text);
+                    const aregexResult = numberRegex.exec(text);
                     if (!aregexResult) {
                         const label = outputLabel(regexResult[0], regexResult[1]);
                         const index = firstDifferenceIndex(label, regexResult[0]);
@@ -318,7 +321,7 @@ function autocorrect(event) {
         if (output) {
             const text = value.slice(caretposition - deletecount, caretposition);
             deleteCaret(target, text);
-            insertCaret(target, insert);
+            insertAtCaret(target, insert);
             console.debug("Autocorrect: “%s” was replaced with “%s”.", text, insert);
 
             insertedText = insert;
@@ -338,25 +341,23 @@ function autocorrect(event) {
  */
 function undoAutocorrect(event) {
     // console.log('keyup', event.key, event.key.length, event.keyCode);
-    if (!(!event.ctrlKey && !event.metaKey && !event.altKey)) {
+    // Backspace
+    if (!(event.keyCode === 8 && !event.ctrlKey && !event.metaKey && !event.altKey)) {
         return;
     }
-    // Backspace
-    if (event.keyCode === 8) {
-        const target = event.target;
-        const caretposition = getCaretPosition(target);
-        if (caretposition) {
-            if (target === lastTarget && caretposition === lastCaretPosition) {
-                event.preventDefault();
+    const target = event.target;
+    const caretposition = getCaretPosition(target);
+    if (caretposition) {
+        if (target === lastTarget && caretposition === lastCaretPosition) {
+            event.preventDefault();
 
-                if (insertedText) {
-                    deleteCaret(target, insertedText);
-                }
-                if (deletedText) {
-                    insertCaret(target, deletedText);
-                }
-                console.debug("Undo autocorrect: “%s” was replaced with “%s”.", insertedText, deletedText);
+            if (insertedText) {
+                deleteCaret(target, insertedText);
             }
+            if (deletedText) {
+                insertAtCaret(target, deletedText);
+            }
+            console.debug("Undo autocorrect: “%s” was replaced with “%s”.", insertedText, deletedText);
         }
     }
 
@@ -379,7 +380,7 @@ function handleResponse(message, sender) {
     autocorrections = message.autocorrections;
     longest = message.longest;
     symbolpatterns = CHROME ? new RegExp(message.symbolpatterns) : message.symbolpatterns;
-    apatterns = CHROME ? new RegExp(message.apatterns) : message.apatterns;
+    antipatterns = CHROME ? new RegExp(message.antipatterns) : message.antipatterns;
     // console.log(message);
 }
 

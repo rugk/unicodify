@@ -10,25 +10,20 @@ import { fonts } from "/common/modules/data/Fonts.js";
 const caseIds = Object.freeze(["Lowercase", "Uppercase", "Capitalize Each Word", "Toggle Case"]);
 const fontIds = Object.freeze(["Superscript", "Small Caps", "All Small Caps", "Unicase", "separator", "Serif bold", "Serif italic", "Serif bold italic", "Sans-serif", "Sans-serif bold", "Sans-serif italic", "Sans-serif bold italic", "Script", "Script bold", "Fraktur", "Fraktur bold", "Monospace", "Double-struck", "separator", "Circled", "Circled (black)", "Squared", "Squared (black)", "Fullwidth"]);
 
-// Thunderbird
-const THUNDERBIRD = typeof messenger !== "undefined";
-
-// Chrome
-const CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
-
 /**
  * Change Unicode font.
+ * It replaces each ASCII character in the text with the corresponding character from the Unicode font.
  *
- * @param {string} atext
+ * @param {string} text
  * @param {string} afont
  * @returns {string}
  */
-function changeFont(atext, afont) {
+function changeFont(text, afont) {
 	const font = fonts[afont];
 	// console.log(afont, font);
 	let output = '';
 
-	for (let letter of atext) {
+	for (let letter of text) {
 		const code = letter.charCodeAt(0);
 		if (code >= 33 && code <= 127) {
 			if (font.length == 94)
@@ -60,7 +55,7 @@ function changeFont(atext, afont) {
  * @returns {string}
  */
 function capitalizeEachWord(atext) {
-	// Requires Firefox/Thunderbird 78
+	// Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
 	return atext.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(''));
 }
 
@@ -162,18 +157,11 @@ function handle(info, tab) {
  * @returns {void}
  */
 function applySettings(unicodeFont) {
-	// Thunderbird
 	const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
 	// menus.removeAll();
 
 	if (unicodeFont.changeCase) {
-		menus.create({
-			id: "separator-1",
-			type: "separator",
-			contexts: ["editable"]
-		});
-
 		for (const id of caseIds) {
 			// .replaceAll(" ", "-");
 			const aid = id.toLowerCase().split(" ").join("-");
@@ -230,8 +218,7 @@ export async function init() {
 
 	applySettings(unicodeFont);
 
-	// Thunderbird
-	const menus = THUNDERBIRD ? browser.menus : browser.contextMenus;
+	const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
 	menus.onClicked.addListener(handle);
 }
