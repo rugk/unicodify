@@ -163,7 +163,7 @@ function handle(info, tab) {
  */
 function applySettings(unicodeFont) {
 	// Thunderbird
-	const menus = THUNDERBIRD ? browser.menus : browser.contextMenus;
+	const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
 	// menus.removeAll();
 
@@ -201,8 +201,7 @@ function applySettings(unicodeFont) {
 					type: "separator",
 					contexts: ["editable"]
 				});
-			}
-			else {
+			} else {
 				// .replaceAll(" ", "-");
 				const aid = id.toLowerCase().split(" ").join("-");
 				// console.log(id, aid, fonts[aid], changeFont(id, aid));

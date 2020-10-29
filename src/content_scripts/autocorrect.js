@@ -75,14 +75,14 @@ function getCaretPosition(target) {
 }
 
 /**
- * Insert at caret.
+ * Insert at caret in the given element.
  * Adapted from: https://www.everythingfrontend.com/posts/insert-text-into-textarea-at-cursor-position.html
  *
  * @param {Object} target
  * @param {string} atext
  * @returns {void}
  */
-function insertCaret(target, atext) {
+function insertAtCaret(target, atext) {
     const isSuccess = document.execCommand("insertText", false, atext);
 
     if(isSuccess) {
@@ -270,7 +270,7 @@ function autocorrect(event) {
         let output = false;
         // Use Unicode smart quotes
         if (quotes && (insert === "'" || insert === '"')) {
-            const prevouschar = value.slice(caretposition < 2 ? 0 : caretposition - 2, caretposition - 1);
+            const previouschar = value.slice(caretposition < 2 ? 0 : caretposition - 2, caretposition - 1);
             // White space
             const re = /^\s*$/;
             if (insert === "'") {
@@ -281,7 +281,7 @@ function autocorrect(event) {
             deletecount = 1;
             output = true;
         }
-        const prevoustext = value.slice(caretposition < (longest + 1) ? 0 : caretposition - (longest + 1), caretposition - 1);
+        const previoustext = value.slice(caretposition < (longest + 1) ? 0 : caretposition - (longest + 1), caretposition - 1);
         const regexResult = symbolpatterns.exec(prevoustext);
         // Autocorrect Unicode Symbols
         if (regexResult) {
@@ -297,8 +297,8 @@ function autocorrect(event) {
             // Convert fractions and mathematical constants to Unicode characters
             if (!output && fracts) {
                 // Numbers: https://regex101.com/r/7jUaSP/2
-                const re = /[0-9]+(\.[0-9]+)?$/;
-                const prevoustext = value.slice(0, caretposition - 1);
+                const numberRegex = /[0-9]+(\.[0-9]+)?$/;
+                const preivousText = value.slice(0, caretposition - 1);
                 const regexResult = re.exec(prevoustext);
                 if (regexResult) {
                     const text = value.slice(0, caretposition);
@@ -331,7 +331,7 @@ function autocorrect(event) {
 }
 
 /**
- * Undo autocorrect.
+ * Undo autocorrect in case the backspace has been pressed.
  *
  * @param {Object} event
  * @returns {void}
@@ -397,4 +397,4 @@ browser.runtime.sendMessage({ "type": AUTOCORRECT_CONTENT }).then(handleResponse
 browser.runtime.onMessage.addListener(handleResponse);
 window.addEventListener("keydown", undoAutocorrect, true);
 window.addEventListener("keyup", autocorrect, true);
-console.log("Unicodify autocorrect module loaded");
+console.log("Unicodify autocorrect module loaded.");
