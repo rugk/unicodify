@@ -8,20 +8,6 @@
   "description": "__MSG_extensionDescription__",
   "homepage_url": "https://github.com/rugk/unicodify",
 
-  "browser_action": {
-    "browser_style": true,
-    "default_icon": "icons/icon-small-dark.svg",
-    "default_title": "__MSG_browserActionButtonTitle__",
-    "default_popup": "popup/index.html",
-    "theme_icons": [
-      {
-        "dark": "icons/icon-small-dark.svg",
-        "light": "icons/icon-small-light.svg",
-        "size": 32
-      }
-    ]
-  },
-
   "options_ui": {
     "page": "options/options.html",
     "browser_style": true
@@ -30,6 +16,13 @@
   "background": {
     "page": "background/background.html"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true,
+      "js": ["content_scripts/autocorrect.js"]
+    }
+  ],
 
   "content_security_policy": "default-src 'self'",
   "icons": {
@@ -41,12 +34,15 @@
   "default_locale": "en",
 
   "permissions": [
-    "storage"
+    "storage",
+    "activeTab",
+    "contextMenus",
+    "tabs"
   ],
   "applications": {
     "gecko": {
       "id": "unicodify@rugk.github.io",
-      "strict_min_version": "60.0a1"
+      "strict_min_version": "78.0"
     }
   }
 }

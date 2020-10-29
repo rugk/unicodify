@@ -14,7 +14,7 @@ In contrast to many other add-ons, …
 
 It is/has/features…
 
-It is inspired by …. This extension only works with modern Firefox v60 or higher.
+It is inspired by …. This extension only works with modern Firefox v78 or higher.
 
 ## Download
 
