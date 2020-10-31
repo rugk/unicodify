@@ -55,7 +55,7 @@ function changeFont(text, afont) {
  * @returns {string}
  */
 function capitalizeEachWord(atext) {
-	// Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
+	// Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
 	return atext.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(''));
 }
 
