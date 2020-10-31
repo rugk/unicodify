@@ -284,8 +284,8 @@ function autocorrect(event) {
             deletecount = 1;
             output = true;
         }
-        const preivousText = value.slice(caretposition < (longest + 1) ? 0 : caretposition - (longest + 1), caretposition - 1);
-        const regexResult = symbolpatterns.exec(preivousText);
+        const previousText = value.slice(caretposition < (longest + 1) ? 0 : caretposition - (longest + 1), caretposition - 1);
+        const regexResult = symbolpatterns.exec(previousText);
         // Autocorrect Unicode Symbols
         if (regexResult) {
             const text = value.slice(caretposition < longest ? 0 : caretposition - longest, caretposition);
@@ -301,8 +301,8 @@ function autocorrect(event) {
             if (!output && fracts) {
                 // Numbers: https://regex101.com/r/7jUaSP/2
                 const numberRegex = /[0-9]+(\.[0-9]+)?$/;
-                const preivousText = value.slice(0, caretposition - 1);
-                const regexResult = numberRegex.exec(preivousText);
+                const previousText = value.slice(0, caretposition - 1);
+                const regexResult = numberRegex.exec(previousText);
                 if (regexResult) {
                     const text = value.slice(0, caretposition);
                     const aregexResult = numberRegex.exec(text);
