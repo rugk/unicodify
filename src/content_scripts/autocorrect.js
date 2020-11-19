@@ -49,11 +49,11 @@ let antipatterns = null;
 
 // Thunderbird
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1641573
-const THUNDERBIRD = typeof messenger !== "undefined";
+const IS_THUNDERBIRD = typeof messenger !== "undefined";
 
 // Chrome
 // Adapted from: https://github.com/mozilla/webextension-polyfill/blob/master/src/browser-polyfill.js
-const CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
+const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 
 /**
  * Get caret position.
@@ -82,6 +82,7 @@ function getCaretPosition(target) {
  *
  * @param {Object} target
  * @param {string} atext
+ * @throws {Error} if nothing is selected
  * @returns {void}
  */
 function insertAtCaret(target, atext) {

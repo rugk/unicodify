@@ -88,12 +88,12 @@ function toggleCase(atext) {
  * @const
  * @type {Object.<string, function>}
  */
-const changeCase = {
+const changeCase = Object.freeze({
 	"lowercase": (str) => str.toLocaleLowerCase(),
 	"uppercase": (str) => str.toLocaleUpperCase(),
 	"capitalize-each-word": (str) => capitalizeEachWord(str.toLocaleLowerCase()),
 	"toggle-case": (str) => toggleCase(str)
-};
+});
 
 /**
  * Handle context menu click.

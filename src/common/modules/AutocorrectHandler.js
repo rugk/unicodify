@@ -23,7 +23,7 @@ let antipatterns = [];
 
 // Chrome
 // Adapted from: https://github.com/mozilla/webextension-polyfill/blob/master/src/browser-polyfill.js
-const CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
+const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 
 /**
  * Apply new autocorrect settings and create regular expressions.
@@ -50,7 +50,7 @@ function applySettings() {
 
     symbolpatterns = [];
     // Escape special characters
-    const re = /[.*+?^${}()|[\]\\]/g;
+    const regExSpecialChars = /[.*+?^${}()|[\]\\]/g;
 
     for (const symbol in autocorrections) {
         symbolpatterns.push(symbol.replace(re, "\\$&"));
