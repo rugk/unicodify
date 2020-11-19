@@ -62,7 +62,8 @@ const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
  * @returns {number}
  */
 function getCaretPosition(target) {
-    if (target.isContentEditable || THUNDERBIRD) {
+    // ContentEditable elements
+    if (target.isContentEditable || IS_THUNDERBIRD) {
         target.focus();
         const _range = document.getSelection().getRangeAt(0);
         const range = _range.cloneRange();
@@ -71,7 +72,9 @@ function getCaretPosition(target) {
         const caretposition = target.innerText.indexOf("\0");
         temp.parentNode.removeChild(temp);
         return caretposition;
-    } else {
+    }
+    // input and textarea fields
+    else {
         return target.selectionStart;
     }
 }
@@ -380,8 +383,8 @@ function handleResponse(message, sender) {
     fracts = message.fracts;
     autocorrections = message.autocorrections;
     longest = message.longest;
-    symbolpatterns = CHROME ? new RegExp(message.symbolpatterns) : message.symbolpatterns;
-    antipatterns = CHROME ? new RegExp(message.antipatterns) : message.antipatterns;
+    symbolpatterns = IS_CHROME ? new RegExp(message.symbolpatterns) : message.symbolpatterns;
+    antipatterns = IS_CHROME ? new RegExp(message.antipatterns) : message.antipatterns;
     // console.log(message);
 }
 

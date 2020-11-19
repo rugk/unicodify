@@ -53,7 +53,7 @@ function applySettings() {
     const regExSpecialChars = /[.*+?^${}()|[\]\\]/g;
 
     for (const symbol in autocorrections) {
-        symbolpatterns.push(symbol.replace(re, "\\$&"));
+        symbolpatterns.push(symbol.replace(regExSpecialChars, "\\$&"));
     }
 
     // Do not autocorrect for these patterns
@@ -88,7 +88,7 @@ function applySettings() {
     console.log("Do not autocorrect for these patterns", antipatterns);
 
     antipatterns.forEach((symbol, index) => {
-        antipatterns[index] = symbol.replace(re, "\\$&");
+        antipatterns[index] = symbol.replace(regExSpecialChars, "\\$&");
     });
 
     symbolpatterns = new RegExp(`(${symbolpatterns.join("|")})$`);
@@ -138,8 +138,8 @@ function sendSettings(autocorrect) {
                     "fracts": settings.fracts,
                     "autocorrections": autocorrections,
                     "longest": longest,
-                    "symbolpatterns": CHROME ? symbolpatterns.source : symbolpatterns,
-                    "antipatterns": CHROME ? antipatterns.source : antipatterns,
+                    "symbolpatterns": IS_CHROME ? symbolpatterns.source : symbolpatterns,
+                    "antipatterns": IS_CHROME ? antipatterns.source : antipatterns,
                 }
             ).catch(onError);
         }
@@ -166,19 +166,13 @@ export async function init() {
                 "fracts": settings.fracts,
                 "autocorrections": autocorrections,
                 "longest": longest,
-                "symbolpatterns": CHROME ? symbolpatterns.source : symbolpatterns,
-                "antipatterns": CHROME ? antipatterns.source : antipatterns,
+                "symbolpatterns": IS_CHROME ? symbolpatterns.source : symbolpatterns,
+                "antipatterns": IS_CHROME ? antipatterns.source : antipatterns,
             };
             // console.log(response);
             return Promise.resolve(response);
         }
     });
-
-    /* browser.tabs.query({}).then((tabs) => {
-        for (let tab of tabs) {
-            browser.tabs.executeScript(tab.id, {file: "content_scripts/autocorrect.js"});
-        }
-    }).catch(onError); */
 
     // Thunderbird
     // Remove if part 3 of https://bugzilla.mozilla.org/show_bug.cgi?id=1630786#c4 is ever done

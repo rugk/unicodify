@@ -5,10 +5,7 @@ import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
 import { isMobile } from "./MobileHelper.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
-import { fonts } from "/common/modules/data/Fonts.js";
-
-const caseIds = Object.freeze(["Lowercase", "Uppercase", "Capitalize Each Word", "Toggle Case"]);
-const fontIds = Object.freeze(["Superscript", "Small Caps", "All Small Caps", "Unicase", "separator", "Serif bold", "Serif italic", "Serif bold italic", "Sans-serif", "Sans-serif bold", "Sans-serif italic", "Sans-serif bold italic", "Script", "Script bold", "Fraktur", "Fraktur bold", "Monospace", "Double-struck", "separator", "Circled", "Circled (black)", "Squared", "Squared (black)", "Fullwidth"]);
+import { caseIds, fontIds, fonts } from "/common/modules/data/Fonts.js";
 
 /**
  * Change Unicode font.

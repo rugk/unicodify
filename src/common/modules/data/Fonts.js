@@ -1,9 +1,28 @@
 "use strict";
 
+// Adapted from: https://entropymine.wordpress.com/2018/05/26/the-curious-case-of-small-caps-in-unicode/
 const smallCaps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ";
 
 /**
+ * Case IDs
+ *
+ * @public
+ * @const
+ * @type {Object.<string>}
+ */
+export const caseIds = Object.freeze(["Lowercase", "Uppercase", "Capitalize Each Word", "Toggle Case"]);
+/**
+ * Font IDs
+ *
+ * @public
+ * @const
+ * @type {Object.<string>}
+ */
+export const fontIds = Object.freeze(["Superscript", "Small Caps", "All Small Caps", "Unicase", "separator", "Serif bold", "Serif italic", "Serif bold italic", "Sans-serif", "Sans-serif bold", "Sans-serif italic", "Sans-serif bold italic", "Script", "Script bold", "Fraktur", "Fraktur bold", "Monospace", "Double-struck", "separator", "Circled", "Circled (black)", "Squared", "Squared (black)", "Fullwidth"]);
+
+/**
  * Unicode fonts
+ * Some of the fonts have characters that are not yet implemented.
  *
  * @public
  * @const
@@ -28,6 +47,7 @@ export const fonts = {
     "squared": "!\"#$%&'()⧆⊞,⊟⊡⧄0123456789:;<=>?@🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉[⧅]^_`🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉{|}~",
     "squared-(black)": "🅰🅱🅲🅳🅴🅵🅶🅷🅸🅹🅺🅻🅼🅽🅾🅿🆀🆁🆂🆃🆄🆅🆆🆇🆈🆉",
     "fullwidth": "！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～",
+    // Adapted from: https://rupertshepherd.info/resource_pages/superscript-letters-in-unicode
     "superscript": "ᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾQᴿˢᵀᵁⱽᵂˣʸᶻᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖqʳˢᵗᵘᵛʷˣʸᶻ⁰¹²³⁴⁵⁶⁷⁸⁹",
     "small-caps": `ABCDEFGHIJKLMNOPQRSTUVWXYZ${smallCaps}`,
     "all-small-caps": smallCaps,

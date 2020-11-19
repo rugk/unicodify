@@ -32,7 +32,6 @@ function applyAutocorrectPermissions(optionValue, option, event) {
  *
  * This is basically the "init" method.
  *
- * @function
  * @returns {Promise}
  */
 export function registerTrigger() {
