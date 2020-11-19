@@ -1,6 +1,9 @@
 @import "/common/modules/AutomaticSettings/css/photonOptions.css";
 
+.line > code {
+  margin: 0;
+}
+
 .float-image {
   margin: 10px;
 }
-

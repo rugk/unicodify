@@ -55,24 +55,26 @@
 			<section>
 				<ul>
 					<h1 data-i18n="">Unicode autocorrection</h1>
-					<span class="helper-text">With the exception of the smart quotes, all the autocorrections are done after typing the first nonmatching character following the character sequence, such as a space (␣). Press Backspace (⌫) to undo an autocorrection.</span><br>
-
-					<span class="helper-text">For Emoji autocorrection, including <code>:colon:</code> shortcodes and Emoticons, please try our 🤩 <a href="https://github.com/rugk/awesome-emoji-picker">Awesome Emoji Picker</a> add-on.</span>
+					<span class="helper-text">
+					You can configure the automatic corrections that are done when you are typing text here.<br>
+					All the autocorrections are done after typing the first nonmatching character following the character sequence, such as a space (␣). Press Backspace (⌫) to undo an autocorrection.
+					Only the quotes replacement is done immediately.<br>
+					For Emoji autocorrection, including <code>:colon:</code> shortcodes and Emoticons, please try our <a href="https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/">🤩&nbsp;Awesome Emoji Picker</a> add-on.</span>
 
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="autocorrectSymbols" data-optiongroup="autocorrect" name="autocorrectSymbols">
-							<label data-i18n="" for="autocorrectSymbols">Autocorrect Unicode Symbols</label>
+							<label data-i18n="" for="autocorrectSymbols">Autocorrect Unicode symbols</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">For example, this will replace <code>--</code>with –, <code>--></code>with ⟶ and <code>1/4</code>with ¼.</span>
+						<span data-i18n="" class="line indent helper-text">For example, this will replace <code>--</code> with –, <code>--></code> with ⟶ and <code>1/4</code> with ¼.</span>
 					</li>
 
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeQuotes" data-optiongroup="autocorrect" name="autocorrectUnicodeQuotes">
-							<label data-i18n="" for="autocorrectUnicodeQuotes">Use Unicode smart quotes</label>
+							<label data-i18n="" for="autocorrectUnicodeQuotes">Replace quotes with typographical ones</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">For example, this will replace <code>'</code>with ‘ or ’ and <code>"</code>with “ or ”.</span>
+						<span data-i18n="" class="line indent helper-text">This will replace "these ('replacement') quotes" with the so-called “smart quotes”, respectively their ‘replacement version’”.</span>
 					</li>
 
 					<li>
@@ -80,7 +82,7 @@
 							<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeFracts" data-optiongroup="autocorrect" name="autocorrectUnicodeFracts">
 							<label data-i18n="" for="autocorrectUnicodeFracts">Convert fractions and mathematical constants to Unicode characters</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">For example, this will replace <code>1234.25</code>with 1234¼.</span>
+						<span data-i18n="" class="line indent helper-text">For example, this will replace <code>1234.25</code> with 1234¼.</span>
 					</li>
 				</ul>
 			</section>
@@ -88,22 +90,23 @@
 			<section class="mobile-incompatible">
 				<ul>
 					<h1 data-i18n="">Context menu</h1>
-					<span class="helper-text">Highlight editable text and open the context menu to quickly change the characters to a different Unicode font or change the case.</span>
+					<span class="helper-text">Write, select text and select the corresponding option in the context menu to quickly change the character style or casing.
+					This is useful on websites that do not support changing the font and/or text formatting.</span>
 
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="changeFont" data-optiongroup="unicodeFont" name="changeFont">
-							<label data-i18n="" for="changeFont">Change Unicode font</label>
+							<label data-i18n="" for="changeFont">Show Unicode font options</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">For example, ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ, ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, 𝒮𝒸𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯, 🅒🅘🅡🅒🅛🅔🅓 and 🆂🆀🆄🅰🆁🅴🅳. Useful on websites that do not support changing the font and/or text formatting.</span>
+						<span data-i18n="" class="line indent helper-text">For example, ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ, ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, 𝒮𝒸𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯, 🅒🅘🅡🅒🅛🅔🅓 and 🆂🆀🆄🅰🆁🅴🅳.</span>
 					</li>
 
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="changeCase" data-optiongroup="unicodeFont" name="changeCase">
-							<label data-i18n="" for="changeCase">Change case</label>
+							<label data-i18n="" for="changeCase">Show case changing options</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">For example, UPPER CASE, lower case, Capitalize Each Word and tOGGLE cASE.</span>
+						<span data-i18n="" class="line indent helper-text">For example, “UPPER CASE”, “lower case”, “Capitalize Each Word” or “tOGGLE cASE”.</span>
 					</li>
 				</ul>
 			</section>
