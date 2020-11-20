@@ -10,7 +10,7 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
 
 
 /**
- * Requests the permission for autocorrect settings.
+ * Apply the new autocorrect settings.
  *
  * @private
  * @param  {Object} optionValue
@@ -26,6 +26,22 @@ function applyAutocorrectPermissions(optionValue, option, event) {
     });
 }
 
+/**
+ * Apply the new Unicode font settings.
+ *
+ * @private
+ * @param  {Object} optionValue
+ * @param  {string} [option]
+ * @param  {Object} [event]
+ * @returns {Promise}
+ */
+function applyUnicodeFontSettings(optionValue, option, event) {
+    // trigger update for current session
+    browser.runtime.sendMessage({
+        "type": COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT,
+        "optionValue": optionValue
+    });
+}
 
 /**
  * Binds the triggers.
@@ -37,4 +53,5 @@ function applyAutocorrectPermissions(optionValue, option, event) {
 export function registerTrigger() {
     // update slider status
     AutomaticSettings.Trigger.registerSave("autocorrect", applyAutocorrectPermissions);
+    AutomaticSettings.Trigger.registerSave("unicodeFont", applyUnicodeFontSettings);
 }
