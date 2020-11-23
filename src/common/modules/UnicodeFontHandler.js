@@ -1,7 +1,7 @@
 "use strict";
 
 import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
-// import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
+import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
 import { isMobile } from "./MobileHelper.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
@@ -156,7 +156,7 @@ function handle(info, tab) {
 function applySettings(unicodeFont) {
 	const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
-	// menus.removeAll();
+	menus.removeAll();
 
 	if (unicodeFont.changeCase) {
 		for (const id of caseIds) {
@@ -218,11 +218,11 @@ export async function init() {
 	const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
 	menus.onClicked.addListener(handle);
+
+	BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, (request) => {
+		// clear cache by reloading all options
+		// await AddonSettings.loadOptions();
+
+		return applySettings(request.optionValue);
+	});
 }
-
-/* BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, (request) => {
-    // clear cache by reloading all options
-    // await AddonSettings.loadOptions();
-
-    return applySettings(request.optionValue);
-}); */
