@@ -2,7 +2,7 @@
 
 [![Mozilla Add-on version](https://img.shields.io/amo/v/unicodify-text-reshaper.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/?src=external-github-shield-downloads)  
 [![Mozilla Add-on downloads](https://img.shields.io/amo/d/unicodify-text-reshaper.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/?src=external-github-shield-downloads)
-[![Mozilla Add-on users](https://img.shields.io/amo/users/unicodify-text-reshaper.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/statistics/)
+[![Mozilla Add-on users](https://img.shields.io/amo/users/unicodify-text-reshaper.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/)
 [![Mozilla Add-on stars](https://img.shields.io/amo/stars/unicodify-text-reshaper.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/reviews/)
 
 <img height="200" width="200" src="assets/header.svg">
@@ -14,7 +14,7 @@ In contrast to many other add-ons, …
 
 It is/has/features…
 
-It is inspired by …. This extension only works with modern Firefox v60 or higher.
+It is inspired by …. This extension only works with modern Firefox v78 or higher.
 
 ## Download
 

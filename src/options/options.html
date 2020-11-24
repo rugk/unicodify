@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="../common/common.css">
 		<link rel="stylesheet" href="options.css">
 
+		<script type="application/javascript" src="../browser-polyfill.js"></script>
 		<script async src="./fastLoad.js" type="module"></script>
 
 		<script defer src="../common/common.js" type="module"></script>
@@ -14,6 +15,13 @@
 
 	<body>
 		<div class="message-container">
+			<div id="messageTips" aria-label="info message" data-i18n data-i18n-aria-label="__MSG_ariaMessageInfo__" class="message-box info invisible fade-hide">
+				<span class="message-text"></span>
+				<a href="#">
+					<button type="button" class="message-action-button micro-button info invisible"></button>
+				</a>
+				<img class="icon-dismiss invisible" src="/common/img/close.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__"></span>
+			</div>
 			<div id="messageInfo" aria-label="info message" data-i18n data-i18n-aria-label="__MSG_ariaMessageInfo__" class="message-box info invisible fade-hide">
 				<span class="message-text">Some settings are managed by your administrator and cannot be changed.</span>
 				<a href="#">
@@ -44,13 +52,81 @@
 			</div>
 		</div>
 		<form>
-			<ul>
-				<li>
-					<input class="setting save-on-change" type="checkbox" id="popupIconColored" name="popupIconColored">
-					<label data-i18n="__MSG_optionPopupIconColored__" for="popupIconColored">Colored icon</label>
-					<span data-i18n="__MSG_optionPopupIconColoredDescr__" class="helper-text">Shows a colored icon instead of the black/white icon in the toolbar.</span>
-				</li>
+			<section>
+				<ul>
+					<h1 data-i18n="">Unicode autocorrection</h1>
+					<span class="helper-text">
+					You can configure the automatic corrections that are done when you are typing text here.<br>
+					All the autocorrections are done after typing the first nonmatching character following the character sequence, such as a space (␣). Press Backspace (⌫) to undo an autocorrection.
+					Only the quotes replacement is done immediately.<br>
+					For Emoji autocorrection, including <code>:colon:</code> shortcodes and Emoticons, please try our <a href="https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/">🤩&nbsp;Awesome Emoji Picker</a> add-on.</span>
+
+					<li>
+						<div class="line">
+							<input class="setting save-on-change" type="checkbox" id="autocorrectSymbols" data-optiongroup="autocorrect" name="autocorrectSymbols">
+							<label data-i18n="" for="autocorrectSymbols">Autocorrect Unicode symbols</label>
+						</div>
+						<span data-i18n="" class="line indent helper-text">For example, this will replace <code>--</code> with –, <code>--></code> with ⟶ and <code>1/4</code> with ¼.</span>
+					</li>
+
+					<li>
+						<div class="line">
+							<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeQuotes" data-optiongroup="autocorrect" name="autocorrectUnicodeQuotes">
+							<label data-i18n="" for="autocorrectUnicodeQuotes">Replace quotes with typographical ones</label>
+						</div>
+						<span data-i18n="" class="line indent helper-text">This will replace "these ('replacement') quotes" with the so-called “smart quotes”, respectively their ‘replacement version’”.</span>
+					</li>
+
+					<li>
+						<div class="line">
+							<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeFracts" data-optiongroup="autocorrect" name="autocorrectUnicodeFracts">
+							<label data-i18n="" for="autocorrectUnicodeFracts">Convert fractions and mathematical constants to Unicode characters</label>
+						</div>
+						<span data-i18n="" class="line indent helper-text">For example, this will replace <code>1234.25</code> with 1234¼.</span>
+					</li>
+				</ul>
+			</section>
+
+			<section class="mobile-incompatible">
+				<ul>
+					<h1 data-i18n="">Context menu</h1>
+					<span class="helper-text">Write, select text and select the corresponding option in the context menu to quickly change the character style or casing.
+					This is useful on websites that do not support changing the font and/or text formatting.</span>
+
+					<li>
+						<div class="line">
+							<input class="setting save-on-change" type="checkbox" id="changeFont" data-optiongroup="unicodeFont" name="changeFont">
+							<label data-i18n="" for="changeFont">Show Unicode font options</label>
+						</div>
+						<span data-i18n="" class="line indent helper-text">For example, ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ, ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, 𝒮𝒸𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯, 🅒🅘🅡🅒🅛🅔🅓 and 🆂🆀🆄🅰🆁🅴🅳.</span>
+					</li>
+
+					<li>
+						<div class="line">
+							<input class="setting save-on-change" type="checkbox" id="changeCase" data-optiongroup="unicodeFont" name="changeCase">
+							<label data-i18n="" for="changeCase">Show case changing options</label>
+						</div>
+						<span data-i18n="" class="line indent helper-text">For example, “UPPER CASE”, “lower case”, “Capitalize Each Word” or “tOGGLE cASE”.</span>
+					</li>
+				</ul>
+			</section>
+
+			<div>
+				<hr /><br />
+				<button data-i18n="__MSG_optionsResetButton__" type="button" id="resetButton">Reset all settings to defaults</button>
+			</div>
 		</form>
+
+		<p class="helper-text">
+			<span data-i18n="__MSG_translatorCredit__" data-opt-i18n-keep-children>
+				This add-on has been translated into English by
+				<a data-i18n="__MSG_translatorUsername__" data-i18n-href="__MSG_translatorLink__" href="https://github.com/XY">somone</a>.
+			</span>
+			<span data-i18n="__MSG_contributorsThanks__" data-opt-i18n-keep-children>
+				Also thanks to
+				<a data-i18n="__MSG_contributorsThanksLinkText__" data-i18n-href="__MSG_contributorsThanksLink__" href="https://github.com/XY">all other contributors</a>.
+			</span>
+		</p>
 	</body>
 
 </html>

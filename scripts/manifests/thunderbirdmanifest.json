@@ -20,6 +20,7 @@
     {
       "matches": ["<all_urls>"],
       "all_frames": true,
+      "match_about_blank": true,
       "js": ["content_scripts/autocorrect.js"]
     }
   ],
@@ -36,9 +37,11 @@
   "permissions": [
     "storage",
     "activeTab",
-    "contextMenus",
-    "tabs"
+    "tabs",
+    "compose",
+    "menus"
   ],
+
   "applications": {
     "gecko": {
       "id": "unicodify@rugk.github.io",
