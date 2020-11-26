@@ -12,10 +12,6 @@
     "message": "Allows you to do great stuff.",
     "description": "Description of the extension."
   },
-  "browserActionButtonTitle": {
-    "message": "Unicodify – Text reshaper",
-    "description": "The title for the button, which opens the popup."
-  },
 
   // errors or other messages (mostly for settings)
   "errorShowingMessage": {

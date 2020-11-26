@@ -15,11 +15,6 @@
     "description": "Description of the extension.",
     "hash": "c10920cdbd6aaea062dbf4098e019bcb"
   },
-  "browserActionButtonTitle": {
-    "message": "Unicodify – Text reshaper",
-    "description": "The title for the button, which opens the popup.",
-    "hash": "8ffc35b75acae55033a021608d7fe41e"
-  },
 
   // errors or other messages (mostly for settings)
   "errorShowingMessage": {
