@@ -1,6 +1,6 @@
 # Contributors
  
- * ([@ENT8R](https://github.com/ENT8R))
+* [@ENT8R](https://github.com/ENT8R)
 
 ## Translators
 
