@@ -157,7 +157,7 @@ export async function init() {
 
     setSettings(autocorrect);
 
-    browser.runtime.onMessage.addListener((message, sender) => {
+    browser.runtime.onMessage.addListener((message) => {
         // console.log(message);
         if (message.type === COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
             const response = {
