@@ -61,6 +61,157 @@
     "description": "The button to delete all current settings and load the defaults, shown in the add-on settings."
   },
 
+  "titleUnicodeAutocorrection": {
+    "message": "Unicode autocorrection",
+    "description": "A title in the add-on settings."
+  },
+  "titleContextMenu": {
+    "message": "Context menu",
+    "description": "A title in the add-on settings."
+  },
+
+  "optionHelperTextAutocorrection": {
+    "message": "You can configure the automatic corrections that are done when you are typing text here.$BR$All the autocorrections are done after typing the first nonmatching character following the character sequence, such as a space (␣). Press Backspace (⌫) to undo an autocorrection. Only the quotes replacement is done immediately.",
+    "description": "Description for the section titleUnicodeAutocorrection explaining how the autocorrection works.",
+    "placeholders": {
+      "br": {
+        "content": "$1",
+        "example": "<br>"
+      }
+    }
+  },
+  "optionHelperTextAutocorrectionEmoji": {
+    "message": "For Emoji autocorrection, including $COLON$ shortcodes and Emoticons, please also try out our $LINK$ add-on.",
+    "description": "Description for the section titleUnicodeAutocorrection advertising the Awesome Emoji Picker add-on.",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": "<code>:colon:</code>"
+      },
+      "link": {
+        "content": "$2",
+        "example": "<a href=\"https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/\">🤩&nbsp;Awesome Emoji Picker</a>"
+      }
+    }
+  },
+  "optionHelperTextAutocorrectionEmojiColonsCode": {
+    "message": ":colon:",
+    "description": "This is included in code-style in optionHelperTextAutocorrectionEmoji."
+  },
+  "optionHelperTextAutocorrectionEmojiLink": {
+    "message": "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/",
+    "description": "The target for the link provided in optionHelperTextAutocorrectionEmoji. Usually should not be modified and link to the AMO page of the Awesome Emoji Picker. It does redirect to the correct language automatically."
+  },
+  "optionHelperTextAutocorrectionEmojiLinkText": {
+    "message": "🤩\u00a0Awesome Emoji Picker",
+    "description": "The text for the link provided in optionHelperTextAutocorrectionEmoji. Should be the official name of the emoji picker add-on in your language."
+  },
+  "optionHelperTextContextMenu": {
+    "message": "Write, select text and choose the corresponding option in the context menu to quickly change the character style or capitalization. This is useful on websites that do not support changing the font or text formatting.",
+    "description": "Description for the section titleContextMenu explaining how the autocorrection works."
+  },
+
+  "optionAutocorrectSymbols": {
+    "message": "Autocorrect Unicode symbols",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionAutocorrectSymbolsDescr": {
+    "message": "For example, this will replace $CODE_HYPHEN$ with –, $CODE_ARROW$ with ⟶ and $CODE_FRACTION$ with ¼.",
+    "description": "This is an option shown in the add-on settings. It describes the optionAutocorrectSymbols setting.",
+    "placeholders": {
+      "code_hyphen": {
+        "content": "$1",
+        "example": "<code>--</code>"
+      },
+      "code_arrow": {
+        "content": "$2",
+        "example": "<code>--></code>"
+      },
+      "code_fraction": {
+        "content": "$3",
+        "example": "<code>1/4</code>"
+      }
+    }
+  },
+  "optionReplaceQuotes": {
+    "message": "Replace quotes with typographical ones",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionReplaceQuotesDescr": {
+    "message": "This will replace \"these ('replacement') quotes\" with the so-called “smart quotes”, respectively their “somewhat ‘smaller’ variant”.",
+    "description": "This is an option shown in the add-on settings. It describes the optionReplaceQuotes setting."
+  },
+  "optionConvertFractions": {
+    "message": "Convert fractions and mathematical constants to Unicode characters",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionConvertFractionsDescr": {
+    "message": "For example, this will replace $CODE_NUMBER$ with 1234¼.",
+    "description": "This is an option shown in the add-on settings. It describes the optionConvertFractions setting.",
+    "placeholders": {
+      "code_number": {
+        "content": "$1",
+        "example": "<code>1234.25</code>"
+      }
+    }
+  },
+
+  "optionMenuUnicodeFont": {
+    "message": "Show Unicode font options",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionMenuUnicodeFontDescr": {
+    "message": "For example, ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ, ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, 𝒮𝒸𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯, 🅒🅘🅡🅒🅛🅔🅓 and 🆂🆀🆄🅰🆁🅴🅳.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuUnicodeFont setting."
+  },
+  "optionMenuCasing": {
+    "message": "Show case changing options",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionMenuCasingDescr": {
+    "message": "For example, “UPPER CASE”, “lower case”, “Capitalize Each Word” or “tOGGLE cASE”.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+  },
+
+  // option footer
+  "translatorCredit": {
+    "message": "This add-on has been translated into English by $TRANSLATORS$.",
+    "description": "The credit text for the translator. See https://github.com/TinyWebEx/common/blob/master/CONTRIBUTING.md#translator-credit-inside-of-add-on for how to translate this.",
+    "placeholders": {
+      "translators": {
+        "content": "$1",
+        "example": "<a href=\"https://github.com/rugk/\">@rugk</a>"
+      }
+    }
+  },
+  "translatorLink": {
+    "message": "https://github.com/rugk/unicodify/blob/main/CONTRIBUTORS.md#english",
+    "description": "The link to the translator's GitHub profile."
+  },
+  "translatorUsername": {
+    "message": "Teal Dulcet and rugk",
+    "description": "The username that the translator wants to be referred to."
+  },
+
+  "contributorsThanks": {
+    "message": "Also thanks to $CONTRIBUTORS$.",
+    "description": "Text thanking all contributors and linking to the contributors file.",
+    "placeholders": {
+      "contributors": {
+        "content": "$1",
+        "example": "<a href=\"https://github.com/rugk/…/CONTRIBUTORS.md\">all other contributors</a>"
+      }
+    }
+  },
+  "contributorsThanksLink": {
+    "message": "https://github.com/rugk/awesome-emoji-picker/blob/master/CONTRIBUTORS.md",
+    "description": "The link to the CONTRIBUTORS file."
+  },
+  "contributorsThanksLinkText": {
+    "message": "all other contributors",
+    "description": "The link text linking to the contributors file. See contributorsThanks."
+  },
+
   // ARIA labels/descriptions
   "dismissIconDescription": {
     "message": "Close this message",
