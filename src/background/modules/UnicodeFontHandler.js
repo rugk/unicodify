@@ -2,7 +2,7 @@
 
 import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
 import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
-import { isMobile } from "./MobileHelper.js";
+import { isMobile } from "/common/modules/MobileHelper.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
 import { caseIds, fontIds, fonts } from "/common/modules/data/Fonts.js";
@@ -207,6 +207,7 @@ function applySettings(unicodeFont) {
  * @returns {void}
  */
 export async function init() {
+	// Remove once https://bugzilla.mozilla.org/show_bug.cgi?id=1595822 is fixed
 	if (await isMobile()) {
 		return;
 	}
