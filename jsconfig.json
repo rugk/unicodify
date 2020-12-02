@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "checkJs": true,
+    "baseUrl": "src",
+    "moduleResolution": "classic",
+    "paths": {
+      "/*": ["./*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "**/node_modules/*"]
+}

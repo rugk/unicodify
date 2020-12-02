@@ -89,10 +89,6 @@
     "message": "Serif bold italic",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
-  "menuFontSerifBoldItalic": {
-    "message": "Serif bold italic",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
-  },
   "menuFontSansSerif": {
     "message": "Sans-serif",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
