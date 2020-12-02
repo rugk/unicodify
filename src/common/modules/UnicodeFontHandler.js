@@ -5,18 +5,19 @@ import * as BrowserCommunication from "/common/modules/BrowserCommunication/Brow
 import { isMobile } from "./MobileHelper.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
-import { caseIds, fontIds, fonts, SEPARATOR_ID } from "/common/modules/data/Fonts.js";
+import { caseIds, fontIds, fontLetters, SEPARATOR_ID } from "/common/modules/data/Fonts.js";
 
 /**
- * Change Unicode font.
+ * Changes the Unicode font of the given text.
+ *
  * It replaces each ASCII character in the text with the corresponding character from the Unicode font.
  *
  * @param {string} text
- * @param {string} afont
+ * @param {string} chosenFont
  * @returns {string}
  */
-function changeFont(text, afont) {
-	const font = fonts[afont];
+function changeFont(text, chosenFont) {
+	const font = fontLetters[chosenFont];
 	// console.log(afont, font);
 	let output = '';
 
@@ -48,12 +49,13 @@ function changeFont(text, afont) {
 /**
  * Capitalize Each Word.
  *
- * @param {string} atext
+ * @param {string} text
  * @returns {string}
  */
-function capitalizeEachWord(atext) {
-	// Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
-	return atext.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(''));
+function capitalizeEachWord(text) {
+    // Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
+    // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
+	return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(''));
 }
 
 /**

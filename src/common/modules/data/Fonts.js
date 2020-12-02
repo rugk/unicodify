@@ -64,11 +64,11 @@ export const fontIds = Object.freeze([
  * Unicode fonts
  * Some of the fonts have characters that are not yet implemented.
  *
- * @public
+ * @private
  * @const
  * @type {Object.<string, string>}
  */
-export const fonts = {
+const fonts = {
     "serif-bold": "𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗",
     "serif-italic": "𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍𝑎𝑏𝑐𝑑𝑒𝑓𝑔ℎ𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧",
     "serif-bold-italic": "𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛",
@@ -94,6 +94,19 @@ export const fonts = {
     "unicase": `${smallCaps}abcdefghijklmnopqrstuvwxyz`
 };
 
-Object.keys(fonts).map((key) => fonts[key] = Array.from(fonts[key]));
-
-Object.freeze(fonts);
+/**
+ * All letters for each Unicode font
+ *
+ * Some of the fonts have characters that are not yet implemented.
+ * The most similar looking are choosen in such a case.
+ *
+ * @public
+ * @const
+ * @type {Object.<string, string[]>}
+ */
+export const fontLetters = Object.freeze(
+    Object.fromEntries(Object.entries(fonts).map(([font, charString]) => {
+        // split-up the letter string an array with each character
+        return [font, Array.from(charString)];
+    }))
+);
