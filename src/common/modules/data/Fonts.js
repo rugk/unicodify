@@ -19,7 +19,13 @@ export const SEPARATOR_ID = Symbol("separator");
  * @const
  * @type {Object.<string>}
  */
-export const caseIds = Object.freeze(["menuCaseLowercase", "menuCaseUppercase", "menuCaseCapitalizeEachWord", "menuCaseToggleCase"]);
+export const caseIds = Object.freeze([
+    "menuCaseLowercase",
+    "menuCaseUppercase",
+    "menuCaseCapitalizeEachWord",
+    "menuCaseToggleCase"
+]);
+
 /**
  * Font IDs
  *
@@ -27,7 +33,32 @@ export const caseIds = Object.freeze(["menuCaseLowercase", "menuCaseUppercase", 
  * @const
  * @type {Object.<string>}
  */
-export const fontIds = Object.freeze(["menuFontSuperscript", "menuFontSmallCaps", "menuFontAllSmallCaps", "menuFontUnicase", SEPARATOR_ID, "menuFontSerifBold", "menuFontSerifItalic", "menuFontSerifBoldItalic", "menuFontSansSerif", "menuFontSansSerifBold", "menuFontSansSerifItalic", "menuFontSansSerifBoldItalic", "menuFontScript", "menuFontScriptBold", "menuFontScriptFraktur", "menuFontFrakturBold", "menuFontMonospace", "menuFontDoubleStruck", SEPARATOR_ID, "menuFontCircled", "menuFontCircledBlack", "menuFontSquared", "menuFontSquaredBlack", "menuFontFullwidth"]);
+export const fontIds = Object.freeze([
+    "menuFontSuperscript",
+    "menuFontSmallCaps",
+    "menuFontAllSmallCaps",
+    "menuFontUnicase",
+    SEPARATOR_ID,
+    "menuFontSerifBold",
+    "menuFontSerifItalic",
+    "menuFontSerifBoldItalic",
+    "menuFontSansSerif",
+    "menuFontSansSerifBold",
+    "menuFontSansSerifItalic",
+    "menuFontSansSerifBoldItalic",
+    "menuFontScript",
+    "menuFontScriptBold",
+    "menuFontScriptFraktur",
+    "menuFontFrakturBold",
+    "menuFontMonospace",
+    "menuFontDoubleStruck",
+    SEPARATOR_ID,
+    "menuFontCircled",
+    "menuFontCircledBlack",
+    "menuFontSquared",
+    "menuFontSquaredBlack",
+    "menuFontFullwidth"
+]);
 
 /**
  * Unicode fonts
