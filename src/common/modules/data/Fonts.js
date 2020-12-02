@@ -4,13 +4,22 @@
 const smallCaps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ";
 
 /**
+ * Separater symbol
+ *
+ * @public
+ * @const
+ * @type {Symbol}
+ */
+export const SEPARATOR_ID = Symbol("separator");
+
+/**
  * Case IDs
  *
  * @public
  * @const
  * @type {Object.<string>}
  */
-export const caseIds = Object.freeze(["Lowercase", "Uppercase", "Capitalize Each Word", "Toggle Case"]);
+export const caseIds = Object.freeze(["menuCaseLowercase", "menuCaseUppercase", "menuCaseCapitalizeEachWord", "menuCaseToggleCase"]);
 /**
  * Font IDs
  *
@@ -18,7 +27,7 @@ export const caseIds = Object.freeze(["Lowercase", "Uppercase", "Capitalize Each
  * @const
  * @type {Object.<string>}
  */
-export const fontIds = Object.freeze(["Superscript", "Small Caps", "All Small Caps", "Unicase", "separator", "Serif bold", "Serif italic", "Serif bold italic", "Sans-serif", "Sans-serif bold", "Sans-serif italic", "Sans-serif bold italic", "Script", "Script bold", "Fraktur", "Fraktur bold", "Monospace", "Double-struck", "separator", "Circled", "Circled (black)", "Squared", "Squared (black)", "Fullwidth"]);
+export const fontIds = Object.freeze(["menuFontSuperscript", "menuFontSmallCaps", "menuFontAllSmallCaps", "menuFontUnicase", SEPARATOR_ID, "menuFontSerifBold", "menuFontSerifItalic", "menuFontSerifBoldItalic", "menuFontSansSerif", "menuFontSansSerifBold", "menuFontSansSerifItalic", "menuFontSansSerifBoldItalic", "menuFontScript", "menuFontScriptBold", "menuFontScriptFraktur", "menuFontFrakturBold", "menuFontMonospace", "menuFontDoubleStruck", SEPARATOR_ID, "menuFontCircled", "menuFontCircledBlack", "menuFontSquared", "menuFontSquaredBlack", "menuFontFullwidth"]);
 
 /**
  * Unicode fonts

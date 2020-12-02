@@ -5,7 +5,7 @@ import * as BrowserCommunication from "/common/modules/BrowserCommunication/Brow
 import { isMobile } from "./MobileHelper.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
-import { caseIds, fontIds, fonts } from "/common/modules/data/Fonts.js";
+import { caseIds, fontIds, fonts, SEPARATOR_ID } from "/common/modules/data/Fonts.js";
 
 /**
  * Change Unicode font.
@@ -161,7 +161,7 @@ function applySettings(unicodeFont) {
 	if (unicodeFont.changeCase) {
 		for (const id of caseIds) {
 			// .replaceAll(" ", "-");
-			const aid = id.toLowerCase().split(" ").join("-");
+			const aid = browser.i18n.getMessage(id).toLowerCase().split(" ").join("-");
 			menus.create({
 				"id": aid,
 				"title": changeCase[aid](id),
@@ -172,7 +172,7 @@ function applySettings(unicodeFont) {
 
 	if (unicodeFont.changeCase && unicodeFont.changeFont) {
 		menus.create({
-			id: "separator-2",
+			id: "separator-text-transforms",
 			type: "separator",
 			contexts: ["editable"]
 		});
@@ -180,7 +180,7 @@ function applySettings(unicodeFont) {
 
 	if (unicodeFont.changeFont) {
 		for (const id of fontIds) {
-			if (id === "separator") {
+			if (id === SEPARATOR_ID) {
 				menus.create({
 					// id: id,
 					type: "separator",
@@ -188,7 +188,7 @@ function applySettings(unicodeFont) {
 				});
 			} else {
 				// .replaceAll(" ", "-");
-				const aid = id.toLowerCase().split(" ").join("-");
+				const aid = browser.i18n.getMessage(id).toLowerCase().split(" ").join("-");
 				// console.log(id, aid, fonts[aid], changeFont(id, aid));
 				menus.create({
 					"id": aid,

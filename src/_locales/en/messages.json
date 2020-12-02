@@ -43,6 +43,117 @@
     "description": "The message shown, when the options of the settings could not have been reset."
   },
 
+  // context menu
+  "menuCaseLowercase": {
+    "message": "Lowercase",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCaseUppercase": {
+    "message": "Uppercase",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCaseCapitalizeEachWord": {
+    "message": "Capitalize Each Word",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCaseToggleCase": {
+    "message": "Toggle Case",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+
+  "menuFontSuperscript": {
+    "message": "Superscript",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSmallCaps": {
+    "message": "Small Caps",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontAllSmallCaps": {
+    "message": "All Small Caps",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontUnicase": {
+    "message": "Unicase",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSerifBold": {
+    "message": "Serif bold",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSerifItalic": {
+    "message": "Serif italic",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSerifBoldItalic": {
+    "message": "Serif bold italic",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSerifBoldItalic": {
+    "message": "Serif bold italic",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSansSerif": {
+    "message": "Sans-serif",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSansSerifBold": {
+    "message": "Sans-serif bold",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSansSerifItalic": {
+    "message": "Sans-serif italic",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSansSerifBoldItalic": {
+    "message": "Sans-serif bold italic",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontScript": {
+    "message": "Script",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontScriptBold": {
+    "message": "Script bold",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontScriptFraktur": {
+    "message": "Fraktur",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontFrakturBold": {
+    "message": "Fraktur bold",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontMonospace": {
+    "message": "Monospace",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontDoubleStruck": {
+    "message": "Double-struck",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontCircled": {
+    "message": "Circled",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontCircledBlack": {
+    "message": "Circled (black)",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSquared": {
+    "message": "Squared",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSquaredBlack": {
+    "message": "Squared (black)",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontFullwidth": {
+    "message": "Fullwidth",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+
   // options
   "someSettingsAreManaged": {
     "message": "Some settings are managed by your system administrator and cannot be changed.",
