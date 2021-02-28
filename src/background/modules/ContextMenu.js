@@ -43,16 +43,29 @@ function handleMenuChoosen(info, tab) {
  * @returns {void}
  * @throws {Error}
  */
-function handleMenuShown(info, tab) {
-    let text = info.selectionText;
+async function handleMenuShown(info) {
+    let text = info.selectionText || "";
 
-    if (!text || !lastCachedUnicodeFontSettings.livePreview) {
-        return;
+    // do not show menu entry when no text is selected
+    if (!text) {
+        await menus.removeAll();
+        return menus.refresh();
+    }
+    text = text.normalize();
+
+    const menuIsShown = info.menuIds.length > 0;
+    if (!lastCachedUnicodeFontSettings.livePreview) {
+        if (menuIsShown) {
+            return;
+        }
+
+        // continue re-creating deleted menu, but without any example text
+        text = null;
     }
 
-    text = text.normalize();
-    const menuItem = info.menuItemId;
-    buildMenu(lastCachedUnicodeFontSettings, text, true);
+    buildMenu(lastCachedUnicodeFontSettings, text, menuIsShown);
+
+    menus.refresh();
 }
 
 /**
@@ -64,10 +77,6 @@ function handleMenuShown(info, tab) {
  * @returns {void}
  */
 function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false) {
-    if (!refreshMenu) {
-        menus.removeAll();
-    }
-
     var addedEntries = false;
     for (const transformationId of menuStructure) {
         if (transformationId === SEPARATOR_ID) {
@@ -120,10 +129,6 @@ function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false)
         }
         addedEntries = true;
     }
-
-    if (refreshMenu) {
-        menus.refresh();
-    }
 }
 
 /**
@@ -148,9 +153,12 @@ export async function init() {
     }
     menus.onClicked.addListener(handleMenuChoosen);
 
-    BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, (request) => {
+    BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, async (request) => {
         lastCachedUnicodeFontSettings = request.optionValue;
 
+        if (!refreshMenu) {
+            await menus.removeAll();
+        }
         return buildMenu(request.optionValue);
     });
 }
