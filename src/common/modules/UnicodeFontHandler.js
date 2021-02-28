@@ -5,7 +5,7 @@ import * as BrowserCommunication from "/common/modules/BrowserCommunication/Brow
 import { isMobile } from "./MobileHelper.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
-import { caseIds, fontIds, fontLetters, SEPARATOR_ID } from "/common/modules/data/Fonts.js";
+import { caseIds, fontIds, fontLetters, SEPARATOR_ID, CASE_ID_PREFIX, FONT_ID_PREFIX } from "/common/modules/data/Fonts.js";
 
 /**
  * Changes the Unicode font of the given text.
@@ -112,40 +112,13 @@ function handle(info, tab) {
         text = text.normalize();
         let output = '';
 
-        switch (info.menuItemId) {
-            case "menuCaseLowercase":
-            case "menuCaseUppercase":
-            case "menuCaseCapitalizeEachWord":
-            case "menuCaseToggleCase":
-                output = changeCase[info.menuItemId](text);
-                break;
-            case "menuFontSuperscript":
-            case "menuFontSmallCaps":
-            case "menuFontAllSmallCaps":
-            case "menuFontUnicase":
-            case "menuFontSerifBold":
-            case "menuFontSerifItalic":
-            case "menuFontSerifBoldItalic":
-            case "menuFontSansSerif":
-            case "menuFontSansSerifBold":
-            case "menuFontSansSerifItalic":
-            case "menuFontSansSerifBoldItalic":
-            case "menuFontScript":
-            case "menuFontScriptBold":
-            case "menuFontScriptFraktur":
-            case "menuFontFrakturBold":
-            case "menuFontMonospace":
-            case "menuFontDoubleStruck":
-            case "menuFontCircled":
-            case "menuFontCircledBlack":
-            case "menuFontSquared":
-            case "menuFontSquaredBlack":
-            case "menuFontFullwidth": {
-                output = changeFont(text, info.menuItemId);
-                break;
-            }
-            default:
-                throw new Error(`Menu item with id=${info.menuItemId} is unknown and could not be processed.`);
+        const menuItem = info.menuItemId;
+        if (menuItem.startsWith(CASE_ID_PREFIX)) {
+            output = changeCase[menuItem](text);
+        } else if (menuItem.startsWith(FONT_ID_PREFIX)) {
+            output = changeFont(text, menuItem);
+        } else {
+            throw new Error(`Menu item with id=${menuItem} is unknown and could not be processed.`);
         }
 
         browser.tabs.executeScript(tab.id, {

@@ -13,6 +13,15 @@ const smallCaps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠ�
 export const SEPARATOR_ID = Symbol("separator");
 
 /**
+ * Unique prefix for all IDs related to casing.
+ *
+ * @public
+ * @const
+ * @type {string}
+ */
+export const CASE_ID_PREFIX = "menuCase";
+
+/**
  * Case IDs
  *
  * @public
@@ -25,6 +34,15 @@ export const caseIds = Object.freeze([
     "menuCaseCapitalizeEachWord",
     "menuCaseToggleCase"
 ]);
+
+/**
+ * Unique prefix for all IDs related to fonts.
+ *
+ * @public
+ * @const
+ * @type {string}
+ */
+export const FONT_ID_PREFIX = "menuFont";
 
 /**
  * Font IDs
