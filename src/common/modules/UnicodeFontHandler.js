@@ -13,11 +13,11 @@ import { CASE, FONT, SEPARATOR, contextMenuList, menuTranslation, fontMap, caseB
  * It replaces each ASCII character in the text with the corresponding character from the Unicode font.
  *
  * @param {string} text
- * @param {Symbol} chosenFont
+ * @param {Symbol|string} chosenFont
  * @returns {string}
  */
 function changeFont(text, chosenFont) {
-    const font = fontMap[chosenFont];
+    const font = fontMap[chosenFont] || chosenFont;
     let output = "";
 
     for (let letter of text) {
@@ -167,7 +167,7 @@ function applySettings(unicodeFont) {
             } else {
                 menus.create({
                     "id": id.toString(),
-                    "title": browser.i18n.getMessage(menuTranslation[id]),
+                    "title": changeFont(browser.i18n.getMessage(menuTranslation[id]), id),
                     "contexts": ["editable"],
                 });
             }
