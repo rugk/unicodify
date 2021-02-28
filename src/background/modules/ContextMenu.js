@@ -7,6 +7,7 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
 import { menuStructure, SEPARATOR_ID, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
 const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
+const PREVIEW_STRING_CUT_LENGTH = 1000; // a setting that may improve performance by not calculating invisible parts of the context menu
 
 let lastCachedUnicodeFontSettings = null;
 
@@ -50,6 +51,11 @@ async function handleMenuShown(info) {
     if (!text) {
         await menus.removeAll();
         return menus.refresh();
+    }
+    // shorten preview text as it may not be shown anyway
+    if (text.length > PREVIEW_STRING_CUT_LENGTH) {
+        // to be sure, we append … anyway, in case some strange OS has a tooltip for context menus or so
+        text = `${text.substr(0, PREVIEW_STRING_CUT_LENGTH)}…`;
     }
     text = text.normalize();
 
@@ -156,9 +162,7 @@ export async function init() {
     BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, async (request) => {
         lastCachedUnicodeFontSettings = request.optionValue;
 
-        if (!refreshMenu) {
-            await menus.removeAll();
-        }
+        await menus.removeAll();
         return buildMenu(request.optionValue);
     });
 }
