@@ -30,7 +30,7 @@ export const CASE = Object.freeze({
 /**
  * Contains the "inversed" array of the casing options.
  *
- * It helps you to access ther {@see CASE} object with an Symbol.toString() value.
+ * It helps you to access the {@see CASE} object with an Symbol.toString() value.
  *
  * @public
  * @const
