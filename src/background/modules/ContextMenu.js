@@ -40,8 +40,13 @@ function handleMenuChoosen(info, tab) {
 function buildMenu(unicodeFontSettings) {
     menus.removeAll();
 
+    var addedEntries = false;
     for (const transformationId of menuStructure) {
         if (transformationId === SEPARATOR_ID) {
+            if (!addedEntries) {
+                continue;
+            }
+
             menus.create({
                 // id: id,
                 type: "separator",
@@ -68,6 +73,7 @@ function buildMenu(unicodeFontSettings) {
             "title": translatedMenuTextTransformed,
             "contexts": ["editable"],
         });
+        addedEntries = true;
     }
 }
 
