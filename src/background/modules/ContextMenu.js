@@ -1,10 +1,12 @@
-import * as UnicodeFontHandler from "/common/modules/UnicodeFontHandler.js"
+import * as UnicodeTransformationHandler from "/common/modules/UnicodeTransformationHandler.js"
 import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
 import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
 import { isMobile } from "/common/modules/MobileHelper.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
 import { menuStructure, SEPARATOR_ID, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
+
+const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
 /**
  * Handle context menu click.
@@ -20,7 +22,7 @@ function handleMenuChoosen(info, tab) {
     if (text) {
         text = text.normalize();
         const menuItem = info.menuItemId;
-        const output = UnicodeFontHandler.transformText(text, menuItem);
+        const output = UnicodeTransformationHandler.transformText(text, menuItem);
 
         browser.tabs.executeScript(tab.id, {
             code: `insertIntoPage("${output}");`,
@@ -36,8 +38,6 @@ function handleMenuChoosen(info, tab) {
  * @returns {void}
  */
 function buildMenu(unicodeFontSettings) {
-    const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
-
     menus.removeAll();
 
     for (const transformationId of menuStructure) {
@@ -50,7 +50,7 @@ function buildMenu(unicodeFontSettings) {
             continue;
         }
 
-        const transformationType = UnicodeFontHandler.getTransformationType(transformationId);
+        const transformationType = UnicodeTransformationHandler.getTransformationType(transformationId);
         if (transformationType == TRANSFORMATION_TYPE.CASING &&
             !unicodeFontSettings.changeCase) {
             continue;
@@ -61,7 +61,7 @@ function buildMenu(unicodeFontSettings) {
         }
 
         const translatedMenuText = browser.i18n.getMessage(transformationId);
-        let translatedMenuTextTransformed = UnicodeFontHandler.transformText(translatedMenuText, transformationId);
+        let translatedMenuTextTransformed = UnicodeTransformationHandler.transformText(translatedMenuText, transformationId);
 
         menus.create({
             "id": transformationId,
@@ -85,8 +85,6 @@ export async function init() {
     const unicodeFontSettings = await AddonSettings.get("unicodeFont");
 
     buildMenu(unicodeFontSettings);
-
-    const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
     menus.onClicked.addListener(handleMenuChoosen);
 

@@ -1,4 +1,3 @@
-"use strict";
 import { fontLetters, CASE_ID_PREFIX, FONT_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
 /**
