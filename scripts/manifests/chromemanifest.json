@@ -40,7 +40,7 @@
 
   "permissions": [
     "storage",
-    "activeTab",
+    "<all_urls>",
     "tabs",
     "contextMenus"
   ]

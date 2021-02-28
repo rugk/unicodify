@@ -294,12 +294,25 @@
     "message": "Zum Beispiel, “GROẞSCHREIBUNG”, “kleinschreibung”, “Schriebe Jedes Wort Groß” or “kEHRE gROẞSCHREIBUNG uM”.",
     "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
   },
+
+  "subtitleEntryPreview": {
+    "message": "Vorschau",
+    "description": "The heading/grouping title shown for options customizing the design of the context menu entry."
+  },
   "optionMenuShowReadableText": {
     "message": "Zeige eine lesbare Beschreibung der Transformation",
     "description": "This is an option shown in the add-on settings."
   },
   "optionMenuShowReadableTextDescr": {
     "message": "Zusätzlich zu den Beispieltransformationen zeigt dies auch den Namen der Transformation als Text an.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+  },
+  "optionMenuShowLivePreview": {
+    "message": "Zeige eine Live-Vorschau des ausgewählten Texts",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionMenuShowLivePreviewDescr": {
+    "message": "Zeigt den Effeckt der Transformation anhand des ausgewählten Texts statt eines Beispieltexts.",
     "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
   },
 

@@ -8,6 +8,8 @@ import { menuStructure, SEPARATOR_ID, TRANSFORMATION_TYPE } from "/common/module
 
 const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
+let lastCachedUnicodeFontSettings = null;
+
 /**
  * Handle context menu click.
  *
@@ -19,31 +21,57 @@ const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 function handleMenuChoosen(info, tab) {
     let text = info.selectionText;
 
-    if (text) {
-        text = text.normalize();
-        const menuItem = info.menuItemId;
-        const output = UnicodeTransformationHandler.transformText(text, menuItem);
-
-        browser.tabs.executeScript(tab.id, {
-            code: `insertIntoPage("${output}");`,
-            frameId: info.frameId
-        });
+    if (!text) {
+        return;
     }
+
+    text = text.normalize();
+    const menuItem = info.menuItemId;
+    const output = UnicodeTransformationHandler.transformText(text, menuItem);
+
+    browser.tabs.executeScript(tab.id, {
+        code: `insertIntoPage("${output}");`,
+        frameId: info.frameId
+    });
 }
 
 /**
- * Apply (new) menu item settings by (re)creating the context menu.
+ * Handle context menu click.
+ *
+ * @param {Object} info
+ * @param {Object} tab
+ * @returns {void}
+ * @throws {Error}
+ */
+function handleMenuShown(info, tab) {
+    let text = info.selectionText;
+
+    if (!text || !lastCachedUnicodeFontSettings.livePreview) {
+        return;
+    }
+
+    text = text.normalize();
+    const menuItem = info.menuItemId;
+    buildMenu(lastCachedUnicodeFontSettings, text, true);
+}
+
+/**
+ * Apply (new) menu item settings by (re)creating or updating/refreshing the context menu.
  *
  * @param {Object} unicodeFontSettings
+ * @param {string?} [exampleText=null]
+ * @param {bool?} [refreshMenu=false]
  * @returns {void}
  */
-function buildMenu(unicodeFontSettings) {
-    menus.removeAll();
+function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false) {
+    if (!refreshMenu) {
+        menus.removeAll();
+    }
 
     var addedEntries = false;
     for (const transformationId of menuStructure) {
         if (transformationId === SEPARATOR_ID) {
-            if (!addedEntries) {
+            if (!addedEntries || refreshMenu) {
                 continue;
             }
 
@@ -66,19 +94,35 @@ function buildMenu(unicodeFontSettings) {
         }
 
         const translatedMenuText = browser.i18n.getMessage(transformationId);
-        let translatedMenuTextTransformed = UnicodeTransformationHandler.transformText(translatedMenuText, transformationId);
+        let textToBeTransformed = translatedMenuText;
+        if (unicodeFontSettings.livePreview && exampleText) {
+            textToBeTransformed = exampleText;
+        }
+        let transformedText = UnicodeTransformationHandler.transformText(textToBeTransformed, transformationId);
 
-        let menuText = translatedMenuTextTransformed;
+        let menuText = transformedText;
         if (unicodeFontSettings.showReadableText) {
-            menuText = browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, translatedMenuTextTransformed]);
+            menuText = browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, transformedText]);
         };
 
-        menus.create({
-            "id": transformationId,
-            "title": menuText,
-            "contexts": ["editable"],
-        });
+        if (refreshMenu) {
+            menus.update(transformationId, {
+                "title": menuText,
+                "contexts": ["editable"],
+            });
+        } else {
+            menus.create({
+                "id": transformationId,
+                "title": menuText,
+                "contexts": ["editable"],
+            });
+
+        }
         addedEntries = true;
+    }
+
+    if (refreshMenu) {
+        menus.refresh();
     }
 }
 
@@ -94,14 +138,18 @@ export async function init() {
     }
 
     const unicodeFontSettings = await AddonSettings.get("unicodeFont");
+    lastCachedUnicodeFontSettings = unicodeFontSettings;
 
     buildMenu(unicodeFontSettings);
 
+    // TODO: check Chrome/ium comaptibility here (this workaround should make it work for now)
+    if (menus.onShown) {
+        menus.onShown.addListener(handleMenuShown);
+    }
     menus.onClicked.addListener(handleMenuChoosen);
 
     BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, (request) => {
-        // clear cache by reloading all options
-        // await AddonSettings.loadOptions();
+        lastCachedUnicodeFontSettings = request.optionValue;
 
         return buildMenu(request.optionValue);
     });

@@ -294,12 +294,25 @@
     "message": "For example, “UPPER CASE”, “lower case”, “Capitalize Each Word” or “tOGGLE cASE”.",
     "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
   },
+
+  "subtitleEntryPreview": {
+    "message": "Preview",
+    "description": "The heading/grouping title shown for options customizing the design of the context menu entry."
+  },
   "optionMenuShowReadableText": {
     "message": "Show a readable description of the transformation",
     "description": "This is an option shown in the add-on settings."
   },
   "optionMenuShowReadableTextDescr": {
     "message": "In addition to the examples of the transformation, this also shows the name of transformation as text.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+  },
+  "optionMenuShowLivePreview": {
+    "message": "Show a live preview with the selected text",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionMenuShowLivePreviewDescr": {
+    "message": "Shows the effect of the transformation on the selected text instead of an example one.",
     "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
   },
 

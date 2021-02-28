@@ -23,7 +23,8 @@ const defaultSettings = {
     unicodeFont: {
         changeFont: true,
         changeCase: true,
-        showReadableText: false
+        showReadableText: false,
+        livePreview: false
     }
 };
 
