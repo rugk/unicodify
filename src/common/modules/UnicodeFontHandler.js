@@ -5,7 +5,7 @@ import * as BrowserCommunication from "/common/modules/BrowserCommunication/Brow
 import { isMobile } from "./MobileHelper.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
-import { caseIds, fontIds, fontLetters, SEPARATOR_ID, CASE_ID_PREFIX, FONT_ID_PREFIX } from "/common/modules/data/Fonts.js";
+import { menuStructure, fontLetters, SEPARATOR_ID, CASE_ID_PREFIX, FONT_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
 /**
  * Changes the Unicode font of the given text.
@@ -100,6 +100,48 @@ const changeCase = Object.freeze({
 /**
  * Handle context menu click.
  *
+ * @param {string} text
+ * @param {string} transformationId
+ * @returns {string}
+ * @throws {Error}
+ */
+function transformText(text, transformationId) {
+    let output = null;
+    const transformationType = getTransformationType(transformationId);
+    if (transformationType == TRANSFORMATION_TYPE.CASING) {
+        output = changeCase[transformationId](text);
+    } else if (transformationType == TRANSFORMATION_TYPE.FONT) {
+        output = changeFont(text, transformationId);
+    } else {
+        throw new Error(`Transformation with id=${transformationId} is unknown and could not be processed.`);
+    }
+
+    if (!output) {
+        console.error(`Error while transforming text with id=${transformationId}. Skipping…`);
+    }
+    return output;
+}
+
+/**
+ * Return the type of the transformation.
+ *
+ * @param {string} transformationId
+ * @returns {Symbol} TRANSFORMATION_TYPE
+ * @throws {Error}
+ */
+function getTransformationType(transformationId) {
+    if (transformationId.startsWith(CASE_ID_PREFIX)) {
+        return TRANSFORMATION_TYPE.CASING;
+    } else if (transformationId.startsWith(FONT_ID_PREFIX)) {
+        return TRANSFORMATION_TYPE.FONT;
+    } else {
+        throw new Error(`Error while getting transformation type. Transformation with id=${transformationId} is unknown.`);
+    }
+}
+
+/**
+ * Handle context menu click.
+ *
  * @param {Object} info
  * @param {Object} tab
  * @returns {void}
@@ -110,16 +152,8 @@ function handle(info, tab) {
 
     if (text) {
         text = text.normalize();
-        let output = '';
-
         const menuItem = info.menuItemId;
-        if (menuItem.startsWith(CASE_ID_PREFIX)) {
-            output = changeCase[menuItem](text);
-        } else if (menuItem.startsWith(FONT_ID_PREFIX)) {
-            output = changeFont(text, menuItem);
-        } else {
-            throw new Error(`Menu item with id=${menuItem} is unknown and could not be processed.`);
-        }
+        const output = transformText(text, menuItem);
 
         browser.tabs.executeScript(tab.id, {
             code: `insertIntoPage("${output}");`,
@@ -139,42 +173,34 @@ function applySettings(unicodeFont) {
 
     menus.removeAll();
 
-    if (unicodeFont.changeCase) {
-        for (const id of caseIds) {
-            const translatedMenuText = browser.i18n.getMessage(id);
+    for (const transformationId of menuStructure) {
+        if (transformationId === SEPARATOR_ID) {
             menus.create({
-                "id": id,
-                "title": changeCase[id](translatedMenuText),
-                "contexts": ["editable"],
+                // id: id,
+                type: "separator",
+                contexts: ["editable"]
             });
+            continue;
         }
-    }
 
-    if (unicodeFont.changeCase && unicodeFont.changeFont) {
+        const transformationType = getTransformationType(transformationId);
+        if (transformationType == TRANSFORMATION_TYPE.CASING &&
+            !unicodeFont.changeCase) {
+            continue;
+        }
+        if (transformationType == TRANSFORMATION_TYPE.FONT &&
+            !unicodeFont.changeFont) {
+            continue;
+        }
+
+        const translatedMenuText = browser.i18n.getMessage(transformationId);
+        let translatedMenuTextTransformed = transformText(translatedMenuText, transformationId);
+
         menus.create({
-            id: "separator-text-transforms",
-            type: "separator",
-            contexts: ["editable"]
+            "id": transformationId,
+            "title": translatedMenuTextTransformed,
+            "contexts": ["editable"],
         });
-    }
-
-    if (unicodeFont.changeFont) {
-        for (const id of fontIds) {
-            if (id === SEPARATOR_ID) {
-                menus.create({
-                    // id: id,
-                    type: "separator",
-                    contexts: ["editable"]
-                });
-            } else {
-                const translatedMenuText = browser.i18n.getMessage(id);
-                menus.create({
-                    "id": id,
-                    "title": changeFont(translatedMenuText, id),
-                    "contexts": ["editable"],
-                });
-            }
-        }
     }
 }
 

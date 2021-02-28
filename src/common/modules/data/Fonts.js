@@ -4,6 +4,18 @@
 const smallCaps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ";
 
 /**
+ * Types of transformations
+ *
+ * @public
+ * @const
+ * @type {Symbol}
+ */
+export const TRANSFORMATION_TYPE = Object.freeze({
+    CASING: Symbol("casing transformation"),
+    FONT: Symbol("font transformation")
+})
+
+/**
  * Separater symbol
  *
  * @public
@@ -22,20 +34,6 @@ export const SEPARATOR_ID = Symbol("separator");
 export const CASE_ID_PREFIX = `menuCase`;
 
 /**
- * Case IDs
- *
- * @public
- * @const
- * @type {Object.<string>}
- */
-export const caseIds = Object.freeze([
-    `${CASE_ID_PREFIX}Lowercase`,
-    `${CASE_ID_PREFIX}Uppercase`,
-    `${CASE_ID_PREFIX}CapitalizeEachWord`,
-    `${CASE_ID_PREFIX}ToggleCase`
-]);
-
-/**
  * Unique prefix for all IDs related to fonts.
  *
  * @public
@@ -45,13 +43,13 @@ export const caseIds = Object.freeze([
 export const FONT_ID_PREFIX = `menuFont`;
 
 /**
- * Font IDs
+ * The structure of the context menu.
  *
  * @public
  * @const
  * @type {Object.<string>}
  */
-export const fontIds = Object.freeze([
+export const menuStructure = Object.freeze([
     `${FONT_ID_PREFIX}Superscript`,
     `${FONT_ID_PREFIX}SmallCaps`,
     `${FONT_ID_PREFIX}AllSmallCaps`,
@@ -75,7 +73,12 @@ export const fontIds = Object.freeze([
     `${FONT_ID_PREFIX}CircledBlack`,
     `${FONT_ID_PREFIX}Squared`,
     `${FONT_ID_PREFIX}SquaredBlack`,
-    `${FONT_ID_PREFIX}Fullwidth`
+    `${FONT_ID_PREFIX}Fullwidth`,
+    SEPARATOR_ID,
+    `${CASE_ID_PREFIX}Lowercase`,
+    `${CASE_ID_PREFIX}Uppercase`,
+    `${CASE_ID_PREFIX}CapitalizeEachWord`,
+    `${CASE_ID_PREFIX}ToggleCase`
 ]);
 
 /**
