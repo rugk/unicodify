@@ -144,6 +144,7 @@ function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false)
  * @returns {void}
  */
 export async function init() {
+    // Remove once https://bugzilla.mozilla.org/show_bug.cgi?id=1595822 is fixed
     if (await isMobile()) {
         return;
     }

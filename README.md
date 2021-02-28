@@ -7,14 +7,14 @@
 
 <img height="200" width="200" src="assets/header.svg">
 
-This is a (Firefox) add-on (WebExtension) that allows you to autocorrect common text sequences and convert text characters to a look like a special font.
+This is a (Firefox and Thunderbird) add-on (WebExtension) that allows you to autocorrect common text sequences and convert text characters to a look like a special font.
 For instance, it converts quotes like `"these"` to `“these”`, which are typographically more correct.
 
 In contrast to many other add-ons, …
 
 It is/has/features…
 
-It is inspired by …. This extension only works with modern Firefox v78 or higher.
+It is inspired by …. This extension only works with modern Firefox and Thunderbird v78 or higher.
 
 ## Download
 
@@ -30,7 +30,7 @@ See:
 
 ## Features
 * Puts your privacy first! Privacy is the default here.
-* Follows the [Firefox Photon Design](https://design.firefox.com/photon).
+* Follows the [Firefox](https://design.firefox.com/photon) and [Thunderbird](https://style.thunderbird.net/) Photon Design.
 * Has a simple, but intuitive and usable User Interface.
 * Translated in several languages already. [Contribute your own language!](CONTRIBUTING.md#Translations)
 * Compatible with Firefox for Android
