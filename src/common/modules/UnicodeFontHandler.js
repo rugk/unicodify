@@ -15,10 +15,13 @@ import { caseIds, fontIds, fontLetters, SEPARATOR_ID } from "/common/modules/dat
  * @param {string} text
  * @param {string} chosenFont
  * @returns {string}
+ * @throws {Error}
  */
 function changeFont(text, chosenFont) {
 	const font = fontLetters[chosenFont];
-	// console.log(afont, font);
+    if (!font) {
+        throw new Error(`Font ${chosenFont} could not be processed.`);
+    }
 	let output = '';
 
 	for (let letter of text) {
@@ -88,10 +91,10 @@ function toggleCase(atext) {
  * @type {Object.<string, function>}
  */
 const changeCase = Object.freeze({
-	"lowercase": (str) => str.toLocaleLowerCase(),
-	"uppercase": (str) => str.toLocaleUpperCase(),
-	"capitalize-each-word": (str) => capitalizeEachWord(str.toLocaleLowerCase()),
-	"toggle-case": (str) => toggleCase(str)
+	"menuCaseLowercase": (str) => str.toLocaleLowerCase(),
+	"menuCaseUppercase": (str) => str.toLocaleUpperCase(),
+	"menuCaseCapitalizeEachWord": (str) => capitalizeEachWord(str.toLocaleLowerCase()),
+	"menuCaseToggleCase": (str) => toggleCase(str)
 });
 
 /**
@@ -100,6 +103,7 @@ const changeCase = Object.freeze({
  * @param {Object} info
  * @param {Object} tab
  * @returns {void}
+ * @throws {Error}
  */
 function handle(info, tab) {
 	let text = info.selectionText;
@@ -109,37 +113,39 @@ function handle(info, tab) {
 		let output = '';
 
 		switch (info.menuItemId) {
-			case "lowercase":
-			case "uppercase":
-			case "capitalize-each-word":
-			case "toggle-case":
+			case "menuCaseLowercase":
+			case "menuCaseUppercase":
+			case "menuCaseCapitalizeEachWord":
+			case "menuCaseToggleCase":
 				output = changeCase[info.menuItemId](text);
 				break;
-			case "superscript":
-			case "small-caps":
-			case "all-small-caps":
-			case "unicase":
-			case "serif-bold":
-			case "serif-italic":
-			case "serif-bold-italic":
-			case "sans-serif":
-			case "sans-serif-bold":
-			case "sans-serif-italic":
-			case "sans-serif-bold-italic":
-			case "script":
-			case "script-bold":
-			case "fraktur":
-			case "fraktur-bold":
-			case "monospace":
-			case "double-struck":
-			case "circled":
-			case "circled-(black)":
-			case "squared":
-			case "squared-(black)":
-			case "fullwidth": {
+			case "menuFontSuperscript":
+			case "menuFontSmallCaps":
+			case "menuFontAllSmallCaps":
+			case "menuFontUnicase":
+			case "menuFontSerifBold":
+			case "menuFontSerifItalic":
+			case "menuFontSerifBoldItalic":
+			case "menuFontSansSerif":
+			case "menuFontSansSerifBold":
+			case "menuFontSansSerifItalic":
+			case "menuFontSansSerifBoldItalic":
+			case "menuFontScript":
+			case "menuFontScriptBold":
+			case "menuFontScriptFraktur":
+			case "menuFontFrakturBold":
+			case "menuFontMonospace":
+			case "menuFontDoubleStruck":
+			case "menuFontCircled":
+			case "menuFontCircledBlack":
+			case "menuFontSquared":
+			case "menuFontSquaredBlack":
+			case "menuFontFullwidth": {
 				output = changeFont(text, info.menuItemId);
 				break;
 			}
+            default:
+                throw new Error(`Menu item with id=${info.menuItemId} is unknown and could not be processed.`);
 		}
 
 		browser.tabs.executeScript(tab.id, {
@@ -162,11 +168,10 @@ function applySettings(unicodeFont) {
 
 	if (unicodeFont.changeCase) {
 		for (const id of caseIds) {
-			// .replaceAll(" ", "-");
-			const aid = browser.i18n.getMessage(id).toLowerCase().split(" ").join("-");
+            const translatedMenuText = browser.i18n.getMessage(id);
 			menus.create({
-				"id": aid,
-				"title": changeCase[aid](id),
+				"id": id,
+				"title": changeCase[id](translatedMenuText),
 				"contexts": ["editable"],
 			});
 		}
@@ -189,12 +194,10 @@ function applySettings(unicodeFont) {
 					contexts: ["editable"]
 				});
 			} else {
-				// .replaceAll(" ", "-");
-				const aid = browser.i18n.getMessage(id).toLowerCase().split(" ").join("-");
-				// console.log(id, aid, fonts[aid], changeFont(id, aid));
+    			const translatedMenuText = browser.i18n.getMessage(id);
 				menus.create({
-					"id": aid,
-					"title": changeFont(id, aid),
+					"id": id,
+					"title": changeFont(translatedMenuText, id),
 					"contexts": ["editable"],
 				});
 			}
