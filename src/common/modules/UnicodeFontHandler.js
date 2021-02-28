@@ -18,35 +18,35 @@ import { caseIds, fontIds, fontLetters, SEPARATOR_ID } from "/common/modules/dat
  * @throws {Error}
  */
 function changeFont(text, chosenFont) {
-	const font = fontLetters[chosenFont];
+    const font = fontLetters[chosenFont];
     if (!font) {
         throw new Error(`Font ${chosenFont} could not be processed.`);
     }
-	let output = '';
+    let output = '';
 
-	for (let letter of text) {
-		const code = letter.charCodeAt(0);
-		if (code >= 33 && code <= 127) {
-			if (font.length == 94)
-				letter = font[code - '!'.charCodeAt(0)];
-			else if (letter >= 'A' && letter <= 'Z') {
-				letter = font[code - 'A'.charCodeAt(0)];
-			} else if (letter >= 'a' && letter <= 'z') {
-				if (font.length == 26 || font.length == 26 + 10)
-					letter = font[code - 'a'.charCodeAt(0)];
-				else if (font.length == 26 + 26 || font.length == 26 + 26 + 10)
-					letter = font[code - 'a'.charCodeAt(0) + 26];
-			} else if (letter >= '0' && letter <= '9') {
-				if (font.length == 26 + 10)
-					letter = font[code - '0'.charCodeAt(0) + 26];
-				else if (font.length == 26 + 26 + 10)
-					letter = font[code - '0'.charCodeAt(0) + 26 + 26];
-			}
-		}
-		output += letter;
-	}
+    for (let letter of text) {
+        const code = letter.charCodeAt(0);
+        if (code >= 33 && code <= 127) {
+            if (font.length == 94)
+                letter = font[code - '!'.charCodeAt(0)];
+            else if (letter >= 'A' && letter <= 'Z') {
+                letter = font[code - 'A'.charCodeAt(0)];
+            } else if (letter >= 'a' && letter <= 'z') {
+                if (font.length == 26 || font.length == 26 + 10)
+                    letter = font[code - 'a'.charCodeAt(0)];
+                else if (font.length == 26 + 26 || font.length == 26 + 26 + 10)
+                    letter = font[code - 'a'.charCodeAt(0) + 26];
+            } else if (letter >= '0' && letter <= '9') {
+                if (font.length == 26 + 10)
+                    letter = font[code - '0'.charCodeAt(0) + 26];
+                else if (font.length == 26 + 26 + 10)
+                    letter = font[code - '0'.charCodeAt(0) + 26 + 26];
+            }
+        }
+        output += letter;
+    }
 
-	return output;
+    return output;
 }
 
 /**
@@ -58,7 +58,7 @@ function changeFont(text, chosenFont) {
 function capitalizeEachWord(text) {
     // Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
     // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
-	return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(''));
+    return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(''));
 }
 
 /**
@@ -68,19 +68,19 @@ function capitalizeEachWord(text) {
  * @returns {string}
  */
 function toggleCase(atext) {
-	let output = '';
+    let output = '';
 
-	for (let letter of atext) {
-		const upper = letter.toLocaleUpperCase();
-		const lower = letter.toLocaleLowerCase();
-		if (letter === lower && letter !== upper)
-			letter = upper;
-		else if (letter === upper && letter !== lower)
-			letter = lower;
-		output += letter;
-	}
+    for (let letter of atext) {
+        const upper = letter.toLocaleUpperCase();
+        const lower = letter.toLocaleLowerCase();
+        if (letter === lower && letter !== upper)
+            letter = upper;
+        else if (letter === upper && letter !== lower)
+            letter = lower;
+        output += letter;
+    }
 
-	return output;
+    return output;
 }
 
 /**
@@ -91,10 +91,10 @@ function toggleCase(atext) {
  * @type {Object.<string, function>}
  */
 const changeCase = Object.freeze({
-	"menuCaseLowercase": (str) => str.toLocaleLowerCase(),
-	"menuCaseUppercase": (str) => str.toLocaleUpperCase(),
-	"menuCaseCapitalizeEachWord": (str) => capitalizeEachWord(str.toLocaleLowerCase()),
-	"menuCaseToggleCase": (str) => toggleCase(str)
+    "menuCaseLowercase": (str) => str.toLocaleLowerCase(),
+    "menuCaseUppercase": (str) => str.toLocaleUpperCase(),
+    "menuCaseCapitalizeEachWord": (str) => capitalizeEachWord(str.toLocaleLowerCase()),
+    "menuCaseToggleCase": (str) => toggleCase(str)
 });
 
 /**
@@ -106,53 +106,53 @@ const changeCase = Object.freeze({
  * @throws {Error}
  */
 function handle(info, tab) {
-	let text = info.selectionText;
+    let text = info.selectionText;
 
-	if (text) {
-		text = text.normalize();
-		let output = '';
+    if (text) {
+        text = text.normalize();
+        let output = '';
 
-		switch (info.menuItemId) {
-			case "menuCaseLowercase":
-			case "menuCaseUppercase":
-			case "menuCaseCapitalizeEachWord":
-			case "menuCaseToggleCase":
-				output = changeCase[info.menuItemId](text);
-				break;
-			case "menuFontSuperscript":
-			case "menuFontSmallCaps":
-			case "menuFontAllSmallCaps":
-			case "menuFontUnicase":
-			case "menuFontSerifBold":
-			case "menuFontSerifItalic":
-			case "menuFontSerifBoldItalic":
-			case "menuFontSansSerif":
-			case "menuFontSansSerifBold":
-			case "menuFontSansSerifItalic":
-			case "menuFontSansSerifBoldItalic":
-			case "menuFontScript":
-			case "menuFontScriptBold":
-			case "menuFontScriptFraktur":
-			case "menuFontFrakturBold":
-			case "menuFontMonospace":
-			case "menuFontDoubleStruck":
-			case "menuFontCircled":
-			case "menuFontCircledBlack":
-			case "menuFontSquared":
-			case "menuFontSquaredBlack":
-			case "menuFontFullwidth": {
-				output = changeFont(text, info.menuItemId);
-				break;
-			}
+        switch (info.menuItemId) {
+            case "menuCaseLowercase":
+            case "menuCaseUppercase":
+            case "menuCaseCapitalizeEachWord":
+            case "menuCaseToggleCase":
+                output = changeCase[info.menuItemId](text);
+                break;
+            case "menuFontSuperscript":
+            case "menuFontSmallCaps":
+            case "menuFontAllSmallCaps":
+            case "menuFontUnicase":
+            case "menuFontSerifBold":
+            case "menuFontSerifItalic":
+            case "menuFontSerifBoldItalic":
+            case "menuFontSansSerif":
+            case "menuFontSansSerifBold":
+            case "menuFontSansSerifItalic":
+            case "menuFontSansSerifBoldItalic":
+            case "menuFontScript":
+            case "menuFontScriptBold":
+            case "menuFontScriptFraktur":
+            case "menuFontFrakturBold":
+            case "menuFontMonospace":
+            case "menuFontDoubleStruck":
+            case "menuFontCircled":
+            case "menuFontCircledBlack":
+            case "menuFontSquared":
+            case "menuFontSquaredBlack":
+            case "menuFontFullwidth": {
+                output = changeFont(text, info.menuItemId);
+                break;
+            }
             default:
                 throw new Error(`Menu item with id=${info.menuItemId} is unknown and could not be processed.`);
-		}
+        }
 
-		browser.tabs.executeScript(tab.id, {
-			code: `insertIntoPage("${output}");`,
-			frameId: info.frameId
-		});
-	}
+        browser.tabs.executeScript(tab.id, {
+            code: `insertIntoPage("${output}");`,
+            frameId: info.frameId
+        });
+    }
 }
 
 /**
@@ -162,47 +162,47 @@ function handle(info, tab) {
  * @returns {void}
  */
 function applySettings(unicodeFont) {
-	const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
+    const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
-	menus.removeAll();
+    menus.removeAll();
 
-	if (unicodeFont.changeCase) {
-		for (const id of caseIds) {
+    if (unicodeFont.changeCase) {
+        for (const id of caseIds) {
             const translatedMenuText = browser.i18n.getMessage(id);
-			menus.create({
-				"id": id,
-				"title": changeCase[id](translatedMenuText),
-				"contexts": ["editable"],
-			});
-		}
-	}
+            menus.create({
+                "id": id,
+                "title": changeCase[id](translatedMenuText),
+                "contexts": ["editable"],
+            });
+        }
+    }
 
-	if (unicodeFont.changeCase && unicodeFont.changeFont) {
-		menus.create({
-			id: "separator-text-transforms",
-			type: "separator",
-			contexts: ["editable"]
-		});
-	}
+    if (unicodeFont.changeCase && unicodeFont.changeFont) {
+        menus.create({
+            id: "separator-text-transforms",
+            type: "separator",
+            contexts: ["editable"]
+        });
+    }
 
-	if (unicodeFont.changeFont) {
-		for (const id of fontIds) {
-			if (id === SEPARATOR_ID) {
-				menus.create({
-					// id: id,
-					type: "separator",
-					contexts: ["editable"]
-				});
-			} else {
-    			const translatedMenuText = browser.i18n.getMessage(id);
-				menus.create({
-					"id": id,
-					"title": changeFont(translatedMenuText, id),
-					"contexts": ["editable"],
-				});
-			}
-		}
-	}
+    if (unicodeFont.changeFont) {
+        for (const id of fontIds) {
+            if (id === SEPARATOR_ID) {
+                menus.create({
+                    // id: id,
+                    type: "separator",
+                    contexts: ["editable"]
+                });
+            } else {
+                const translatedMenuText = browser.i18n.getMessage(id);
+                menus.create({
+                    "id": id,
+                    "title": changeFont(translatedMenuText, id),
+                    "contexts": ["editable"],
+                });
+            }
+        }
+    }
 }
 
 /**
@@ -212,22 +212,22 @@ function applySettings(unicodeFont) {
  * @returns {void}
  */
 export async function init() {
-	if (await isMobile()) {
-		return;
-	}
+    if (await isMobile()) {
+        return;
+    }
 
-	const unicodeFont = await AddonSettings.get("unicodeFont");
+    const unicodeFont = await AddonSettings.get("unicodeFont");
 
-	applySettings(unicodeFont);
+    applySettings(unicodeFont);
 
-	const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
+    const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
-	menus.onClicked.addListener(handle);
+    menus.onClicked.addListener(handle);
 
-	BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, (request) => {
-		// clear cache by reloading all options
-		// await AddonSettings.loadOptions();
+    BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, (request) => {
+        // clear cache by reloading all options
+        // await AddonSettings.loadOptions();
 
-		return applySettings(request.optionValue);
-	});
+        return applySettings(request.optionValue);
+    });
 }
