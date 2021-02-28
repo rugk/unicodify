@@ -283,8 +283,8 @@
     "description": "This is an option shown in the add-on settings."
   },
   "optionMenuUnicodeFontDescr": {
-    "message": "Wie bspw. ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ, ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, 𝒮𝒸𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯, 🅒🅘🅡🅒🅛🅔🅓 und 🆂🆀🆄🅰🆁🅴🅳.",
-    "description": "This is an option shown in the add-on settings. It describes the optionMenuUnicodeFont setting."
+    "message": "Wie bspw. ᴴᵒᶜʰᵍᵉˢᵗᵉˡˡᵗ, Kʟᴇɪɴᴇ Kᴀᴘɪᴛäʟᴄʜᴇɴ, 𝒮𝓀𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯 und 🄸🄼 🅀🅄🄰🄳🅁🄰🅃.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuUnicodeFont setting. IMPORTANT: You may choose any (number of) examples here that look good in your language."
   },
   "optionMenuCasing": {
     "message": "Zeige Optionen zur Änderung der Groß-/Kleinschreibung",

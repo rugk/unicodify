@@ -284,7 +284,7 @@
   },
   "optionMenuUnicodeFontDescr": {
     "message": "For example, ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ, ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, 𝒮𝒸𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯, 🅒🅘🅡🅒🅛🅔🅓 and 🆂🆀🆄🅰🆁🅴🅳.",
-    "description": "This is an option shown in the add-on settings. It describes the optionMenuUnicodeFont setting."
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuUnicodeFont setting. IMPORTANT: You may choose any (number of) examples here that look good in your language."
   },
   "optionMenuCasing": {
     "message": "Show case changing options",
