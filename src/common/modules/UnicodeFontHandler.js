@@ -1,11 +1,62 @@
 "use strict";
+import { fontLetters, CASE_ID_PREFIX, FONT_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
-import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
-import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
-import { isMobile } from "./MobileHelper.js";
 
-import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
-import { menuStructure, fontLetters, SEPARATOR_ID, CASE_ID_PREFIX, FONT_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
+/**
+ * Handle context menu click.
+ *
+ * @public
+ * @param {string} text
+ * @param {string} transformationId
+ * @returns {string}
+ * @throws {Error}
+ */
+export function transformText(text, transformationId) {
+    let output = null;
+    const transformationType = getTransformationType(transformationId);
+    if (transformationType == TRANSFORMATION_TYPE.CASING) {
+        output = changeCase[transformationId](text);
+    } else if (transformationType == TRANSFORMATION_TYPE.FONT) {
+        output = changeFont(text, transformationId);
+    } else {
+        throw new Error(`Transformation with id=${transformationId} is unknown and could not be processed.`);
+    }
+
+    if (!output) {
+        console.error(`Error while transforming text with id=${transformationId}. Skipping…`);
+    }
+    return output;
+}
+
+/**
+ * Return the type of the transformation.
+ *
+ * @public
+ * @param {string} transformationId
+ * @returns {Symbol} TRANSFORMATION_TYPE
+ * @throws {Error}
+ */
+export function getTransformationType(transformationId) {
+    if (transformationId.startsWith(CASE_ID_PREFIX)) {
+        return TRANSFORMATION_TYPE.CASING;
+    } else if (transformationId.startsWith(FONT_ID_PREFIX)) {
+        return TRANSFORMATION_TYPE.FONT;
+    } else {
+        throw new Error(`Error while getting transformation type. Transformation with id=${transformationId} is unknown.`);
+    }
+}
+
+/**
+ * Capitalize Each Word.
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+function capitalizeEachWord(text) {
+    // Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
+    // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
+    return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(''));
+}
 
 /**
  * Changes the Unicode font of the given text.
@@ -50,18 +101,6 @@ function changeFont(text, chosenFont) {
 }
 
 /**
- * Capitalize Each Word.
- *
- * @param {string} text
- * @returns {string}
- */
-function capitalizeEachWord(text) {
-    // Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
-    // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
-    return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(''));
-}
-
-/**
  * Toggle Case.
  *
  * @param {string} atext
@@ -86,7 +125,6 @@ function toggleCase(atext) {
 /**
  * Change Case
  *
- * @public
  * @const
  * @type {Object.<string, function>}
  */
@@ -96,137 +134,3 @@ const changeCase = Object.freeze({
     "menuCaseCapitalizeEachWord": (str) => capitalizeEachWord(str.toLocaleLowerCase()),
     "menuCaseToggleCase": (str) => toggleCase(str)
 });
-
-/**
- * Handle context menu click.
- *
- * @param {string} text
- * @param {string} transformationId
- * @returns {string}
- * @throws {Error}
- */
-function transformText(text, transformationId) {
-    let output = null;
-    const transformationType = getTransformationType(transformationId);
-    if (transformationType == TRANSFORMATION_TYPE.CASING) {
-        output = changeCase[transformationId](text);
-    } else if (transformationType == TRANSFORMATION_TYPE.FONT) {
-        output = changeFont(text, transformationId);
-    } else {
-        throw new Error(`Transformation with id=${transformationId} is unknown and could not be processed.`);
-    }
-
-    if (!output) {
-        console.error(`Error while transforming text with id=${transformationId}. Skipping…`);
-    }
-    return output;
-}
-
-/**
- * Return the type of the transformation.
- *
- * @param {string} transformationId
- * @returns {Symbol} TRANSFORMATION_TYPE
- * @throws {Error}
- */
-function getTransformationType(transformationId) {
-    if (transformationId.startsWith(CASE_ID_PREFIX)) {
-        return TRANSFORMATION_TYPE.CASING;
-    } else if (transformationId.startsWith(FONT_ID_PREFIX)) {
-        return TRANSFORMATION_TYPE.FONT;
-    } else {
-        throw new Error(`Error while getting transformation type. Transformation with id=${transformationId} is unknown.`);
-    }
-}
-
-/**
- * Handle context menu click.
- *
- * @param {Object} info
- * @param {Object} tab
- * @returns {void}
- * @throws {Error}
- */
-function handle(info, tab) {
-    let text = info.selectionText;
-
-    if (text) {
-        text = text.normalize();
-        const menuItem = info.menuItemId;
-        const output = transformText(text, menuItem);
-
-        browser.tabs.executeScript(tab.id, {
-            code: `insertIntoPage("${output}");`,
-            frameId: info.frameId
-        });
-    }
-}
-
-/**
- * Apply new Unicode font settings.
- *
- * @param {Object} unicodeFont
- * @returns {void}
- */
-function applySettings(unicodeFont) {
-    const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
-
-    menus.removeAll();
-
-    for (const transformationId of menuStructure) {
-        if (transformationId === SEPARATOR_ID) {
-            menus.create({
-                // id: id,
-                type: "separator",
-                contexts: ["editable"]
-            });
-            continue;
-        }
-
-        const transformationType = getTransformationType(transformationId);
-        if (transformationType == TRANSFORMATION_TYPE.CASING &&
-            !unicodeFont.changeCase) {
-            continue;
-        }
-        if (transformationType == TRANSFORMATION_TYPE.FONT &&
-            !unicodeFont.changeFont) {
-            continue;
-        }
-
-        const translatedMenuText = browser.i18n.getMessage(transformationId);
-        let translatedMenuTextTransformed = transformText(translatedMenuText, transformationId);
-
-        menus.create({
-            "id": transformationId,
-            "title": translatedMenuTextTransformed,
-            "contexts": ["editable"],
-        });
-    }
-}
-
-/**
- * Init Unicode font module.
- *
- * @public
- * @returns {void}
- */
-export async function init() {
-    if (await isMobile()) {
-        return;
-    }
-
-    const unicodeFont = await AddonSettings.get("unicodeFont");
-
-    applySettings(unicodeFont);
-
-    const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
-
-    menus.onClicked.addListener(handle);
-
-    BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, (request) => {
-        // clear cache by reloading all options
-        // await AddonSettings.loadOptions();
-
-        return applySettings(request.optionValue);
-    });
-}
