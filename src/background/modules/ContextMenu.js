@@ -14,7 +14,7 @@ import { menuStructure, SEPARATOR_ID, TRANSFORMATION_TYPE } from "/common/module
  * @returns {void}
  * @throws {Error}
  */
-function handle(info, tab) {
+function handleMenuChoosen(info, tab) {
     let text = info.selectionText;
 
     if (text) {
@@ -30,12 +30,12 @@ function handle(info, tab) {
 }
 
 /**
- * Apply new Unicode font settings.
+ * Apply (new) menu item settings by (re)creating the context menu.
  *
  * @param {Object} unicodeFontSettings
  * @returns {void}
  */
-function applySettings(unicodeFontSettings) {
+function buildMenu(unicodeFontSettings) {
     const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
     menus.removeAll();
@@ -84,16 +84,16 @@ export async function init() {
 
     const unicodeFontSettings = await AddonSettings.get("unicodeFont");
 
-    applySettings(unicodeFontSettings);
+    buildMenu(unicodeFontSettings);
 
     const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 
-    menus.onClicked.addListener(handle);
+    menus.onClicked.addListener(handleMenuChoosen);
 
     BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, (request) => {
         // clear cache by reloading all options
         // await AddonSettings.loadOptions();
 
-        return applySettings(request.optionValue);
+        return buildMenu(request.optionValue);
     });
 }
