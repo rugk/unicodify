@@ -68,9 +68,14 @@ function buildMenu(unicodeFontSettings) {
         const translatedMenuText = browser.i18n.getMessage(transformationId);
         let translatedMenuTextTransformed = UnicodeTransformationHandler.transformText(translatedMenuText, transformationId);
 
+        let menuText = translatedMenuTextTransformed;
+        if (unicodeFontSettings.showReadableText) {
+            menuText = browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, translatedMenuTextTransformed]);
+        };
+
         menus.create({
             "id": transformationId,
-            "title": translatedMenuTextTransformed,
+            "title": menuText,
             "contexts": ["editable"],
         });
         addedEntries = true;

@@ -44,6 +44,21 @@
   },
 
   // context menu
+  "menuReadableTextWrapper": {
+    "message": "$READABLE_TEXT$ – $TRANSFORMED_EXAMPLE$",
+    "description": "The wrapper that is enabled if you enable the showReadableText option to also show the text without transformation",
+    "placeholders": {
+      "readable_text": {
+        "content": "$1",
+        "example": "Superscript"
+      },
+      "transformed_example": {
+        "content": "$2",
+        "example": "ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ"
+      }
+    }
+  },
+
   "menuCaseLowercase": {
     "message": "Lowercase",
     "description": "An entry in the context menu. This is an entry for the case."
@@ -277,6 +292,14 @@
   },
   "optionMenuCasingDescr": {
     "message": "For example, “UPPER CASE”, “lower case”, “Capitalize Each Word” or “tOGGLE cASE”.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+  },
+  "optionMenuShowReadableText": {
+    "message": "Show a readable description of the transformation",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionMenuShowReadableTextDescr": {
+    "message": "In addition to the examples of the transformation, this also shows the name of transformation as text.",
     "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
   },
 
