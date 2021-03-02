@@ -12,9 +12,9 @@ import { fontLetters, CASE_ID_PREFIX, FONT_ID_PREFIX, TRANSFORMATION_TYPE } from
 export function transformText(text, transformationId) {
     let output = null;
     const transformationType = getTransformationType(transformationId);
-    if (transformationType == TRANSFORMATION_TYPE.CASING) {
+    if (transformationType === TRANSFORMATION_TYPE.CASING) {
         output = changeCase[transformationId](text);
-    } else if (transformationType == TRANSFORMATION_TYPE.FONT) {
+    } else if (transformationType === TRANSFORMATION_TYPE.FONT) {
         output = changeFont(text, transformationId);
     } else {
         throw new Error(`Transformation with id=${transformationId} is unknown and could not be processed.`);
@@ -71,25 +71,27 @@ function changeFont(text, chosenFont) {
     if (!font) {
         throw new Error(`Font ${chosenFont} could not be processed.`);
     }
-    let output = '';
+    let output = "";
 
     for (let letter of text) {
         const code = letter.charCodeAt(0);
         if (code >= 33 && code <= 127) {
-            if (font.length == 94)
-                letter = font[code - '!'.charCodeAt(0)];
-            else if (letter >= 'A' && letter <= 'Z') {
-                letter = font[code - 'A'.charCodeAt(0)];
-            } else if (letter >= 'a' && letter <= 'z') {
-                if (font.length == 26 || font.length == 26 + 10)
-                    letter = font[code - 'a'.charCodeAt(0)];
-                else if (font.length == 26 + 26 || font.length == 26 + 26 + 10)
-                    letter = font[code - 'a'.charCodeAt(0) + 26];
-            } else if (letter >= '0' && letter <= '9') {
-                if (font.length == 26 + 10)
-                    letter = font[code - '0'.charCodeAt(0) + 26];
-                else if (font.length == 26 + 26 + 10)
-                    letter = font[code - '0'.charCodeAt(0) + 26 + 26];
+            if (font.length === 94) {
+                letter = font[code - "!".charCodeAt(0)];
+            } else if (letter >= "A" && letter <= "Z") {
+                letter = font[code - "A".charCodeAt(0)];
+            } else if (letter >= "a" && letter <= "z") {
+                if (font.length === 26 || font.length === 26 + 10) {
+                    letter = font[code - "a".charCodeAt(0)];
+                } else if (font.length === 26 + 26 || font.length === 26 + 26 + 10) {
+                    letter = font[code - "a".charCodeAt(0) + 26];
+                }
+            } else if (letter >= "0" && letter <= "9") {
+                if (font.length === 26 + 10) {
+                    letter = font[code - "0".charCodeAt(0) + 26];
+                } else if (font.length === 26 + 26 + 10) {
+                    letter = font[code - "0".charCodeAt(0) + 26 + 26];
+                }
             }
         }
         output += letter;
@@ -105,15 +107,16 @@ function changeFont(text, chosenFont) {
  * @returns {string}
  */
 function toggleCase(atext) {
-    let output = '';
+    let output = "";
 
     for (let letter of atext) {
         const upper = letter.toLocaleUpperCase();
         const lower = letter.toLocaleLowerCase();
-        if (letter === lower && letter !== upper)
+        if (letter === lower && letter !== upper) {
             letter = upper;
-        else if (letter === upper && letter !== lower)
+        } else if (letter === upper && letter !== lower) {
             letter = lower;
+        }
         output += letter;
     }
 
@@ -127,8 +130,8 @@ function toggleCase(atext) {
  * @type {Object.<string, function>}
  */
 const changeCase = Object.freeze({
-    "menuCaseLowercase": (str) => str.toLocaleLowerCase(),
-    "menuCaseUppercase": (str) => str.toLocaleUpperCase(),
-    "menuCaseCapitalizeEachWord": (str) => capitalizeEachWord(str.toLocaleLowerCase()),
-    "menuCaseToggleCase": (str) => toggleCase(str)
+    [`${CASE_ID_PREFIX}Lowercase`]: (str) => str.toLocaleLowerCase(),
+    [`${CASE_ID_PREFIX}Uppercase`]: (str) => str.toLocaleUpperCase(),
+    [`${CASE_ID_PREFIX}CapitalizeEachWord`]: (str) => capitalizeEachWord(str.toLocaleLowerCase()),
+    [`${CASE_ID_PREFIX}ToggleCase`]: (str) => toggleCase(str)
 });

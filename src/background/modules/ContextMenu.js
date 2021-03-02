@@ -1,4 +1,4 @@
-import * as UnicodeTransformationHandler from "/common/modules/UnicodeTransformationHandler.js"
+import * as UnicodeTransformationHandler from "/common/modules/UnicodeTransformationHandler.js";
 import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
 import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
 import { isMobile } from "/common/modules/MobileHelper.js";
@@ -45,7 +45,7 @@ function handleMenuChoosen(info, tab) {
  * @throws {Error}
  */
 async function handleMenuShown(info) {
-    let text = info.selectionText || "";
+    let text = info.selectionText;
 
     // do not show menu entry when no text is selected
     if (!text) {
@@ -62,7 +62,7 @@ async function handleMenuShown(info) {
     const menuIsShown = info.menuIds.length > 0;
     if (!lastCachedUnicodeFontSettings.livePreview) {
         if (menuIsShown) {
-            return;
+            return Promise.resolve();
         }
 
         // continue re-creating deleted menu, but without any example text
@@ -72,6 +72,7 @@ async function handleMenuShown(info) {
     buildMenu(lastCachedUnicodeFontSettings, text, menuIsShown);
 
     menus.refresh();
+    return Promise.resolve();
 }
 
 /**
@@ -83,7 +84,7 @@ async function handleMenuShown(info) {
  * @returns {void}
  */
 function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false) {
-    var addedEntries = false;
+    let addedEntries = false;
     for (const transformationId of menuStructure) {
         if (transformationId === SEPARATOR_ID) {
             if (!addedEntries || refreshMenu) {
@@ -99,11 +100,11 @@ function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false)
         }
 
         const transformationType = UnicodeTransformationHandler.getTransformationType(transformationId);
-        if (transformationType == TRANSFORMATION_TYPE.CASING &&
+        if (transformationType === TRANSFORMATION_TYPE.CASING &&
             !unicodeFontSettings.changeCase) {
             continue;
         }
-        if (transformationType == TRANSFORMATION_TYPE.FONT &&
+        if (transformationType === TRANSFORMATION_TYPE.FONT &&
             !unicodeFontSettings.changeFont) {
             continue;
         }
@@ -113,12 +114,12 @@ function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false)
         if (unicodeFontSettings.livePreview && exampleText) {
             textToBeTransformed = exampleText;
         }
-        let transformedText = UnicodeTransformationHandler.transformText(textToBeTransformed, transformationId);
+        const transformedText = UnicodeTransformationHandler.transformText(textToBeTransformed, transformationId);
 
         let menuText = transformedText;
         if (unicodeFontSettings.showReadableText) {
             menuText = browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, transformedText]);
-        };
+        }
 
         if (refreshMenu) {
             menus.update(transformationId, {
