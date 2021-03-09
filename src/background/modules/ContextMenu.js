@@ -12,7 +12,9 @@ const PREVIEW_STRING_CUT_LENGTH = 1000; // a setting that may improve performanc
 let lastCachedUnicodeFontSettings = null;
 
 /**
- * Handle context menu click.
+ * Handle selection of a context menu item.
+ *
+ * This will trigger the actual action of transforming the selected text.
  *
  * @param {Object} info
  * @param {Object} tab
@@ -37,7 +39,11 @@ function handleMenuChoosen(info, tab) {
 }
 
 /**
- * Handle context menu click.
+ * Potentially adjust context menu display if it is shown.
+ *
+ * This does not always change some things, but it e.g.
+ * * hides the menu when no text is selected
+ * * and shows the result of the text transformation if the live preview feature is enabled
  *
  * @param {Object} info
  * @param {Object} tab
@@ -169,7 +175,7 @@ export async function init() {
 
     buildMenu(unicodeFontSettings);
 
-    // TODO: check Chrome/ium comaptibility here (this workaround should make it work for now)
+    // feature detection for this feature, as it is not compatible with CHrome/ium.
     if (menus.onShown) {
         menus.onShown.addListener(handleMenuShown);
     }
