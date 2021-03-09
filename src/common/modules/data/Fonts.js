@@ -47,39 +47,41 @@ export const FONT_ID_PREFIX = "menuFont";
  *
  * @public
  * @const
- * @type {Object.<string>}
+ * @type {Object.<Symbol, string[]>}
  */
-export const menuStructure = Object.freeze([
-    `${FONT_ID_PREFIX}Superscript`,
-    `${FONT_ID_PREFIX}SmallCaps`,
-    `${FONT_ID_PREFIX}AllSmallCaps`,
-    `${FONT_ID_PREFIX}Unicase`,
-    SEPARATOR_ID,
-    `${FONT_ID_PREFIX}SerifBold`,
-    `${FONT_ID_PREFIX}SerifItalic`,
-    `${FONT_ID_PREFIX}SerifBoldItalic`,
-    `${FONT_ID_PREFIX}SansSerif`,
-    `${FONT_ID_PREFIX}SansSerifBold`,
-    `${FONT_ID_PREFIX}SansSerifItalic`,
-    `${FONT_ID_PREFIX}SansSerifBoldItalic`,
-    `${FONT_ID_PREFIX}Script`,
-    `${FONT_ID_PREFIX}ScriptBold`,
-    `${FONT_ID_PREFIX}ScriptFraktur`,
-    `${FONT_ID_PREFIX}FrakturBold`,
-    `${FONT_ID_PREFIX}Monospace`,
-    `${FONT_ID_PREFIX}DoubleStruck`,
-    SEPARATOR_ID,
-    `${FONT_ID_PREFIX}Circled`,
-    `${FONT_ID_PREFIX}CircledBlack`,
-    `${FONT_ID_PREFIX}Squared`,
-    `${FONT_ID_PREFIX}SquaredBlack`,
-    `${FONT_ID_PREFIX}Fullwidth`,
-    SEPARATOR_ID,
-    `${CASE_ID_PREFIX}Lowercase`,
-    `${CASE_ID_PREFIX}Uppercase`,
-    `${CASE_ID_PREFIX}CapitalizeEachWord`,
-    `${CASE_ID_PREFIX}ToggleCase`
-]);
+export const menuStructure = Object.freeze({
+    [TRANSFORMATION_TYPE.FONT]: [
+        `${FONT_ID_PREFIX}Superscript`,
+        `${FONT_ID_PREFIX}SmallCaps`,
+        `${FONT_ID_PREFIX}AllSmallCaps`,
+        `${FONT_ID_PREFIX}Unicase`,
+        SEPARATOR_ID,
+        `${FONT_ID_PREFIX}SerifBold`,
+        `${FONT_ID_PREFIX}SerifItalic`,
+        `${FONT_ID_PREFIX}SerifBoldItalic`,
+        `${FONT_ID_PREFIX}SansSerif`,
+        `${FONT_ID_PREFIX}SansSerifBold`,
+        `${FONT_ID_PREFIX}SansSerifItalic`,
+        `${FONT_ID_PREFIX}SansSerifBoldItalic`,
+        `${FONT_ID_PREFIX}Script`,
+        `${FONT_ID_PREFIX}ScriptBold`,
+        `${FONT_ID_PREFIX}ScriptFraktur`,
+        `${FONT_ID_PREFIX}FrakturBold`,
+        `${FONT_ID_PREFIX}Monospace`,
+        `${FONT_ID_PREFIX}DoubleStruck`,
+        `${FONT_ID_PREFIX}Circled`,
+        `${FONT_ID_PREFIX}CircledBlack`,
+        `${FONT_ID_PREFIX}Squared`,
+        `${FONT_ID_PREFIX}SquaredBlack`,
+        `${FONT_ID_PREFIX}Fullwidth`,
+    ],
+    [TRANSFORMATION_TYPE.CASING]: [
+        `${CASE_ID_PREFIX}Lowercase`,
+        `${CASE_ID_PREFIX}Uppercase`,
+        `${CASE_ID_PREFIX}CapitalizeEachWord`,
+        `${CASE_ID_PREFIX}ToggleCase`
+    ]
+});
 
 /**
  * Unicode fonts

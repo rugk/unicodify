@@ -84,10 +84,36 @@ async function handleMenuShown(info) {
  * @returns {void}
  */
 function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false) {
-    let addedEntries = false;
-    for (const transformationId of menuStructure) {
+    if (unicodeFontSettings.changeFont) {
+        addMenuItems(menuStructure[TRANSFORMATION_TYPE.FONT], unicodeFontSettings, exampleText, refreshMenu);
+    }
+    if (unicodeFontSettings.changeFont &&
+        unicodeFontSettings.changeCase &&
+        !refreshMenu) {
+        menus.create({
+            id: "seperator-case-font",
+            type: "separator",
+            contexts: ["editable"]
+        });
+    }
+    if (unicodeFontSettings.changeCase) {
+        addMenuItems(menuStructure[TRANSFORMATION_TYPE.CASING], unicodeFontSettings, exampleText, refreshMenu);
+    }
+}
+
+/**
+ * Add Unicode menu items.
+ *
+ * @param {string[]} menuItems
+ * @param {Object} [unicodeFontSettings]
+ * @param {string?} [exampleText=null]
+ * @param {bool?} [refreshMenu=false]
+ * @returns {void}
+ */
+function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSettings, exampleText = null, refreshMenu = false) {
+    for (const transformationId of menuItems) {
         if (transformationId === SEPARATOR_ID) {
-            if (!addedEntries || refreshMenu) {
+            if (refreshMenu) {
                 continue;
             }
 
@@ -96,16 +122,6 @@ function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false)
                 type: "separator",
                 contexts: ["editable"]
             });
-            continue;
-        }
-
-        const transformationType = UnicodeTransformationHandler.getTransformationType(transformationId);
-        if (transformationType === TRANSFORMATION_TYPE.CASING &&
-            !unicodeFontSettings.changeCase) {
-            continue;
-        }
-        if (transformationType === TRANSFORMATION_TYPE.FONT &&
-            !unicodeFontSettings.changeFont) {
             continue;
         }
 
@@ -132,9 +148,7 @@ function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false)
                 "title": menuText,
                 "contexts": ["editable"],
             });
-
         }
-        addedEntries = true;
     }
 }
 
