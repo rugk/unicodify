@@ -13,7 +13,7 @@ const smallCaps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠ�
 export const TRANSFORMATION_TYPE = Object.freeze({
     CASING: Symbol("casing transformation"),
     FONT: Symbol("font transformation")
-})
+});
 
 /**
  * Separater symbol
@@ -31,7 +31,7 @@ export const SEPARATOR_ID = Symbol("separator");
  * @const
  * @type {Symbol}
  */
-export const CASE_ID_PREFIX = `menuCase`;
+export const CASE_ID_PREFIX = "menuCase";
 
 /**
  * Unique prefix for all IDs related to fonts.
@@ -40,7 +40,7 @@ export const CASE_ID_PREFIX = `menuCase`;
  * @const
  * @type {string}
  */
-export const FONT_ID_PREFIX = `menuFont`;
+export const FONT_ID_PREFIX = "menuFont";
 
 /**
  * The structure of the context menu.
