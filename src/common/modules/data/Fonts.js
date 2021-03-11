@@ -69,6 +69,7 @@ export const menuStructure = Object.freeze({
         `${FONT_ID_PREFIX}FrakturBold`,
         `${FONT_ID_PREFIX}Monospace`,
         `${FONT_ID_PREFIX}DoubleStruck`,
+        SEPARATOR_ID,
         `${FONT_ID_PREFIX}Circled`,
         `${FONT_ID_PREFIX}CircledBlack`,
         `${FONT_ID_PREFIX}Squared`,
