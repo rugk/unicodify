@@ -31,9 +31,9 @@ assignees: ''
 ## Reproducibility on test website
 <!-- Please go to https://rugk.github.io/unicodify/ and try to reproduce your issue there. -->
 
-* [ ] Issue is reproducible on https://rugk.github.io/unicodify/ for text **input fields**.
-* [ ] Issue is reproducible on https://rugk.github.io/unicodify/ for **textarea fields**.
-* [ ] Issue is reproducible on https://rugk.github.io/unicodify/ for **ContentEditable Divs**.
+* [ ] Issue is reproducible on https://rugk.github.io/unicodify/ for [text **input fields**](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text).
+* [ ] Issue is reproducible on https://rugk.github.io/unicodify/ for [**textarea fields**](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea).
+* [ ] Issue is reproducible on https://rugk.github.io/unicodify/ for [**ContentEditable Divs**](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable).
 * [ ] Issue is not reproducible on https://rugk.github.io/unicodify/
 
 <!-- If applicable, explain the differing behaviour here in detail and/or add screenshots. -->
