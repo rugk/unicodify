@@ -1,9 +1,9 @@
-# Unicodify – Text reshaper <img align="right" height="425" width="365" src="assets/screencasts/example.gif">
+# Unicodify – Text transformer <img align="right" height="425" width="365" src="assets/screencasts/example.gif">
 
-[![Mozilla Add-on version](https://img.shields.io/amo/v/unicodify-text-reshaper.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/?src=external-github-shield-downloads)  
-[![Mozilla Add-on downloads](https://img.shields.io/amo/d/unicodify-text-reshaper.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/?src=external-github-shield-downloads)
-[![Mozilla Add-on users](https://img.shields.io/amo/users/unicodify-text-reshaper.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/)
-[![Mozilla Add-on stars](https://img.shields.io/amo/stars/unicodify-text-reshaper.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/reviews/)
+[![Mozilla Add-on version](https://img.shields.io/amo/v/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?src=external-github-shield-downloads)  
+[![Mozilla Add-on downloads](https://img.shields.io/amo/d/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?src=external-github-shield-downloads)
+[![Mozilla Add-on users](https://img.shields.io/amo/users/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/)
+[![Mozilla Add-on stars](https://img.shields.io/amo/stars/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/reviews/)
 
 <img height="200" width="200" src="assets/header.svg">
 
@@ -18,7 +18,7 @@ It is inspired by …. This extension only works with modern Firefox and Thunder
 
 ## Download
 
-**[![Get it for Firefox!](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png)](https://addons.mozilla.org/firefox/addon/unicodify-text-reshaper/?src=external-github-download)**
+**[![Get it for Firefox!](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?src=external-github-download)**
 
 ## In action…
 

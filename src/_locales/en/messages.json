@@ -1,7 +1,7 @@
 {
   // manifest.json
   "extensionName": {
-    "message": "Unicodify – Text reshaper",
+    "message": "Unicodify – Text transformer",
     "description": "Name of the extension."
   },
   "extensionNameShort": {
