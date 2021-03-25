@@ -28,6 +28,16 @@ assignees: ''
 ### Expected behavior
 <!-- A clear and concise description of what you expected to happen. -->
 
+## Reproducibility on test website
+<!-- Please go to https://rugk.github.io/unicodify/ and try to reproduce your issue there. -->
+
+* [ ] Issue is reproducible on https://rugk.github.io/unicodify/ for text **input fields**.
+* [ ] Issue is reproducible on https://rugk.github.io/unicodify/ for **textarea fields**.
+* [ ] Issue is reproducible on https://rugk.github.io/unicodify/ for **ContentEditable Divs**.
+* [ ] Issue is not reproducible on https://rugk.github.io/unicodify/
+
+<!-- If applicable, explain the differing behaviour here in detail and/or add screenshots. -->
+
 ## System
 <!-- Add some information about your system. You can omit values if you think they are really not necessary. -->
 
