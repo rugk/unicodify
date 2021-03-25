@@ -1,4 +1,4 @@
-## Unicodify – Text reshaper license
+## Unicodify – Text transformer license
 
 Copyright (c) 2020 Teal Dulcet, rugk and contributors
 
