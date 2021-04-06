@@ -9,7 +9,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="unicodify-icon.svg"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
    id="svg8"
    version="1.1"
    viewBox="0 0 96.043767 96.043816"
@@ -73,7 +73,7 @@
      inkscape:cx="207.7373"
      inkscape:cy="213.35766"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer8"
+     inkscape:current-layer="layer4"
      showgrid="true"
      inkscape:window-width="1920"
      inkscape:window-height="1016"
@@ -334,7 +334,7 @@
        style="display:inline">
       <text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:128.682px;line-height:1.25;font-family:'TeX Gyre Pagella Math';-inkscape-font-specification:'TeX Gyre Pagella Math';letter-spacing:0px;word-spacing:0px;fill:#ff9400;fill-opacity:1;stroke:none;stroke-width:0.670213"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:128.682px;line-height:1.25;font-family:'TeX Gyre Pagella Math';-inkscape-font-specification:'TeX Gyre Pagella Math';letter-spacing:0px;word-spacing:0px;fill:#ff1ad9;fill-opacity:1;stroke:none;stroke-width:0.670213;"
          x="-77.452072"
          y="-4.4434071"
          id="text852-3-3-9"
@@ -343,7 +343,7 @@
            id="tspan850-6-5-3"
            x="-77.452072"
            y="-4.4434071"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:128.682px;font-family:'TeX Gyre Pagella Math';-inkscape-font-specification:'TeX Gyre Pagella Math';fill:#ff9400;fill-opacity:1;stroke-width:0.670213"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:128.682px;font-family:'TeX Gyre Pagella Math';-inkscape-font-specification:'TeX Gyre Pagella Math';fill:#ff1ad9;fill-opacity:1;stroke-width:0.670213;"
            dy="0">υ</tspan></text>
       <g
          aria-label="υ"
@@ -359,10 +359,10 @@
          aria-label="υ"
          transform="rotate(178.91986,-19.661134,-41.145392)"
          id="text852-3-7-6-9"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:128.682px;line-height:1.25;font-family:'TeX Gyre Pagella Math';-inkscape-font-specification:'TeX Gyre Pagella Math';letter-spacing:0px;word-spacing:0px;display:inline;fill:#ff9400;fill-opacity:1;stroke:none;stroke-width:0.670214">
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:128.682px;line-height:1.25;font-family:'TeX Gyre Pagella Math';-inkscape-font-specification:'TeX Gyre Pagella Math';letter-spacing:0px;word-spacing:0px;display:inline;fill:#ff1ad9;fill-opacity:1;stroke:none;stroke-width:0.670214">
         <path
            d="m -48.262282,-140.76296 c -1.28682,-7.46355 -5.533327,-12.61083 -10.551925,-12.61083 -1.93023,0 -3.21705,0.51472 -4.246506,1.54418 l -8.557136,8.6171 -0.183646,5.66029 c 1.029456,-0.77209 7.067916,-6.94252 8.483418,-6.94252 3.731778,0 6.305418,2.95969 7.206192,8.10697 3.345732,19.17362 -6.048054,40.020104 -18.015481,40.020104 -6.562782,0 -11.710062,-5.275964 -13.125564,-13.768974 -0.386046,-1.93023 -0.514728,-3.47441 -0.257364,-6.82015 l 1.28682,-26.89454 c 0,-2.05891 0,-3.86046 -0.257364,-5.53332 -0.514728,-2.44496 -1.801548,-3.98914 -3.731779,-3.98914 -2.831004,0 -7.023507,2.99101 -16.213933,9.52246 l -6.21758,4.41294 0.13798,4.28499 7.88115,-6.25297 c 3.60309,-2.31627 4.761233,-2.95968 6.048053,-2.95968 1.28682,0 2.444958,1.15813 2.702322,2.57364 0.128682,0.64341 0.128682,1.67286 0.128682,2.31627 l -1.158138,29.3395 c 0,1.02946 0.257364,2.18759 0.386046,3.21705 1.801548,10.037196 9.136423,16.986024 17.886799,16.986024 5.919372,0 11.066653,-2.57364 16.471297,-8.36433 4.889916,-5.275964 9.393786,-13.382924 11.967427,-21.489894 2.187594,-6.82015 2.959686,-15.57052 1.93023,-20.97517 z"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:128.682px;font-family:'TeX Gyre Pagella Math';-inkscape-font-specification:'TeX Gyre Pagella Math';fill:#ff9400;fill-opacity:1;stroke-width:0.670214"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:128.682px;font-family:'TeX Gyre Pagella Math';-inkscape-font-specification:'TeX Gyre Pagella Math';fill:#ff1ad9;fill-opacity:1;stroke-width:0.670214"
            id="path1904-0-1-2"
            sodipodi:nodetypes="cscccscsccccsscccsccccsccc" />
       </g>
