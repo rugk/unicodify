@@ -238,10 +238,6 @@
     "message": ":Doppelpunkt:",
     "description": "This is included in code-style in optionHelperTextAutocorrectionEmoji."
   },
-  "optionHelperTextAutocorrectionEmojiLink": {
-    "message": "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/",
-    "description": "The target for the link provided in optionHelperTextAutocorrectionEmoji. Usually should not be modified and link to the AMO page of the Awesome Emoji Picker. It does redirect to the correct language automatically."
-  },
   "optionHelperTextAutocorrectionEmojiLinkText": {
     "message": "🤩\u00a0Awesome Emoji Picker",
     "description": "The text for the link provided in optionHelperTextAutocorrectionEmoji. Should be the official name of the emoji picker add-on in your language."

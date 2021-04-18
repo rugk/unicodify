@@ -102,7 +102,7 @@ const tipArray = [
         text: "tipYouLikeAddon",
         actionButton: {
             text: "tipYouLikeAddonButton",
-            action: "https://addons.mozilla.org/firefox/addon/.../reviews/"
+            action: "https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-tipYouLikeAddon"
         }
     },
     {
@@ -118,7 +118,7 @@ const tipArray = [
         text: "tipAwesomeIcons",
         actionButton: {
             text: "tipAwesomeIconsButton",
-            action: "https://addons.mozilla.org/firefox/addon/.../reviews/"
+            action: "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons"
         }
     }
 ];
