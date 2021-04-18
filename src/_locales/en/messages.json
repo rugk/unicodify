@@ -46,7 +46,7 @@
   // context menu
   "menuReadableTextWrapper": {
     "message": "$READABLE_TEXT$ – $TRANSFORMED_EXAMPLE$",
-    "description": "The wrapper that is enabled if you enable the showReadableText option to also show the text without transformation",
+    "description": "The wrapper that is enabled if you enable the showReadableText option to also show the text without transformation. Usually does not need to be translated.",
     "placeholders": {
       "readable_text": {
         "content": "$1",
@@ -347,7 +347,7 @@
     }
   },
   "contributorsThanksLink": {
-    "message": "https://github.com/rugk/awesome-emoji-picker/blob/master/CONTRIBUTORS.md",
+    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTORS.md",
     "description": "The link to the CONTRIBUTORS file."
   },
   "contributorsThanksLinkText": {
