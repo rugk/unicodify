@@ -43,6 +43,24 @@
     "description": "The message shown, when the options of the settings could not have been reset."
   },
 
+  // tips
+  "tipYouLikeAddon": {
+    "message": "You like this add-on?",
+    "description": "A tip shown to remind the user to rate the addon."
+  },
+  "tipYouLikeAddonButton": {
+    "message": "Rate it",
+    "description": "Button for the tip shown to remind the user to rate the addon."
+  },
+  "tipAwesomeIcons": {
+    "message": "Also want emoji autocompletion? We have another add-on for that…",
+    "description": "A tip shown to remind the user to rate the addon."
+  },
+  "tipAwesomeIconsButton": {
+    "message": "Try it",
+    "description": "Button for the tip shown to remind the user to rate the addon."
+  },
+
   // context menu
   "menuReadableTextWrapper": {
     "message": "$READABLE_TEXT$ – $TRANSFORMED_EXAMPLE$",
