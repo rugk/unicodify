@@ -32,9 +32,9 @@
  * given number of times. See {@link RandomTips.setContext}.
  * @property {bool|integer} [randomizeDisplay=false] Randomizes the display with a
  * chance of 50% by default (when set to `true`). You can override that percentage
- * by specifying an integer < 1 (e.g. 0.2 for a 20% chance) as a propbability.
+ * by specifying an integer < 1 (e.g. 0.2 for a 20% chance) as a propability.
  * The chance is the chance that the tip *is shown*, i.e. the tip is shown for
- * <= p and not shown for < p if p is the propbability you pass.
+ * <= p and not shown for > p if p is the propbability you pass.
  * Note that the tip message display in general is already randomized
  * with a chance of 20%, see {@link RandomTips.GLOBAL_RANDOMIZE}.
  * @property {string} text The text to actually show. It is passed to the
