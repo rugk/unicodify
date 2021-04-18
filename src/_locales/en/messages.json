@@ -239,7 +239,7 @@
     "description": "This is included in code-style in optionHelperTextAutocorrectionEmoji."
   },
   "optionHelperTextAutocorrectionEmojiLink": {
-    "message": "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-options-page",
+    "message": "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-options-page&utm_campaign=unicodify-options-page-inline-link",
     "description": "The target for the link provided in optionHelperTextAutocorrectionEmoji. Usually should not be modified and link to the AMO page of the Awesome Emoji Picker. It does redirect to the correct language automatically."
   },
   "optionHelperTextAutocorrectionEmojiLinkText": {
