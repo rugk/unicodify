@@ -45,5 +45,5 @@ See:
 * Follows the [Firefox](https://design.firefox.com/photon) and [Thunderbird](https://style.thunderbird.net/) Photon Design.
 * Puts your privacy first and does not send data anywhere.
 * Compatible with Firefox for Android.
-* Translated into several languages. [Contribute your own language!](https://github.com/rugk/unicodify/blob/main/CONTRIBUTING.md#Translations)
+* Translated into several languages. [Contribute your own language!](./CONTRIBUTING.md#Translations)
 * Settings can be managed by your administrator.
