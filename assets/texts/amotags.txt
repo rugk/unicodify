@@ -1,1 +1,1 @@
-transform, text, manipulate, change, camel case, upper case, lower case, casing, font, style, script, fractur, autocorrect, autocorrection, auto-correct, auto-correction
+transform, text, manipulate, change, upper case, lower case, casing, font, style, script, fractur, autocorrect, autocorrection, auto-correct, auto-correction

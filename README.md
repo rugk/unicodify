@@ -10,7 +10,7 @@
 This is a (Firefox and Thunderbird) add-on (WebExtension) that allows you to autocorrect common text sequences and convert text characters to a look like a special font.
 For instance, it converts quotes like `"these"` to `“these”`, which are typographically correct.
 
-Additionally, you can convert text into more than 20 different font styles and camel casing changes.
+Additionally, you can convert text into more than 20 different font styles and casing changes.
 You can enable and disable any features in the options and adjust more settings regarding the behavior of the add-on.
 
 This extension only works with modern Firefox and Thunderbird v78 or higher.
