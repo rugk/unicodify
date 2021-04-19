@@ -1,9 +1,9 @@
 # Unicodify – Text transformer <img align="right" height="425" width="365" src="assets/screencasts/example.gif">
 
-[![Mozilla Add-on version](https://img.shields.io/amo/v/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?src=external-github-shield-downloads)  
-[![Mozilla Add-on downloads](https://img.shields.io/amo/d/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?src=external-github-shield-downloads)
-[![Mozilla Add-on users](https://img.shields.io/amo/users/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/)
-[![Mozilla Add-on stars](https://img.shields.io/amo/stars/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/reviews/)
+[![Mozilla Add-on version](https://img.shields.io/amo/v/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?utm_source=github.com&utm_medium=git&utm_content=badge-version&utm_campaign=github)  
+[![Mozilla Add-on downloads](https://img.shields.io/amo/d/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?utm_source=github.com&utm_medium=git&utm_content=badge-downloads&utm_campaign=github)
+[![Mozilla Add-on users](https://img.shields.io/amo/users/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?utm_source=github.com&utm_medium=git&utm_content=badge-users&utm_campaign=github)
+[![Mozilla Add-on stars](https://img.shields.io/amo/stars/unicodify-text-transformer.svg)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/reviews/?utm_source=github.com&utm_medium=git&utm_content=badge-stars&utm_campaign=github)
 
 <img height="200" width="200" src="assets/header.svg">
 
@@ -18,7 +18,7 @@ It is inspired by …. This extension only works with modern Firefox and Thunder
 
 ## Download
 
-**[![Get it for Firefox!](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?src=external-github-download)**
+**[![Get it for Firefox!](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?utm_source=github.com&utm_medium=git&utm_content=download-button&&utm_campaign=github)**
 
 ## In action…
 
