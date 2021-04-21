@@ -81,6 +81,8 @@
  * @return {boolean|null}
  */
 
+import {userSpeaksLocaleNotYetTranslated} from "../LanguageHelper.js";
+
 /**
  * An array of all tips.
  *
@@ -119,6 +121,34 @@ const tipArray = [
         actionButton: {
             text: "tipAwesomeIconsButton",
             action: "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons"
+        }
+    },
+    {
+        id: "translateAddon",
+        requiredShowCount: 5,
+        maximumDismiss: 1,
+        requiredTriggers: 10,
+        randomizeDisplay: false,
+        text: "tipTranslateAddon",
+        actionButton: {
+            text: "tipLearnMore",
+            action: "tipTranslateAddonLink"
+        },
+        showTip: async (tipSpec) => {
+            // do not show tip if add-on is already translated into a locale the
+            // user speaks
+            if (!(await userSpeaksLocaleNotYetTranslated())) {
+                // Instead of returning false, we "just" make it unlikely that
+                // the tip is shown.
+                // This means we can be sure the tip is shown anyway to some
+                // users, who may speak a language we already have the add-on
+                // translated into it, as they can still improve translations etc.
+                tipSpec.randomizeDisplay = 0.10; // 10%
+
+                return null;
+            }
+
+            return null; // continue as normal
         }
     }
 ];

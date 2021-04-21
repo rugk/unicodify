@@ -60,6 +60,18 @@
     "message": "Try it",
     "description": "Button for the tip shown to remind the user to rate the addon."
   },
+  "tipTranslateAddon": {
+    "message": "If you speak another language you can help translating this add-on.",
+    "description": "A tip shown to users that potentially speak another language to translate this add-on."
+  },
+  "tipTranslateAddonLink": {
+    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTING.md#translations",
+    "description": "The link to a description of the translation service/way you can use."
+  },
+  "tipLearnMore": {
+    "message": "Learn more",
+    "description": "The common button for tips, where you can get more information on click."
+  },
 
   // context menu
   "menuReadableTextWrapper": {
