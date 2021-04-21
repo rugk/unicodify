@@ -104,7 +104,15 @@ const tipArray = [
         text: "tipYouLikeAddon",
         actionButton: {
             text: "tipYouLikeAddonButton",
-            action: "https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-tipYouLikeAddon"
+            action: ""
+        },
+        showTip: async (tipSpec, thisTipConfig) => {
+            thisTipConfig.actionButton.action = await getBrowserUrl({
+                firefox: "https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-tipYouLikeAddon",
+                thunderbird: "https://addons.thunderbird.net/thunderbird/addon/unicodify-text-transformer/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons",
+                chrome: "https://chrome.google.com/webstore/detail/unicodify-text-transformer/#...",
+            });
+            return null;
         }
     },
     {
@@ -120,7 +128,15 @@ const tipArray = [
         text: "tipAwesomeIcons",
         actionButton: {
             text: "tipAwesomeIconsButton",
-            action: "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons"
+            action: ""
+        },
+        showTip: async (tipSpec, thisTipConfig) => {
+            thisTipConfig.actionButton.action = await getBrowserUrl({
+                firefox: "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons",
+                thunderbird: "https://addons.thunderbird.net/thunderbird/addon/awesome-emoji-picker/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons",
+                chrome: "https://chrome.google.com/webstore/detail/awesome-emoji-picker/",
+            });
+            return null;
         }
     },
     {
@@ -152,6 +168,28 @@ const tipArray = [
         }
     }
 ];
+
+/**
+ * Returns a value based on what browser this is running in.
+
+ * @private
+ * @param  {Object} switchBrowser an object with values to return per browser
+ * @returns {string}
+ */
+async function getBrowserUrl(switchBrowser) {
+    const browserInfo = await browser.runtime.getBrowserInfo();
+
+    switch (browserInfo.vendor) {
+    case "Mozilla":
+        if (browserInfo.name === "Firefox") {
+            return switchBrowser.firefox;
+        } else {
+            return switchBrowser.thunderbird;
+        }
+    default:
+        return switchBrowser.chrome;
+    }
+}
 
 // freeze the inner tip objects, this is strongly recommend
 tipArray.forEach((object) => Object.freeze(object));
