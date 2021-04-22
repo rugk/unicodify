@@ -107,7 +107,7 @@ const tipArray = [
             action: ""
         },
         showTip: async (tipSpec, thisTipConfig) => {
-            thisTipConfig.actionButton.action = await getBrowserUrl({
+            thisTipConfig.actionButton.action = await getBrowserValue({
                 firefox: "https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-tipYouLikeAddon",
                 thunderbird: "https://addons.thunderbird.net/thunderbird/addon/unicodify-text-transformer/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons",
                 chrome: "https://chrome.google.com/webstore/detail/unicodify-text-transformer/#...",
@@ -131,7 +131,7 @@ const tipArray = [
             action: ""
         },
         showTip: async (tipSpec, thisTipConfig) => {
-            thisTipConfig.actionButton.action = await getBrowserUrl({
+            thisTipConfig.actionButton.action = await getBrowserValue({
                 firefox: "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons",
                 thunderbird: "https://addons.thunderbird.net/thunderbird/addon/awesome-emoji-picker/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons",
                 chrome: "https://chrome.google.com/webstore/detail/awesome-emoji-picker/",
@@ -176,17 +176,16 @@ const tipArray = [
  * @param  {Object} switchBrowser an object with values to return per browser
  * @returns {string}
  */
-async function getBrowserUrl(switchBrowser) {
-    const browserInfo = await browser.runtime.getBrowserInfo();
+async function getBrowserValue(switchBrowser) {
+    if (browser.runtime.getBrowserInfo) {
+        const browserInfo = await browser.runtime.getBrowserInfo();
 
-    switch (browserInfo.vendor) {
-    case "Mozilla":
-        if (browserInfo.name === "Firefox") {
-            return switchBrowser.firefox;
-        } else {
+        if (browserInfo.name === "Thunderbird") {
             return switchBrowser.thunderbird;
+        } else {
+            return switchBrowser.firefox;
         }
-    default:
+    } else {
         return switchBrowser.chrome;
     }
 }
