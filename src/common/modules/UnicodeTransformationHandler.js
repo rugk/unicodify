@@ -53,7 +53,7 @@ export function getTransformationType(transformationId) {
 function capitalizeEachWord(text) {
     // Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
     // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
-    return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(''));
+    return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(""));
 }
 
 /**

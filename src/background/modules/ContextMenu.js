@@ -7,7 +7,7 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
 import { menuStructure, SEPARATOR_ID, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
 const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
-const PREVIEW_STRING_CUT_LENGTH = 1000; // a setting that may improve performance by not calculating invisible parts of the context menu
+const PREVIEW_STRING_CUT_LENGTH = 100; // a setting that may improve performance by not calculating invisible parts of the context menu
 
 let lastCachedUnicodeFontSettings = null;
 
@@ -29,8 +29,7 @@ function handleMenuChoosen(info, tab) {
     }
 
     text = text.normalize();
-    const menuItem = info.menuItemId;
-    const output = UnicodeTransformationHandler.transformText(text, menuItem);
+    const output = UnicodeTransformationHandler.transformText(text, info.menuItemId);
 
     browser.tabs.executeScript(tab.id, {
         code: `insertIntoPage("${output}");`,
@@ -68,17 +67,16 @@ async function handleMenuShown(info) {
     const menuIsShown = info.menuIds.length > 0;
     if (!lastCachedUnicodeFontSettings.livePreview) {
         if (menuIsShown) {
-            return Promise.resolve();
+            return;
         }
 
         // continue re-creating deleted menu, but without any example text
         text = null;
     }
 
-    buildMenu(lastCachedUnicodeFontSettings, text, menuIsShown);
+    await buildMenu(lastCachedUnicodeFontSettings, text, menuIsShown);
 
     menus.refresh();
-    return Promise.resolve();
 }
 
 /**
@@ -89,21 +87,21 @@ async function handleMenuShown(info) {
  * @param {bool?} [refreshMenu=false]
  * @returns {void}
  */
-function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false) {
+async function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false) {
     if (unicodeFontSettings.changeFont) {
-        addMenuItems(menuStructure[TRANSFORMATION_TYPE.FONT], unicodeFontSettings, exampleText, refreshMenu);
+        await addMenuItems(menuStructure[TRANSFORMATION_TYPE.FONT], unicodeFontSettings, exampleText, refreshMenu);
     }
     if (unicodeFontSettings.changeFont &&
         unicodeFontSettings.changeCase &&
         !refreshMenu) {
-        menus.create({
+        await menus.create({
             id: "seperator-case-font",
             type: "separator",
             contexts: ["editable"]
         });
     }
     if (unicodeFontSettings.changeCase) {
-        addMenuItems(menuStructure[TRANSFORMATION_TYPE.CASING], unicodeFontSettings, exampleText, refreshMenu);
+        await addMenuItems(menuStructure[TRANSFORMATION_TYPE.CASING], unicodeFontSettings, exampleText, refreshMenu);
     }
 }
 
@@ -116,14 +114,14 @@ function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false)
  * @param {bool?} [refreshMenu=false]
  * @returns {void}
  */
-function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSettings, exampleText = null, refreshMenu = false) {
+async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSettings, exampleText = null, refreshMenu = false) {
     for (const transformationId of menuItems) {
         if (transformationId === SEPARATOR_ID) {
             if (refreshMenu) {
                 continue;
             }
 
-            menus.create({
+            await menus.create({
                 // id: id,
                 type: "separator",
                 contexts: ["editable"]
@@ -146,10 +144,9 @@ function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSett
         if (refreshMenu) {
             menus.update(transformationId, {
                 "title": menuText,
-                "contexts": ["editable"],
             });
         } else {
-            menus.create({
+            await menus.create({
                 "id": transformationId,
                 "title": menuText,
                 "contexts": ["editable"],
