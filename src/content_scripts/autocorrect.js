@@ -266,9 +266,8 @@ function firstDifferenceIndex(a, b) {
  * @returns {void}
  */
 function autocorrect(event) {
-    // console.log('keydown', event.key, event.key.length, event.keyCode);
-    // Exclude all keys that do not produce a single Unicode character
-    if (!((event.key.length === 0 || event.key.length === 1 || event.keyCode === 13 || event.key === "Unidentified") && !event.ctrlKey && !event.metaKey && !event.altKey)) {
+    // console.log('beforeinput', event.inputType, event.data);
+    if (!(event.inputType === "insertText" || event.inputType === "insertCompositionText" || event.inputType === "insertParagraph" || event.inputType === "insertLineBreak")) {
         return;
     }
     if (!symbolpatterns) {
@@ -279,11 +278,12 @@ function autocorrect(event) {
     if (caretposition) {
         const value = target.value || target.innerText;
         let deletecount = 0;
-        let insert = value.slice(caretposition - 1, caretposition); // event.key;
+        let insert = event.inputType === "insertLineBreak" || event.inputType === "insertParagraph" ? "\n" : event.data;
+        const ainsert = insert;
         let output = false;
         // Use Unicode smart quotes
         if (quotes && (insert === "'" || insert === '"')) {
-            const previouschar = value.slice(caretposition < 2 ? 0 : caretposition - 2, caretposition - 1);
+            const previouschar = value.slice(caretposition < 1 ? 0 : caretposition - 1, caretposition);
             // White space
             const re = /^\s*$/;
             if (insert === "'") {
@@ -291,19 +291,18 @@ function autocorrect(event) {
             } else if (insert === '"') {
                 insert = re.test(previouschar) ? "“" : "”";
             }
-            deletecount = 1;
             output = true;
         }
-        const previousText = value.slice(caretposition < (longest + 1) ? 0 : caretposition - (longest + 1), caretposition - 1);
+        const previousText = value.slice(caretposition < longest ? 0 : caretposition - longest, caretposition);
         const regexResult = symbolpatterns.exec(previousText);
         // Autocorrect Unicode Symbols
         if (regexResult) {
-            const text = value.slice(caretposition < longest ? 0 : caretposition - longest, caretposition);
+            const text = value.slice(caretposition < (longest - 1) ? 0 : caretposition - (longest - 1), caretposition) + ainsert;
             const aregexResult = symbolpatterns.exec(text);
             const aaregexResult = antipatterns.exec(text);
             if (!aaregexResult && (!aregexResult || (caretposition <= longest ? regexResult.index < aregexResult.index : regexResult.index <= aregexResult.index))) {
-                insert = autocorrections[regexResult[0]] + (event.keyCode === 13 ? "\n" : insert);
-                deletecount = regexResult[0].length + 1;
+                insert = autocorrections[regexResult[0]] + ainsert;
+                deletecount = regexResult[0].length;
                 output = true;
             }
         } else {
@@ -311,17 +310,17 @@ function autocorrect(event) {
             if (!output && fracts) {
                 // Numbers: https://regex101.com/r/7jUaSP/2
                 const numberRegex = /[0-9]+(\.[0-9]+)?$/;
-                const previousText = value.slice(0, caretposition - 1);
+                const previousText = value.slice(0, caretposition);
                 const regexResult = numberRegex.exec(previousText);
                 if (regexResult) {
-                    const text = value.slice(0, caretposition);
+                    const text = value.slice(0, caretposition) + ainsert;
                     const aregexResult = numberRegex.exec(text);
                     if (!aregexResult) {
                         const label = outputLabel(regexResult[0], regexResult[1]);
                         const index = firstDifferenceIndex(label, regexResult[0]);
                         if (index >= 0) {
-                            insert = label.slice(index) + (event.keyCode === 13 ? "\n" : insert);
-                            deletecount = regexResult[0].length - index + 1;
+                            insert = label.slice(index) + ainsert;
+                            deletecount = regexResult[0].length - index;
                             output = true;
                         }
                     }
@@ -329,13 +328,17 @@ function autocorrect(event) {
             }
         }
         if (output) {
-            const text = value.slice(caretposition - deletecount, caretposition);
-            deleteCaret(target, text);
+            event.preventDefault();
+
+            const text = deletecount ? value.slice(caretposition - deletecount, caretposition) : "";
+            if (text) {
+                deleteCaret(target, text);
+            }
             insertAtCaret(target, insert);
-            console.debug("Autocorrect: “%s” was replaced with “%s”.", text, insert);
 
             insertedText = insert;
-            deletedText = text;
+            deletedText = text + ainsert;
+            console.debug("Autocorrect: “%s” was replaced with “%s”.", deletedText, insertedText);
 
             lastTarget = target;
             lastCaretPosition = caretposition - deletecount + insert.length;
@@ -350,9 +353,9 @@ function autocorrect(event) {
  * @returns {void}
  */
 function undoAutocorrect(event) {
-    // console.log('keyup', event.key, event.key.length, event.keyCode);
+    // console.log('beforeinput', event.inputType, event.data);
     // Backspace
-    if (!(event.keyCode === 8 && !event.ctrlKey && !event.metaKey && !event.altKey)) {
+    if (event.inputType !== "deleteContentBackward") {
         return;
     }
     const target = event.target;
@@ -362,6 +365,7 @@ function undoAutocorrect(event) {
             event.preventDefault();
 
             if (insertedText) {
+                lastTarget = null;
                 deleteCaret(target, insertedText);
             }
             if (deletedText) {
@@ -369,9 +373,9 @@ function undoAutocorrect(event) {
             }
             console.debug("Undo autocorrect: “%s” was replaced with “%s”.", insertedText, deletedText);
         }
-    }
 
-    lastTarget = null;
+        lastTarget = null;
+    }
 }
 
 /**
@@ -406,6 +410,6 @@ function handleError(error) {
 
 browser.runtime.sendMessage({ "type": AUTOCORRECT_CONTENT }).then(handleResponse, handleError);
 browser.runtime.onMessage.addListener(handleResponse);
-window.addEventListener("keydown", undoAutocorrect, true);
-window.addEventListener("keyup", autocorrect, true);
+window.addEventListener("beforeinput", undoAutocorrect, true);
+window.addEventListener("beforeinput", autocorrect, true);
 console.log("Unicodify autocorrect module loaded.");
