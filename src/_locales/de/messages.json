@@ -361,7 +361,7 @@
     }
   },
   "contributorsThanksLink": {
-    "message": "https://github.com/rugk/awesome-emoji-picker/blob/master/CONTRIBUTORS.md",
+    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTORS.md",
     "description": "The link to the CONTRIBUTORS file."
   },
   "contributorsThanksLinkText": {
