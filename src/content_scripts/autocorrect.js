@@ -66,6 +66,9 @@ function getCaretPosition(target) {
     if (target.isContentEditable || IS_THUNDERBIRD) {
         target.focus();
         const _range = document.getSelection().getRangeAt(0);
+        if (!_range.collapsed) {
+            return null;
+        }
         const range = _range.cloneRange();
         const temp = document.createTextNode("\0");
         range.insertNode(temp);
@@ -75,6 +78,9 @@ function getCaretPosition(target) {
     }
     // input and textarea fields
     else {
+        if (target.selectionStart !== target.selectionEnd) {
+            return null;
+        }
         return target.selectionStart;
     }
 }
@@ -89,9 +95,9 @@ function getCaretPosition(target) {
  * @returns {void}
  */
 function insertAtCaret(target, atext) {
-    const isSuccess = document.execCommand("insertText", false, atext);
-
-    if(isSuccess) {
+    // document.execCommand is deprecated, although there is not yet an alternative: https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand
+    // insertReplacementText
+    if(document.execCommand("insertText", false, atext)) {
         return;
     }
 
@@ -157,8 +163,8 @@ function countChars(str) {
 function deleteCaret(target, atext) {
     const count = countChars(atext);
     if (count > 0) {
-        const isSuccess = document.execCommand("delete", false);
-        if (isSuccess) {
+        // document.execCommand is deprecated, although there is not yet an alternative: https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand
+        if (document.execCommand("delete", false)) {
             for (let i = 0; i < count - 1; ++i) {
                 document.execCommand("delete", false);
             }
