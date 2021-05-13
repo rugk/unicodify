@@ -6,11 +6,11 @@ For a general explanation of add-on permission see [this support article for Fir
 
 The following permissions are requested at the installation or when updating:
 
-| Internal Id  | Permission                                                       | Explanation                                             |
-|:-------------|:-----------------------------------------------------------------|:--------------------------------------------------------|
-| `<all_urls>` | Access your data for all websites                                | Needed for input auto-correction                        |
-| `tabs`       | Access browser tabs                                              | Needed for input auto-correction                        |
-| `compose`    | Read and modify your email messages as you compose and send them | Needed for input auto-correction (only for Thunderbird) |
+| Internal Id  | Permission                                                       | Explanation                                                                           |
+|:-------------|:-----------------------------------------------------------------|:--------------------------------------------------------------------------------------|
+| `<all_urls>` | Access your data for all websites                                | Needed for input auto-correction and for getting the text for the text transformation |
+| `tabs`       | Access browser tabs                                              | Needed for input auto-correction                                                      |
+| `compose`    | Read and modify your email messages as you compose and send them | Needed for input auto-correction (only for Thunderbird)                               |
 
 ## Feature-specific (optional) permissions
 

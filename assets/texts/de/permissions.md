@@ -6,11 +6,11 @@ Für eine allgemeine Erklärung von Add-on-Berechtigungen siehe [diesen Support-
 
 Zurzeit werden bei Installation des Add-ons oder beim Update folgende Berechtigungen abgefragt:
 
-| Interne ID   | Berechtigung                                                          | Erklärung                                                |
-|:-------------|:----------------------------------------------------------------------|:---------------------------------------------------------|
-| `<all_urls>` | Auf Ihre Daten für alle Websites zugreifen                            | Benötigt für Eingabe-Autokorrektur                       |
-| `tabs`       | Auf Browsertabs zugreifen                                             | Benötigt für Eingabe-Autokorrektur                       |
-| `compose`    | Lesen und ändern der E-Mail-Nachrichten, die Sie verfassen und senden | Benötigt für Eingabe-Autokorrektur (nur bei Thunderbird) |
+| Interne ID   | Berechtigung                                                          | Erklärung                                                                                 |
+|:-------------|:----------------------------------------------------------------------|:------------------------------------------------------------------------------------------|
+| `<all_urls>` | Auf Ihre Daten für alle Websites zugreifen                            | Benötigt für Eingabe-Autokorrektur und um den Text für die Texttransformation zu erhalten |
+| `tabs`       | Auf Browsertabs zugreifen                                             | Benötigt für Eingabe-Autokorrektur                                                        |
+| `compose`    | Lesen und ändern der E-Mail-Nachrichten, die Sie verfassen und senden | Benötigt für Eingabe-Autokorrektur (nur bei Thunderbird)                                  |
 
 ## Feature-spezifische (optionale) Berechtigungen
 
