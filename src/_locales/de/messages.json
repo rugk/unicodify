@@ -1,7 +1,7 @@
 {
   // manifest.json
   "extensionName": {
-    "message": "Unicodify – Text reshaper",
+    "message": "Unicodify – Text transformer",
     "description": "Name of the extension."
   },
   "extensionNameShort": {
@@ -43,13 +43,135 @@
     "description": "The message shown, when the options of the settings could not have been reset."
   },
 
+  // context menu
+  "menuReadableTextWrapper": {
+    "message": "$READABLE_TEXT$ – $TRANSFORMED_EXAMPLE$",
+    "description": "The wrapper that is enabled if you enable the showReadableText option to also show the text without transformation",
+    "placeholders": {
+      "readable_text": {
+        "content": "$1",
+        "example": "Superscript"
+      },
+      "transformed_example": {
+        "content": "$2",
+        "example": "ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ"
+      }
+    }
+  },
+
+  "menuCaseLowercase": {
+    "message": "Kleinbuchstaben",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCaseUppercase": {
+    "message": "Großbuchstaben",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCaseCapitalizeEachWord": {
+    "message": "Jedes Wort großschreiben",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCaseToggleCase": {
+    "message": "Großschreibung umkehren",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+
+  "menuFontSuperscript": {
+    "message": "Hochgestellt",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSmallCaps": {
+    "message": "Kleine Kapitälchen",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontAllSmallCaps": {
+    "message": "Immer kleine Kapitälchen",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontUnicase": {
+    "message": "Unicase",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSerifBold": {
+    "message": "Mit Serifen und fett",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSerifItalic": {
+    "message": "Mit Serfien und kursiv",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSerifBoldItalic": {
+    "message": "Mit Serfien, fett und kursiv",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSansSerif": {
+    "message": "serifenlos",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSansSerifBold": {
+    "message": "serifenlos und fett",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSansSerifItalic": {
+    "message": "serifenlos und kursiv",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSansSerifBoldItalic": {
+    "message": "serifenlos, fett und kursiv",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontScript": {
+    "message": "Skript",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontScriptBold": {
+    "message": "Skript und fett",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontScriptFraktur": {
+    "message": "Fraktur",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontFrakturBold": {
+    "message": "Fraktur und fett",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontMonospace": {
+    "message": "dickengleich (monospace)",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontDoubleStruck": {
+    "message": "Doppelt gestrichen",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontCircled": {
+    "message": "Eingekreist",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontCircledBlack": {
+    "message": "Eingekreist (schwarz)",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSquared": {
+    "message": "im Quadrat",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSquaredBlack": {
+    "message": "im Quadrat (schwarz)",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontFullwidth": {
+    "message": "volle Breite",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+
   // options
   "someSettingsAreManaged": {
     "message": "Einige Einstellung werden von deinem Systemadministrator festgelegt und können nicht geändert werden.",
     "description": "The message, which appears, when settings are pre-defined (as managed options) by administrators."
   },
   "optionIsDisabledBecauseManaged": {
-    "message": "Diese option ist deaktiviert, weil sie von deinem Systemadministrator festgelegt wurde.",
+    "message": "Diese Option ist deaktiviert, weil sie von deinem Systemadministrator festgelegt wurde.",
     "description": "The title (tooltip) shown, when hovering over a disabled, managed option."
   },
   "optionLearnMore": {
@@ -59,6 +181,178 @@
   "optionsResetButton": {
     "message": "Setze alle Einstellungen auf Standardwerte zurück",
     "description": "The button to delete all current settings and load the defaults, shown in the add-on settings."
+  },
+
+  "titleUnicodeAutocorrection": {
+    "message": "Unicode-Autokorrektur",
+    "description": "A title in the add-on settings."
+  },
+  "titleContextMenu": {
+    "message": "Kontextmenü",
+    "description": "A title in the add-on settings."
+  },
+
+  "optionHelperTextAutocorrection": {
+    "message": "Du kannst die automatischen Korrekturen, welche bei Eingabe von Text ausgeführt werden, hier konfigurieren.$BR$Alle Autokorreturen werden ausgeführt, sobald du das ersten nicht-passenden Zeichen, gefolgt von einer Zeichensequenz wie einem Leerzeichen (␣), schreibst. Drück die Rücktaste (⌫) um eine Autokorrektur rückgängig zu machen. Nur das Ersetzen der Anführungszeichen wird sofort ausgeführt.",
+    "description": "Description for the section titleUnicodeAutocorrection explaining how the autocorrection works.",
+    "placeholders": {
+      "br": {
+        "content": "$1",
+        "example": "<br>"
+      }
+    }
+  },
+  "optionHelperTextAutocorrectionEmoji": {
+    "message": "Um auch Emojis, inklusive $COLON$-Codes und Emoticons, automatisch zu korrigieren zu lassen, teste auch unser $LINK$ add-on.",
+    "description": "Description for the section titleUnicodeAutocorrection advertising the Awesome Emoji Picker add-on.",
+    "placeholders": {
+      "colon": {
+        "content": "$1",
+        "example": "<code>:colon:</code>"
+      },
+      "link": {
+        "content": "$2",
+        "example": "<a href=\"https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/\">🤩&nbsp;Awesome Emoji Picker</a>"
+      }
+    }
+  },
+  "optionHelperTextAutocorrectionEmojiColonsCode": {
+    "message": ":Doppelpunkt:",
+    "description": "This is included in code-style in optionHelperTextAutocorrectionEmoji."
+  },
+  "optionHelperTextAutocorrectionEmojiLink": {
+    "message": "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/",
+    "description": "The target for the link provided in optionHelperTextAutocorrectionEmoji. Usually should not be modified and link to the AMO page of the Awesome Emoji Picker. It does redirect to the correct language automatically."
+  },
+  "optionHelperTextAutocorrectionEmojiLinkText": {
+    "message": "🤩\u00a0Awesome Emoji Picker",
+    "description": "The text for the link provided in optionHelperTextAutocorrectionEmoji. Should be the official name of the emoji picker add-on in your language."
+  },
+  "optionHelperTextContextMenu": {
+    "message": "Schreibe Text, markiere diesen und wähle die passende Option im Kontextmenü aus, um schnell das den Zeichenstil oder die Groß-/Kleinschreibung. Dies ist nützlich bei Websieten, welche es nicht erlauben die Schriftart oder die Textformattierung anzupassen.",
+    "description": "Description for the section titleContextMenu explaining how the autocorrection works."
+  },
+
+  "optionAutocorrectSymbols": {
+    "message": "Korrigiere Unicode-Symbole",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionAutocorrectSymbolsDescr": {
+    "message": "Dies ersetzt bspw. $CODE_HYPHEN$ durch –, $CODE_ARROW$ durch ⟶ und $CODE_FRACTION$ mit ¼.",
+    "description": "This is an option shown in the add-on settings. It describes the optionAutocorrectSymbols setting.",
+    "placeholders": {
+      "code_hyphen": {
+        "content": "$1",
+        "example": "<code>--</code>"
+      },
+      "code_arrow": {
+        "content": "$2",
+        "example": "<code>--></code>"
+      },
+      "code_fraction": {
+        "content": "$3",
+        "example": "<code>1/4</code>"
+      }
+    }
+  },
+  "optionReplaceQuotes": {
+    "message": "Ersetze Anführungszeichen mit der typografischen Version",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionReplaceQuotesDescr": {
+    "message": "Dies ersetzt \"diese ('Ersatz-')Anführungszeichen\" mit den sogenannten “smart quotes” bzw. deren “etwas ‘kleinerer’ Variante”.",
+    "description": "This is an option shown in the add-on settings. It describes the optionReplaceQuotes setting."
+  },
+  "optionConvertFractions": {
+    "message": "Konvertiere Brüche und andere mathematische Konstanten zu Unicode-Zeichen",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionConvertFractionsDescr": {
+    "message": "Dies wird bspw. $CODE_NUMBER$ mit 1234¼ ersetzen.",
+    "description": "This is an option shown in the add-on settings. It describes the optionConvertFractions setting.",
+    "placeholders": {
+      "code_number": {
+        "content": "$1",
+        "example": "<code>1234.25</code>"
+      }
+    }
+  },
+
+  "optionMenuUnicodeFont": {
+    "message": "Zeige Uncode-Schriftarten-Optionen",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionMenuUnicodeFontDescr": {
+    "message": "Wie bspw. ᴴᵒᶜʰᵍᵉˢᵗᵉˡˡᵗ, Kʟᴇɪɴᴇ Kᴀᴘɪᴛäʟᴄʜᴇɴ, 𝒮𝓀𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯 und 🄸🄼 🅀🅄🄰🄳🅁🄰🅃.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuUnicodeFont setting. IMPORTANT: You may choose any (number of) examples here that look good in your language."
+  },
+  "optionMenuCasing": {
+    "message": "Zeige Optionen zur Änderung der Groß-/Kleinschreibung",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionMenuCasingDescr": {
+    "message": "Zum Beispiel, “GROẞSCHREIBUNG”, “kleinschreibung”, “Schriebe Jedes Wort Groß” or “kEHRE gROẞSCHREIBUNG uM”.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+  },
+
+  "subtitleEntryPreview": {
+    "message": "Vorschau",
+    "description": "The heading/grouping title shown for options customizing the design of the context menu entry."
+  },
+  "optionMenuShowReadableText": {
+    "message": "Zeige eine lesbare Beschreibung der Transformation",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionMenuShowReadableTextDescr": {
+    "message": "Zusätzlich zu den Beispieltransformationen zeigt dies auch den Namen der Transformation als Text an.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+  },
+  "optionMenuShowLivePreview": {
+    "message": "Zeige eine Live-Vorschau des ausgewählten Texts",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionMenuShowLivePreviewDescr": {
+    "message": "Zeigt den Effeckt der Transformation anhand des ausgewählten Texts statt eines Beispieltexts.",
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+  },
+
+  // option footer
+  "translatorCredit": {
+    "message": "Dieses Add-on wurde von $TRANSLATORS$ ins Deutsche übersetzt.",
+    "description": "The credit text for the translator. See https://github.com/TinyWebEx/common/blob/master/CONTRIBUTING.md#translator-credit-inside-of-add-on for how to translate this.",
+    "placeholders": {
+      "translators": {
+        "content": "$1",
+        "example": "<a href=\"https://github.com/rugk/\">@rugk</a>"
+      }
+    }
+  },
+  "translatorLink": {
+    "message": "https://github.com/rugk",
+    "description": "The link to the translator's GitHub profile."
+  },
+  "translatorUsername": {
+    "message": "rugk",
+    "description": "The username that the translator wants to be referred to."
+  },
+
+  "contributorsThanks": {
+    "message": "Ebenfalls vielen Dank an $CONTRIBUTORS$.",
+    "description": "Text thanking all contributors and linking to the contributors file.",
+    "placeholders": {
+      "contributors": {
+        "content": "$1",
+        "example": "<a href=\"https://github.com/rugk/…/CONTRIBUTORS.md\">all other contributors</a>"
+      }
+    }
+  },
+  "contributorsThanksLink": {
+    "message": "https://github.com/rugk/awesome-emoji-picker/blob/master/CONTRIBUTORS.md",
+    "description": "The link to the CONTRIBUTORS file."
+  },
+  "contributorsThanksLinkText": {
+    "message": "alle anderen Beitragenden",
+    "description": "The link text linking to the contributors file. See contributorsThanks."
   },
 
   // ARIA labels/descriptions

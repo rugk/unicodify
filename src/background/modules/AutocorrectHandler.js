@@ -87,9 +87,9 @@ function applySettings() {
     antipatterns = antipatterns.filter((item, pos) => antipatterns.indexOf(item) === pos);
     console.log("Do not autocorrect for these patterns", antipatterns);
 
-    antipatterns.forEach((symbol, index) => {
+    for (const [index, symbol] of antipatterns.entries()) {
         antipatterns[index] = symbol.replace(regExSpecialChars, "\\$&");
-    });
+    }
 
     symbolpatterns = new RegExp(`(${symbolpatterns.join("|")})$`);
     antipatterns = new RegExp(`(${antipatterns.join("|")})$`);
@@ -130,7 +130,7 @@ function sendSettings(autocorrect) {
 
     browser.tabs.query({}).then((tabs) => {
         for (const tab of tabs) {
-            // This is currently not supported in Thunderbird: https://bugzilla.mozilla.org/show_bug.cgi?id=1641576
+            // This requires Thunderbird 78.4: https://bugzilla.mozilla.org/show_bug.cgi?id=1641576
             browser.tabs.sendMessage(
                 tab.id,
                 {
@@ -157,7 +157,7 @@ export async function init() {
 
     setSettings(autocorrect);
 
-    browser.runtime.onMessage.addListener((message, sender) => {
+    browser.runtime.onMessage.addListener((message) => {
         // console.log(message);
         if (message.type === COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
             const response = {

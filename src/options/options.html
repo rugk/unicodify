@@ -54,59 +54,81 @@
 		<form>
 			<section>
 				<ul>
-					<h1 data-i18n="">Unicode autocorrection</h1>
-					<span class="helper-text">
+					<h1 data-i18n="__MSG_titleUnicodeAutocorrection__">Unicode autocorrection</h1>
+					<span class="helper-text" data-i18n="__MSG_optionHelperTextAutocorrection__"  data-opt-i18n-keep-children>
 					You can configure the automatic corrections that are done when you are typing text here.<br>
 					All the autocorrections are done after typing the first nonmatching character following the character sequence, such as a space (␣). Press Backspace (⌫) to undo an autocorrection.
-					Only the quotes replacement is done immediately.<br>
-					For Emoji autocorrection, including <code>:colon:</code> shortcodes and Emoticons, please try our <a href="https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/">🤩&nbsp;Awesome Emoji Picker</a> add-on.</span>
+					Only the quotes replacement is done immediately.
+				</span><br>
+					<span class="helper-text" data-i18n="__MSG_optionHelperTextAutocorrectionEmoji__"  data-opt-i18n-keep-children>
+					For Emoji autocorrection, including <code data-i18n="__MSG_optionHelperTextAutocorrectionEmojiColonsCode__">:colon:</code> shortcodes and Emoticons, please also try out our <a href="https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/" data-i18n="__MSG_optionHelperTextAutocorrectionEmojiLinkText__"  data-i18n-href="__MSG_optionHelperTextAutocorrectionEmojiLink__">🤩&nbsp;Awesome Emoji Picker</a> add-on.
+					</span>
 
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="autocorrectSymbols" data-optiongroup="autocorrect" name="autocorrectSymbols">
-							<label data-i18n="" for="autocorrectSymbols">Autocorrect Unicode symbols</label>
+							<label
+							data-i18n="__MSG_optionAutocorrectSymbols__" for="autocorrectSymbols">Autocorrect Unicode symbols</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">For example, this will replace <code>--</code> with –, <code>--></code> with ⟶ and <code>1/4</code> with ¼.</span>
+						<span data-i18n="__MSG_optionAutocorrectSymbolsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>--</code> with –, <code>--></code> with ⟶ and <code>1/4</code> with ¼.</span>
 					</li>
 
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeQuotes" data-optiongroup="autocorrect" name="autocorrectUnicodeQuotes">
-							<label data-i18n="" for="autocorrectUnicodeQuotes">Replace quotes with typographical ones</label>
+							<label data-i18n="__MSG_optionReplaceQuotes__" for="autocorrectUnicodeQuotes">Replace quotes with typographical ones</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">This will replace "these ('replacement') quotes" with the so-called “smart quotes”, respectively their ‘replacement version’”.</span>
+						<span data-i18n="__MSG_optionReplaceQuotesDescr__" class="line indent helper-text">This will replace "these ('replacement') quotes" with the so-called “smart quotes”, respectively their “somewhat ‘smaller’ variant”.</span>
 					</li>
 
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeFracts" data-optiongroup="autocorrect" name="autocorrectUnicodeFracts">
-							<label data-i18n="" for="autocorrectUnicodeFracts">Convert fractions and mathematical constants to Unicode characters</label>
+							<label data-i18n="__MSG_optionConvertFractions__" data-opt-i18n-keep-children for="autocorrectUnicodeFracts">Convert fractions and mathematical constants to Unicode characters</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">For example, this will replace <code>1234.25</code> with 1234¼.</span>
+						<span data-i18n="__MSG_optionConvertFractionsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>1234.25</code> with 1234¼.</span>
 					</li>
 				</ul>
 			</section>
 
+			<!-- Remove "mobile-incompatible" once https://bugzilla.mozilla.org/show_bug.cgi?id=1595822 is fixed -->
 			<section class="mobile-incompatible">
 				<ul>
-					<h1 data-i18n="">Context menu</h1>
-					<span class="helper-text">Write, select text and select the corresponding option in the context menu to quickly change the character style or casing.
-					This is useful on websites that do not support changing the font and/or text formatting.</span>
+					<h1 data-i18n="__MSG_titleContextMenu__">Context menu</h1>
+					<span class="helper-text" data-i18n="__MSG_optionHelperTextContextMenu__">Write, select text and choose the corresponding option in the context menu to quickly change the character style or capitalization.
+					This is useful on websites that do not support changing the font or text formatting.</span>
 
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="changeFont" data-optiongroup="unicodeFont" name="changeFont">
-							<label data-i18n="" for="changeFont">Show Unicode font options</label>
+							<label data-i18n="__MSG_optionMenuUnicodeFont__" for="changeFont">Show Unicode font options</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">For example, ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ, ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, 𝒮𝒸𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯, 🅒🅘🅡🅒🅛🅔🅓 and 🆂🆀🆄🅰🆁🅴🅳.</span>
+						<span data-i18n="__MSG_optionMenuUnicodeFontDescr__" class="line indent helper-text">For example, ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ, ꜱᴍᴀʟʟ ᴄᴀᴘꜱ, 𝒮𝒸𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯, 🅒🅘🅡🅒🅛🅔🅓 and 🆂🆀🆄🅰🆁🅴🅳.</span>
 					</li>
 
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="changeCase" data-optiongroup="unicodeFont" name="changeCase">
-							<label data-i18n="" for="changeCase">Show case changing options</label>
+							<label data-i18n="__MSG_optionMenuCasing__" for="changeCase">Show case changing options</label>
 						</div>
-						<span data-i18n="" class="line indent helper-text">For example, “UPPER CASE”, “lower case”, “Capitalize Each Word” or “tOGGLE cASE”.</span>
+						<span data-i18n="__MSG_optionMenuCasingDescr__" class="line indent helper-text">For example, “UPPER CASE”, “lower case”, “Capitalize Each Word” or “tOGGLE cASE”.</span>
+					</li>
+
+					<h2 data-i18n="__MSG_subtitleEntryPreview__">Entry design</h2>
+					<li>
+						<div class="line">
+							<input class="setting save-on-change" type="checkbox" id="showReadableText" data-optiongroup="unicodeFont" name="showReadableText">
+							<label data-i18n="__MSG_optionMenuShowReadableText__" for="showReadableText">Show a readable description of the transformation</label>
+						</div>
+						<span data-i18n="__MSG_optionMenuShowReadableTextDescr__" class="line indent helper-text">In addition to the examples of the transformation, this also shows the name of transformation as text.</span>
+					</li>
+
+					<li class="mozilla-only">
+						<div class="line">
+							<input class="setting save-on-change" type="checkbox" id="livePreview" data-optiongroup="unicodeFont" name="livePreview">
+							<label data-i18n="__MSG_optionMenuShowLivePreview__" for="livePreview">Show a live preview with the selected text</label>
+						</div>
+						<span data-i18n="__MSG_optionMenuShowLivePreviewDescr__" class="line indent helper-text">Shows the effect of the transformation on the selected text instead of an example one.</span>
 					</li>
 				</ul>
 			</section>

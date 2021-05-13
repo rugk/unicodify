@@ -5,7 +5,6 @@
  */
 
 import * as AutomaticSettings from "/common/modules/AutomaticSettings/AutomaticSettings.js";
-
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
 
 
@@ -18,7 +17,7 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
  * @param  {Object} [event]
  * @returns {Promise}
  */
-function applyAutocorrectPermissions(optionValue, option, event) {
+function applyAutocorrectPermissions(optionValue) {
     // trigger update for current session
     browser.runtime.sendMessage({
         "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_BACKGROUND,
@@ -35,7 +34,7 @@ function applyAutocorrectPermissions(optionValue, option, event) {
  * @param  {Object} [event]
  * @returns {Promise}
  */
-function applyUnicodeFontSettings(optionValue, option, event) {
+function applyUnicodeFontSettings(optionValue) {
     // trigger update for current session
     browser.runtime.sendMessage({
         "type": COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT,
