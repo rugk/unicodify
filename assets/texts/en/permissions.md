@@ -1,15 +1,16 @@
 # Requested permissions
 
-For a general explanation of add-on permission see [this support article](https://support.mozilla.org/kb/permission-request-messages-firefox-extensions).
+For a general explanation of add-on permission see [this support article for Firefiox](https://support.mozilla.org/kb/permission-request-messages-firefox-extensions) and [this for Thunderbird](https://support.mozilla.org/kb/permission-request-messages-thunderbird-extensions).
 
 ## Installation permissions
 
 The following permissions are requested at the installation or when updating:
 
-| Internal Id  | Permission                        | Explanation                      |
-|:-------------|:----------------------------------|:---------------------------------|
-| `<all_urls>` | Access your data for all websites | Needed for input auto-correction |
-| `tabs`       | Access browser tabs               | Needed for input auto-correction |
+| Internal Id  | Permission                                                       | Explanation                                             |
+|:-------------|:-----------------------------------------------------------------|:--------------------------------------------------------|
+| `<all_urls>` | Access your data for all websites                                | Needed for input auto-correction                        |
+| `tabs`       | Access browser tabs                                              | Needed for input auto-correction                        |
+| `compose`    | Read and modify your email messages as you compose and send them | Needed for input auto-correction (only for Thunderbird) |
 
 ## Feature-specific (optional) permissions
 
