@@ -81,7 +81,8 @@
  * @return {boolean|null}
  */
 
-import {userSpeaksLocaleNotYetTranslated} from "../LanguageHelper.js";
+import { userSpeaksLocaleNotYetTranslated } from "../LanguageHelper.js";
+import { getBrowserValue } from "../BrowserCompat.js";
 
 /**
  * An array of all tips.
@@ -168,27 +169,6 @@ const tipArray = [
         }
     }
 ];
-
-/**
- * Returns a value based on what browser this is running in.
-
- * @private
- * @param  {Object} switchBrowser an object with values to return per browser
- * @returns {string}
- */
-async function getBrowserValue(switchBrowser) {
-    if (browser.runtime.getBrowserInfo) {
-        const browserInfo = await browser.runtime.getBrowserInfo();
-
-        if (browserInfo.name === "Thunderbird") {
-            return switchBrowser.thunderbird;
-        } else {
-            return switchBrowser.firefox;
-        }
-    } else {
-        return switchBrowser.chrome;
-    }
-}
 
 // freeze the inner tip objects, this is strongly recommend
 tipArray.forEach((object) => Object.freeze(object));
