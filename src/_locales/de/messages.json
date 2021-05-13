@@ -305,7 +305,7 @@
     "description": "This is an option shown in the add-on settings."
   },
   "optionMenuCasingDescr": {
-    "message": "Zum Beispiel, “GROẞSCHREIBUNG”, “kleinschreibung”, “Schriebe Jedes Wort Groß” or “kEHRE gROẞSCHREIBUNG uM”.",
+    "message": "Zum Beispiel, “GROẞSCHREIBUNG”, “kleinschreibung”, “Schreibe Jedes Wort Groß” or “kEHRE gROẞSCHREIBUNG uM”.",
     "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
   },
 
