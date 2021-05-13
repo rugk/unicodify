@@ -4,20 +4,22 @@ For a general explanation of add-on permission see [this support article](https:
 
 ## Installation permissions
 
-Currently, no permission is requested at the installation or when updating.
+The following permissions are requested at the installation or when updating:
+
+| Internal Id  | Permission                        | Explanation                      |
+|:-------------|:----------------------------------|:---------------------------------|
+| `<all_urls>` | Access your data for all websites | Needed for input auto-correction |
+| `tabs`       | Access browser tabs               | Needed for input auto-correction |
 
 ## Feature-specific (optional) permissions
 
-These permissions are requested when doing some specific actions, if they are needed for that.
-
-| Internal Id | Permission                                                        | Requested at…              | Explanation  |
-|:------------|:------------------------------------------------------------------|:---------------------------|:-------------|
-| `downloads` | Download files and read and modify the browser’s download history | Download of QR code as SVG | Needed for … |
+Currently, no permissions are requested when doing some specific actions.
 
 ## Hidden permissions
 
 Additionally, it requests these permissions, which are not requested in Firefox when the add-on is installed, as they are not a serious permission.
 
-| Internal Id | Permission           | Explanation               |
-|:------------|:---------------------|:--------------------------|
-| `storage`   | Access local storage | Needed for saving options |
+| Internal Id      | Permission                   | Explanation                                                 |
+|:-----------------|:-----------------------------|:------------------------------------------------------------|
+| `storage`        | Access settings storage      | Needed for saving options                                   |
+| `[context]menus` | Modify browser context menus | Needed for adding the context menus for text transformation |
