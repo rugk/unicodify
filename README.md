@@ -38,7 +38,7 @@ See:
     * Change [casing](https://en.wikipedia.org/wiki/Letter_case#Case_styles) (i.e. UPPER CASE, lower case, tOGGLE, cASE, etc.). Supports all locales.
     * Optionally show a live preview.
     * Useful on websites that do not support changing the font or text formatting.
-* Support websites as best as possible by providing website-specific possibles, if needed. ([if there is a problem, please report it](https://github.com/rugk/unicodify/issues))
+* Support websites as best as possible by providing website-specific workarounds or fallbacks, if needed. ([if there is a problem, please report it](https://github.com/rugk/unicodify/issues))
 * Very fast, even when typing on large documents.
 * Supports the light/dark mode of your system automatically.
 * Settings automatically synced between all browser instances and devices (Firefox and Chrome only).
