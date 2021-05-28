@@ -10,11 +10,6 @@
     "description": "Name of the extension.",
     "hash": "e64f147712822c45d13476bb79638225"
   },
-  "extensionDescription": {
-    "message": "Te permet de faire de grandes choses.",
-    "description": "Description of the extension.",
-    "hash": "c10920cdbd6aaea062dbf4098e019bcb"
-  },
 
   // errors or other messages (mostly for settings)
   "errorShowingMessage": {
