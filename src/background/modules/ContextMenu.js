@@ -64,7 +64,7 @@ async function handleMenuShown(info) {
     // shorten preview text as it may not be shown anyway
     if (text.length > PREVIEW_STRING_CUT_LENGTH) {
         // to be sure, we append … anyway, in case some strange OS has a tooltip for context menus or so
-        text = `${text.substr(0, PREVIEW_STRING_CUT_LENGTH)}…`;
+        text = `${text.substring(0, PREVIEW_STRING_CUT_LENGTH)}…`;
     }
     text = text.normalize();
 

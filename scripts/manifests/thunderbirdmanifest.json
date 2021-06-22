@@ -36,6 +36,7 @@
 
   "permissions": [
     "storage",
+    "<all_urls>",
     "tabs",
     "compose",
     "menus"

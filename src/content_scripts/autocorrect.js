@@ -44,7 +44,7 @@ let longest = 0;
 
 // Regular expressions
 let symbolpatterns = null;
-// Do not autocorrect for these patterns
+// Exceptions, do not autocorrect for these patterns
 let antipatterns = null;
 
 // Thunderbird
