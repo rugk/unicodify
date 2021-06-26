@@ -10,7 +10,7 @@
     "env": {
         "browser": true,
         "webextensions": true,
-        "es6": true
+        "es2021": true
     },
     "extends": "eslint:recommended",
     "rules": {

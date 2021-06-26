@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Unicodify DEV VERSION",
+  "name": "__MSG_extensionName__",
   "short_name": "__MSG_extensionNameShort__",
   "version": "0.1",
   "author": "Teal Dulcet, rugk",
