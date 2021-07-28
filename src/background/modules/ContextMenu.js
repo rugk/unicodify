@@ -70,7 +70,6 @@ async function handleMenuShown(info) {
     }
     text = text.normalize();
 
-    // const menuIsShown = info.menuIds.length > 0;
     if (!lastCachedUnicodeFontSettings.livePreview) {
         if (menuIsShown) {
             return;
