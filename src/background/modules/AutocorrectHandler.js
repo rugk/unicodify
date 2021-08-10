@@ -18,7 +18,7 @@ let autocorrections = {};
 let longest = 0;
 
 let symbolpatterns = [];
-// Do not autocorrect for these patterns
+// Exceptions, do not autocorrect for these patterns
 let antipatterns = [];
 
 // Chrome
@@ -48,13 +48,10 @@ function applySettings() {
     }
     console.log("Longest autocorrection", longest);
 
-    symbolpatterns = [];
     // Escape special characters
     const regExSpecialChars = /[.*+?^${}()|[\]\\]/g;
 
-    for (const symbol in autocorrections) {
-        symbolpatterns.push(symbol.replace(regExSpecialChars, "\\$&"));
-    }
+    symbolpatterns = Object.keys(autocorrections).map((symbol) => symbol.replace(regExSpecialChars, "\\$&"));
 
     // Do not autocorrect for these patterns
     antipatterns = [];
@@ -87,9 +84,7 @@ function applySettings() {
     antipatterns = antipatterns.filter((item, pos) => antipatterns.indexOf(item) === pos);
     console.log("Do not autocorrect for these patterns", antipatterns);
 
-    for (const [index, symbol] of antipatterns.entries()) {
-        antipatterns[index] = symbol.replace(regExSpecialChars, "\\$&");
-    }
+    antipatterns = antipatterns.map((symbol) => symbol.replace(regExSpecialChars, "\\$&"));
 
     symbolpatterns = new RegExp(`(${symbolpatterns.join("|")})$`);
     antipatterns = new RegExp(`(${antipatterns.join("|")})$`);

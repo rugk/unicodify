@@ -36,7 +36,7 @@
   "permissions": [
     "storage",
     "<all_urls>",
-    "contextMenus",
+    "menus",
     "tabs"
   ],
   "applications": {

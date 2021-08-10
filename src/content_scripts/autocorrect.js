@@ -44,7 +44,7 @@ let longest = 0;
 
 // Regular expressions
 let symbolpatterns = null;
-// Do not autocorrect for these patterns
+// Exceptions, do not autocorrect for these patterns
 let antipatterns = null;
 
 // Thunderbird
@@ -308,15 +308,16 @@ function autocorrect(event) {
         } else {
             // Convert fractions and mathematical constants to Unicode characters
             if (!output && fracts) {
-                // Numbers: https://regex101.com/r/7jUaSP/2
-                const numberRegex = /[0-9]+(\.[0-9]+)?$/;
+                // Numbers regular expression: https://regex101.com/r/7jUaSP/10
+                // Do not match version numbers: https://github.com/rugk/unicodify/issues/40
+                const numberRegex = /(?<!\.)\d+(?<fractionpart>\.\d+)?$/;
                 const previousText = value.slice(0, caretposition);
                 const regexResult = numberRegex.exec(previousText);
-                if (regexResult) {
+                if (regexResult && insert !== ".") {
                     const text = value.slice(0, caretposition) + ainsert;
                     const aregexResult = numberRegex.exec(text);
                     if (!aregexResult) {
-                        const label = outputLabel(regexResult[0], regexResult[1]);
+                        const label = outputLabel(regexResult[0], regexResult.groups.fractionpart);
                         const index = firstDifferenceIndex(label, regexResult[0]);
                         if (index >= 0) {
                             insert = label.slice(index) + ainsert;

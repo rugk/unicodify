@@ -9,7 +9,7 @@
     "description": "Name of the extension."
   },
   "extensionDescription": {
-    "message": "Allows you to do great stuff.",
+    "message": "Allows you to autocorrect common text sequences and convert text characters to a look like a special Unicode font.",
     "description": "Description of the extension."
   },
 
@@ -43,10 +43,40 @@
     "description": "The message shown, when the options of the settings could not have been reset."
   },
 
+  // tips
+  "tipYouLikeAddon": {
+    "message": "You like this add-on?",
+    "description": "A tip shown to remind the user to rate the addon."
+  },
+  "tipYouLikeAddonButton": {
+    "message": "Rate it",
+    "description": "Button for the tip shown to remind the user to rate the addon."
+  },
+  "tipAwesomeIcons": {
+    "message": "Also want emoji autocompletion? We have another add-on for that…",
+    "description": "A tip shown to let the user know of another suggested addon."
+  },
+  "tipAwesomeIconsButton": {
+    "message": "Try it",
+    "description": "Button for the tip shown to let the user know of another suggested addon."
+  },
+  "tipTranslateAddon": {
+    "message": "If you speak another language you can help translating this add-on.",
+    "description": "A tip shown to users that potentially speak another language to translate this add-on."
+  },
+  "tipTranslateAddonLink": {
+    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTING.md#translations",
+    "description": "The link to a description of the translation service/way you can use."
+  },
+  "tipLearnMore": {
+    "message": "Learn more",
+    "description": "The common button for tips, where you can get more information on click."
+  },
+
   // context menu
   "menuReadableTextWrapper": {
     "message": "$READABLE_TEXT$ – $TRANSFORMED_EXAMPLE$",
-    "description": "The wrapper that is enabled if you enable the showReadableText option to also show the text without transformation",
+    "description": "The wrapper that is enabled if you enable the showReadableText option to also show the text without transformation. Usually does not need to be translated.",
     "placeholders": {
       "readable_text": {
         "content": "$1",
@@ -220,10 +250,6 @@
     "message": ":colon:",
     "description": "This is included in code-style in optionHelperTextAutocorrectionEmoji."
   },
-  "optionHelperTextAutocorrectionEmojiLink": {
-    "message": "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/",
-    "description": "The target for the link provided in optionHelperTextAutocorrectionEmoji. Usually should not be modified and link to the AMO page of the Awesome Emoji Picker. It does redirect to the correct language automatically."
-  },
   "optionHelperTextAutocorrectionEmojiLinkText": {
     "message": "🤩\u00a0Awesome Emoji Picker",
     "description": "The text for the link provided in optionHelperTextAutocorrectionEmoji. Should be the official name of the emoji picker add-on in your language."
@@ -347,7 +373,7 @@
     }
   },
   "contributorsThanksLink": {
-    "message": "https://github.com/rugk/awesome-emoji-picker/blob/master/CONTRIBUTORS.md",
+    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTORS.md",
     "description": "The link to the CONTRIBUTORS file."
   },
   "contributorsThanksLinkText": {
