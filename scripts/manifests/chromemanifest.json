@@ -23,6 +23,7 @@
       "all_frames": true,
       "js": [
         "browser-polyfill.js",
+        "content_scripts/chrome.js",
         "content_scripts/autocorrect.js"
       ]
     }
