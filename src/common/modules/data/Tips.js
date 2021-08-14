@@ -103,7 +103,7 @@ const tipArray = [
         },
         randomizeDisplay: false,
         text: "tipYouLikeAddon",
-            actionButton: {
+        actionButton: {
             text: "tipYouLikeAddonButton",
             action: ""
         },
