@@ -47,10 +47,6 @@ let symbolpatterns = null;
 // Exceptions, do not autocorrect for these patterns
 let antipatterns = null;
 
-// Thunderbird
-// https://bugzilla.mozilla.org/show_bug.cgi?id=1641573
-const IS_THUNDERBIRD = typeof messenger !== "undefined";
-
 // Chrome
 // Adapted from: https://github.com/mozilla/webextension-polyfill/blob/master/src/browser-polyfill.js
 const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
@@ -63,7 +59,7 @@ const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
  */
 function getCaretPosition(target) {
     // ContentEditable elements
-    if (target.isContentEditable || IS_THUNDERBIRD) {
+    if (target.isContentEditable || document.designMode === "on") {
         target.focus();
         const _range = document.getSelection().getRangeAt(0);
         if (!_range.collapsed) {

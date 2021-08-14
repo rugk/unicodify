@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "short_name": "__MSG_extensionNameShort__",
-  "version": "0.1",
+  "version": "0.5",
   "author": "Teal Dulcet, rugk",
 
   "description": "__MSG_extensionDescription__",
@@ -45,7 +45,7 @@
   "applications": {
     "gecko": {
       "id": "unicodify@rugk.github.io",
-      "strict_min_version": "78.0"
+      "strict_min_version": "87.0"
     }
   }
 }
