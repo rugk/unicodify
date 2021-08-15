@@ -1,0 +1,1 @@
+Easily and quickly autocorrect common symbols as ¼, transform text to “Unicode fonts” and change the casing.
