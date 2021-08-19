@@ -10,7 +10,7 @@ assignees: ''
 **Affected website:** 
 
 <-- Tick the following box, if the issue is severe and breaks the whole site or input element. -->
-* [ ] This issue makes the site/input field completly unusable.
+* [ ] This issue makes the site/input field completely unusable.
 
 ## Bug description
 <!-- A short summary of the issue. You can also explain how it affected you or explain some background of the story. -->
