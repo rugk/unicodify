@@ -18,6 +18,8 @@ This extension works with modern Firefox v78 or higher, Chromium/Chrome and Thun
 ## Download
 
 **[![Get it for Firefox!](https://addons.cdn.mozilla.net/static/img/addons-buttons/AMO-button_1.png)](https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/?utm_source=github.com&utm_medium=git&utm_content=download-button&&utm_campaign=github)**
+**[![Get it for Thunderbird!](https://raw.githubusercontent.com/thundernest/addon-developer-support/6a64a4698f7e96f014fe1544d426c92e47102b0e/images/get-the-addon.svg)](https://addons.thunderbird.net/thunderbird/addon/unicodify-text-transformer/?utm_source=github.com&utm_medium=git&utm_content=download-button&&utm_campaign=github)**
+
 
 ## In action…
 
