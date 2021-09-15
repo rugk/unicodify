@@ -61,16 +61,25 @@ function getCaretPosition(target) {
     // ContentEditable elements
     if (target.isContentEditable || document.designMode === "on") {
         target.focus();
-        const _range = document.getSelection().getRangeAt(0);
-        if (!_range.collapsed) {
-            return null;
+        let caretPosition = null;
+        const selection = document.getSelection();
+        const _range = selection.getRangeAt(0);
+
+        if (_range.collapsed) {
+            const range = document.createRange();
+            const temp = document.createTextNode("\0");
+            _range.insertNode(temp);
+            caretPosition = target.innerText.indexOf("\0");
+            temp.parentNode.removeChild(temp);
+
+            range.setStart(selection.focusNode, selection.focusOffset);
+            range.collapse();
+
+            selection.removeAllRanges();
+            selection.addRange(range);
         }
-        const range = _range.cloneRange();
-        const temp = document.createTextNode("\0");
-        range.insertNode(temp);
-        const caretposition = target.innerText.indexOf("\0");
-        temp.parentNode.removeChild(temp);
-        return caretposition;
+
+        return caretPosition;
     }
     // input and textarea fields
     else {
