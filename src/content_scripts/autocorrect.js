@@ -279,7 +279,7 @@ function autocorrect(event) {
         const value = target.value || target.innerText;
         let deletecount = 0;
         let insert = event.inputType === "insertLineBreak" || event.inputType === "insertParagraph" ? "\n" : event.data;
-        const ainsert = insert;
+        const inserted = insert;
         let output = false;
         // Use Unicode smart quotes
         if (quotes && (insert === "'" || insert === '"')) {
@@ -297,11 +297,12 @@ function autocorrect(event) {
         const regexResult = symbolpatterns.exec(previousText);
         // Autocorrect Unicode Symbols
         if (regexResult) {
-            const text = value.slice(caretposition < (longest - 1) ? 0 : caretposition - (longest - 1), caretposition) + ainsert;
+            const length = longest - 1;
+            const text = value.slice(caretposition < length ? 0 : caretposition - length, caretposition) + inserted;
             const aregexResult = symbolpatterns.exec(text);
             const aaregexResult = antipatterns.exec(text);
             if (!aaregexResult && (!aregexResult || (caretposition <= longest ? regexResult.index < aregexResult.index : regexResult.index <= aregexResult.index))) {
-                insert = autocorrections[regexResult[0]] + ainsert;
+                insert = autocorrections[regexResult[0]] + inserted;
                 deletecount = regexResult[0].length;
                 output = true;
             }
@@ -314,13 +315,13 @@ function autocorrect(event) {
                 const previousText = value.slice(0, caretposition);
                 const regexResult = numberRegex.exec(previousText);
                 if (regexResult && insert !== ".") {
-                    const text = value.slice(0, caretposition) + ainsert;
+                    const text = value.slice(0, caretposition) + inserted;
                     const aregexResult = numberRegex.exec(text);
                     if (!aregexResult) {
                         const label = outputLabel(regexResult[0], regexResult.groups.fractionpart);
                         const index = firstDifferenceIndex(label, regexResult[0]);
                         if (index >= 0) {
-                            insert = label.slice(index) + ainsert;
+                            insert = label.slice(index) + inserted;
                             deletecount = regexResult[0].length - index;
                             output = true;
                         }
@@ -338,7 +339,7 @@ function autocorrect(event) {
             insertAtCaret(target, insert);
 
             insertedText = insert;
-            deletedText = text + ainsert;
+            deletedText = text + inserted;
             console.debug("Autocorrect: “%s” was replaced with “%s”.", deletedText, insertedText);
 
             lastTarget = target;
