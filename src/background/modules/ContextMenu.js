@@ -10,6 +10,7 @@ const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 const PREVIEW_STRING_CUT_LENGTH = 100; // a setting that may improve performance by not calculating invisible parts of the context menu
 
 let lastCachedUnicodeFontSettings = null;
+let menuIsShown = false;
 
 /**
  * Handle selection of a context menu item.
@@ -50,21 +51,25 @@ function handleMenuChoosen(info, tab) {
  * @throws {Error}
  */
 async function handleMenuShown(info) {
+    if (!info.editable) {
+        return;
+    }
+
     let text = info.selectionText;
 
     // do not show menu entry when no text is selected
     if (!text) {
         await menus.removeAll();
+        menuIsShown = false;
         return menus.refresh();
     }
     // shorten preview text as it may not be shown anyway
     if (text.length > PREVIEW_STRING_CUT_LENGTH) {
         // to be sure, we append … anyway, in case some strange OS has a tooltip for context menus or so
-        text = `${text.substr(0, PREVIEW_STRING_CUT_LENGTH)}…`;
+        text = `${text.substring(0, PREVIEW_STRING_CUT_LENGTH)}…`;
     }
     text = text.normalize();
 
-    const menuIsShown = info.menuIds.length > 0;
     if (!lastCachedUnicodeFontSettings.livePreview) {
         if (menuIsShown) {
             return;
@@ -84,16 +89,15 @@ async function handleMenuShown(info) {
  *
  * @param {Object} unicodeFontSettings
  * @param {string?} [exampleText=null]
- * @param {bool?} [refreshMenu=false]
  * @returns {void}
  */
-async function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = false) {
+async function buildMenu(unicodeFontSettings, exampleText = null) {
     if (unicodeFontSettings.changeFont) {
-        await addMenuItems(menuStructure[TRANSFORMATION_TYPE.FONT], unicodeFontSettings, exampleText, refreshMenu);
+        await addMenuItems(menuStructure[TRANSFORMATION_TYPE.FONT], unicodeFontSettings, exampleText);
     }
     if (unicodeFontSettings.changeFont &&
         unicodeFontSettings.changeCase &&
-        !refreshMenu) {
+        !menuIsShown) {
         await menus.create({
             id: "seperator-case-font",
             type: "separator",
@@ -101,8 +105,10 @@ async function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = 
         });
     }
     if (unicodeFontSettings.changeCase) {
-        await addMenuItems(menuStructure[TRANSFORMATION_TYPE.CASING], unicodeFontSettings, exampleText, refreshMenu);
+        await addMenuItems(menuStructure[TRANSFORMATION_TYPE.CASING], unicodeFontSettings, exampleText);
     }
+
+    menuIsShown = true;
 }
 
 /**
@@ -111,13 +117,12 @@ async function buildMenu(unicodeFontSettings, exampleText = null, refreshMenu = 
  * @param {string[]} menuItems
  * @param {Object} [unicodeFontSettings]
  * @param {string?} [exampleText=null]
- * @param {bool?} [refreshMenu=false]
  * @returns {void}
  */
-async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSettings, exampleText = null, refreshMenu = false) {
+async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSettings, exampleText = null) {
     for (const transformationId of menuItems) {
         if (transformationId === SEPARATOR_ID) {
-            if (refreshMenu) {
+            if (menuIsShown) {
                 continue;
             }
 
@@ -140,8 +145,9 @@ async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFo
         if (unicodeFontSettings.showReadableText) {
             menuText = browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, transformedText]);
         }
+        menuText = menuText.replaceAll("&", "&&");
 
-        if (refreshMenu) {
+        if (menuIsShown) {
             menus.update(transformationId, {
                 "title": menuText,
             });
@@ -154,6 +160,35 @@ async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFo
         }
     }
 }
+
+BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UPDATE_CONTEXT_MENU, async (message) => {
+    // console.log(message);
+    let text = message.selection;
+
+    // do not show menu entry when no text is selected
+    if (!text) {
+        await menus.removeAll();
+        menuIsShown = false;
+        return;
+    }
+    // shorten preview text as it may not be shown anyway
+    if (text.length > PREVIEW_STRING_CUT_LENGTH) {
+        // to be sure, we append … anyway, in case some strange OS has a tooltip for context menus or so
+        text = `${text.substring(0, PREVIEW_STRING_CUT_LENGTH)}…`;
+    }
+    text = text.normalize();
+
+    if (!lastCachedUnicodeFontSettings.livePreview) {
+        if (menuIsShown) {
+            return;
+        }
+
+        // continue re-creating deleted menu, but without any example text
+        text = null;
+    }
+
+    await buildMenu(lastCachedUnicodeFontSettings, text, true);
+});
 
 /**
  * Init Unicode font module.
@@ -182,6 +217,7 @@ export async function init() {
         lastCachedUnicodeFontSettings = request.optionValue;
 
         await menus.removeAll();
+        menuIsShown = false;
         return buildMenu(request.optionValue);
     });
 }

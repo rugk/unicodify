@@ -53,6 +53,7 @@ export function getTransformationType(transformationId) {
 function capitalizeEachWord(text) {
     // Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
     // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
+    // \p{Alphabetic}
     return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(""));
 }
 
@@ -110,12 +111,13 @@ function toggleCase(atext) {
     let output = "";
 
     for (let letter of atext) {
-        const upper = letter.toLocaleUpperCase();
-        const lower = letter.toLocaleLowerCase();
-        if (letter === lower && letter !== upper) {
-            letter = upper;
-        } else if (letter === upper && letter !== lower) {
-            letter = lower;
+        // \p{Changes_When_Uppercased}
+        if (/\p{CWU}/u.test(letter)) {
+            letter = letter.toLocaleUpperCase();
+        }
+        // \p{Changes_When_Lowercased}
+        else if (/\p{CWL}/u.test(letter)) {
+            letter = letter.toLocaleLowerCase();
         }
         output += letter;
     }

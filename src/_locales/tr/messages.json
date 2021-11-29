@@ -8,10 +8,6 @@
     "message": "Unicodify",
     "description": "Name of the extension."
   },
-  "extensionDescription": {
-    "message": "Allows you to do great stuff.",
-    "description": "Description of the extension."
-  },
 
   // errors or other messages (mostly for settings)
   "errorShowingMessage": {

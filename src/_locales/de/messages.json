@@ -9,7 +9,7 @@
     "description": "Name of the extension."
   },
   "extensionDescription": {
-    "message": "Allows you to do great stuff.",
+    "message": "Erlaubt es übliche Zeichenfolgen/Texte zu automatisch zu korrigieren und Zeichenfolgen automatisch wie einen speziellen Unicode-Schriftart aussehen zu lassen.",
     "description": "Description of the extension."
   },
 
