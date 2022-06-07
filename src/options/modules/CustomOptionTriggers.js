@@ -17,7 +17,24 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
  * @param  {Object} [event]
  * @returns {Promise}
  */
-function applyAutocorrectPermissions(optionValue) {
+function applyAutocorrectPermissions(optionValue, option, event) {
+    if (optionValue.enabled) {
+        if (option && event?.target?.name === "enabled") {
+            if (!confirm("Are you sure you want to enable this experimental feature?")) {
+                // Remove once https://github.com/TinyWebEx/AutomaticSettings/issues/21 is fixed
+                event.target.checked = !optionValue.enabled;
+                return Promise.reject();
+            }
+        }
+        document.getElementById("autocorrectSymbols").disabled = false;
+        document.getElementById("autocorrectUnicodeQuotes").disabled = false;
+        document.getElementById("autocorrectUnicodeFracts").disabled = false;
+    } else {
+        document.getElementById("autocorrectSymbols").disabled = true;
+        document.getElementById("autocorrectUnicodeQuotes").disabled = true;
+        document.getElementById("autocorrectUnicodeFracts").disabled = true;
+    }
+
     // trigger update for current session
     browser.runtime.sendMessage({
         "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_BACKGROUND,
@@ -53,4 +70,7 @@ export function registerTrigger() {
     // update slider status
     AutomaticSettings.Trigger.registerSave("autocorrect", applyAutocorrectPermissions);
     AutomaticSettings.Trigger.registerSave("unicodeFont", applyUnicodeFontSettings);
+
+    // handle loading of options correctly
+    AutomaticSettings.Trigger.registerAfterLoad(AutomaticSettings.Trigger.RUN_ALL_SAVE_TRIGGER);
 }

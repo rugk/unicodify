@@ -16,6 +16,7 @@ const defaultSettings = {
         tips: {}
     },
     autocorrect: {
+        enabled: false,
         autocorrectSymbols: true,
         autocorrectUnicodeQuotes: true,
         autocorrectUnicodeFracts: true,

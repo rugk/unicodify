@@ -7,6 +7,7 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
 import * as symbols from "/common/modules/data/Symbols.js";
 
 const settings = {
+    enabled:  null,
     autocorrectEmojis:  null,
     quotes:  null,
     fracts:  null,
@@ -107,11 +108,14 @@ function onError(error) {
  * @returns {void}
  */
 function setSettings(autocorrect) {
+    settings.enabled = autocorrect.enabled;
     settings.autocorrectSymbols = autocorrect.autocorrectSymbols;
     settings.quotes = autocorrect.autocorrectUnicodeQuotes;
     settings.fracts = autocorrect.autocorrectUnicodeFracts;
 
-    applySettings();
+    if (settings.enabled) {
+        applySettings();
+    }
 }
 
 /**
@@ -129,6 +133,7 @@ function sendSettings(autocorrect) {
             browser.tabs.sendMessage(
                 tab.id,
                 {
+                    "enabled": settings.enabled,
                     "quotes": settings.quotes,
                     "fracts": settings.fracts,
                     "autocorrections": autocorrections,
@@ -157,6 +162,7 @@ export async function init() {
         if (message.type === COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
             const response = {
                 "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
+                "enabled": settings.enabled,
                 "quotes": settings.quotes,
                 "fracts": settings.fracts,
                 "autocorrections": autocorrections,

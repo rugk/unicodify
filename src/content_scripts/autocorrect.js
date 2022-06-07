@@ -35,6 +35,7 @@ let deletedText; // Last deleted text
 let lastTarget; // Last target
 let lastCaretPosition; // Last caret position
 
+let enabled = false;
 let quotes = true;
 let fracts = true;
 
@@ -132,6 +133,7 @@ function insertIntoPage(atext) {
 /**
  * Count Unicode characters.
  * Adapted from: https://blog.jonnew.com/posts/poo-dot-length-equals-two
+ * Intl.Segmenter is not yet supported by Firefox/Thunderbird: https://bugzilla.mozilla.org/show_bug.cgi?id=1423593
  *
  * @param {string} str
  * @returns {number}
@@ -387,6 +389,7 @@ function handleResponse(message, sender) {
     if (message.type !== AUTOCORRECT_CONTENT) {
         return;
     }
+    enabled = message.enabled;
     quotes = message.quotes;
     fracts = message.fracts;
     autocorrections = message.autocorrections;
@@ -394,6 +397,14 @@ function handleResponse(message, sender) {
     symbolpatterns = IS_CHROME ? new RegExp(message.symbolpatterns) : message.symbolpatterns;
     antipatterns = IS_CHROME ? new RegExp(message.antipatterns) : message.antipatterns;
     // console.log(message);
+
+    if (enabled) {
+        window.addEventListener("beforeinput", undoAutocorrect, true);
+        window.addEventListener("beforeinput", autocorrect, true);
+    } else {
+        window.removeEventListener("beforeinput", undoAutocorrect, true);
+        window.removeEventListener("beforeinput", autocorrect, true);
+    }
 }
 
 /**
@@ -408,6 +419,4 @@ function handleError(error) {
 
 browser.runtime.sendMessage({ "type": AUTOCORRECT_CONTENT }).then(handleResponse, handleError);
 browser.runtime.onMessage.addListener(handleResponse);
-window.addEventListener("beforeinput", undoAutocorrect, true);
-window.addEventListener("beforeinput", autocorrect, true);
 console.log("Unicodify autocorrect module loaded.");
