@@ -39,7 +39,9 @@
     "<all_urls>",
     "tabs",
     "compose",
-    "menus"
+    "menus",
+    "notifications",
+    "clipboardWrite"
   ],
 
   "applications": {

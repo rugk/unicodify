@@ -1,7 +1,6 @@
 import * as UnicodeTransformationHandler from "/common/modules/UnicodeTransformationHandler.js";
 import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
 import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
-import { isMobile } from "/common/modules/MobileHelper.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
 import { menuStructure, SEPARATOR_ID, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
@@ -11,6 +10,38 @@ const PREVIEW_STRING_CUT_LENGTH = 100; // a setting that may improve performance
 
 let lastCachedUnicodeFontSettings = null;
 let menuIsShown = false;
+
+let pasteSymbol = null;
+
+/**
+ * Create notification.
+ *
+ * @param {string} title
+ * @param {string} message
+ * @returns {void}
+ */
+function notification(title, message) {
+    console.log(title, message);
+    browser.notifications.create({
+        "type": "basic",
+        "iconUrl": browser.runtime.getURL("icons/icon.svg"),
+        "title": title,
+        "message": message
+    });
+}
+
+/**
+ * Copy text to clipboard and show notification when unable to do transformation directly.
+ * Thunderbird workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1641575
+ *
+ * @param {string} text
+ * @param {string} fieldId
+ * @returns {void}
+ */
+function fallback(text, fieldId) {
+    navigator.clipboard.writeText(text);
+    notification(`📋 Press ${pasteSymbol}-V`, `Add-ons in Thunderbird are currently unable to access the “${fieldId.startsWith("compose") ? fieldId.slice("compose".length) : fieldId}” field directly, so the transformed text has been copied to your clipboard.\nPlease press ${pasteSymbol}-V to do the transformation.`);
+}
 
 /**
  * Handle selection of a context menu item.
@@ -31,6 +62,12 @@ function handleMenuChoosen(info, tab) {
 
     text = text.normalize();
     const output = UnicodeTransformationHandler.transformText(text, info.menuItemId);
+
+    // Thunderbird workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1641575
+    if (info.fieldId) {
+        fallback(output, info.fieldId);
+        return;
+    }
 
     browser.tabs.executeScript(tab.id, {
         code: `insertIntoPage("${output}");`,
@@ -197,8 +234,9 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UPDATE_CONTEXT_MENU,
  * @returns {void}
  */
 export async function init() {
+    const platformInfo = await browser.runtime.getPlatformInfo();
     // Remove once https://bugzilla.mozilla.org/show_bug.cgi?id=1595822 is fixed
-    if (await isMobile()) {
+    if (platformInfo.os === "android") {
         return;
     }
 
@@ -213,11 +251,13 @@ export async function init() {
     }
     menus.onClicked.addListener(handleMenuChoosen);
 
-    BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, async (request) => {
-        lastCachedUnicodeFontSettings = request.optionValue;
-
-        await menus.removeAll();
-        menuIsShown = false;
-        return buildMenu(request.optionValue);
-    });
+    pasteSymbol = platformInfo.os === "mac" ? "\u2318" : "Ctrl";
 }
+
+BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, async (request) => {
+    lastCachedUnicodeFontSettings = request.optionValue;
+
+    await menus.removeAll();
+    menuIsShown = false;
+    return buildMenu(request.optionValue);
+});

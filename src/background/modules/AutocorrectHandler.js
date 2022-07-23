@@ -133,6 +133,7 @@ function sendSettings(autocorrect) {
             browser.tabs.sendMessage(
                 tab.id,
                 {
+                    "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
                     "enabled": settings.enabled,
                     "quotes": settings.quotes,
                     "fracts": settings.fracts,
@@ -157,24 +158,6 @@ export async function init() {
 
     setSettings(autocorrect);
 
-    browser.runtime.onMessage.addListener((message) => {
-        // console.log(message);
-        if (message.type === COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
-            const response = {
-                "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
-                "enabled": settings.enabled,
-                "quotes": settings.quotes,
-                "fracts": settings.fracts,
-                "autocorrections": autocorrections,
-                "longest": longest,
-                "symbolpatterns": IS_CHROME ? symbolpatterns.source : symbolpatterns,
-                "antipatterns": IS_CHROME ? antipatterns.source : antipatterns,
-            };
-            // console.log(response);
-            return Promise.resolve(response);
-        }
-    });
-
     // Thunderbird
     // Remove if part 3 of https://bugzilla.mozilla.org/show_bug.cgi?id=1630786#c4 is ever done
     if (typeof messenger !== "undefined") {
@@ -191,4 +174,22 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_BACKGROU
     // await AddonSettings.loadOptions();
 
     return sendSettings(request.optionValue);
+});
+
+browser.runtime.onMessage.addListener((message) => {
+    // console.log(message);
+    if (message.type === COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
+        const response = {
+            "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
+            "enabled": settings.enabled,
+            "quotes": settings.quotes,
+            "fracts": settings.fracts,
+            "autocorrections": autocorrections,
+            "longest": longest,
+            "symbolpatterns": IS_CHROME ? symbolpatterns.source : symbolpatterns,
+            "antipatterns": IS_CHROME ? antipatterns.source : antipatterns,
+        };
+        // console.log(response);
+        return Promise.resolve(response);
+    }
 });
