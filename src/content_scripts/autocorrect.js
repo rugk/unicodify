@@ -48,6 +48,8 @@ let symbolpatterns = null;
 // Exceptions, do not autocorrect for these patterns
 let antipatterns = null;
 
+let running = false;
+
 // Chrome
 // Adapted from: https://github.com/mozilla/webextension-polyfill/blob/master/src/browser-polyfill.js
 const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
@@ -94,7 +96,7 @@ function getCaretPosition(target) {
 function insertAtCaret(target, atext) {
     // document.execCommand is deprecated, although there is not yet an alternative: https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand
     // insertReplacementText
-    if(document.execCommand("insertText", false, atext)) {
+    if (document.execCommand("insertText", false, atext)) {
         return;
     }
 
@@ -103,7 +105,7 @@ function insertAtCaret(target, atext) {
         const start = target.selectionStart;
         const end = target.selectionEnd;
 
-        if (start !== undefined && end !== undefined) {
+        if (start != null && end != null) {
             target.setRangeText(atext);
 
             target.selectionStart = target.selectionEnd = start + atext.length;
@@ -271,6 +273,10 @@ function autocorrect(event) {
     if (!symbolpatterns) {
         throw new Error("Emoji autocorrect settings have not been received. Do not autocorrect.");
     }
+    if (running) {
+        return;
+    }
+    running = true;
     const target = event.target;
     const caretposition = getCaretPosition(target);
     if (caretposition) {
@@ -332,6 +338,7 @@ function autocorrect(event) {
 
             const text = deletecount ? value.slice(caretposition - deletecount, caretposition) : "";
             if (text) {
+                lastTarget = null;
                 deleteCaret(target, text);
             }
             insertAtCaret(target, insert);
@@ -344,6 +351,7 @@ function autocorrect(event) {
             lastCaretPosition = caretposition - deletecount + insert.length;
         }
     }
+    running = false;
 }
 
 /**
@@ -358,6 +366,10 @@ function undoAutocorrect(event) {
     if (event.inputType !== "deleteContentBackward") {
         return;
     }
+    if (running) {
+        return;
+    }
+    running = true;
     const target = event.target;
     const caretposition = getCaretPosition(target);
     if (caretposition) {
@@ -376,6 +388,7 @@ function undoAutocorrect(event) {
 
         lastTarget = null;
     }
+    running = false;
 }
 
 /**
