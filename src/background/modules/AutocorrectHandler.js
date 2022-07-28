@@ -189,7 +189,6 @@ browser.runtime.onMessage.addListener((message) => {
             "symbolpatterns": IS_CHROME ? symbolpatterns.source : symbolpatterns,
             "antipatterns": IS_CHROME ? antipatterns.source : antipatterns,
         };
-        // console.log(response);
         return Promise.resolve(response);
     }
 });

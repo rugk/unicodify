@@ -21,7 +21,7 @@ let pasteSymbol = null;
  * @returns {void}
  */
 function notification(title, message) {
-    console.log(title, message);
+    console.info("Showing notification:", title, message);
     browser.notifications.create({
         "type": "basic",
         "iconUrl": browser.runtime.getURL("icons/icon.svg"),
