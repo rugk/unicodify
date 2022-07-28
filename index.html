@@ -1,22 +1,64 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-	<head>
-		<meta charset="utf-8">
-		<title>Unicodify test site</title>
-	</head>
-	<body>
-		<h1>Test site for Unicodify</h1>
-		
-		<p>This allows you to test <a href="https://github.com/rugk/unicodify/">Unicodify</a>.</p>
 
-		<h3>Input</h3>
-		<input type="text">
+<head>
+	<meta charset="utf-8">
+	<title>Unicodify test site</title>
+</head>
 
-		<h3>Textarea</h3>
-		<textarea></textarea>
+<body>
+	<h1>Test site for Unicodify</h1>
 
-		<h3>ContentEditable Div</h3>
-		<div contenteditable="true">This text can be edited by the user.<br>
-			Some <strong>bold</strong> and <em>italic and <strong>bold</strong></em> text.</div>
-	</body>
+	<p>This allows you to test <a href="https://github.com/rugk/unicodify/">Unicodify</a>.</p>
+
+	<h3>Input</h3>
+	<input type="text">
+
+	<h3>Textarea</h3>
+	<textarea></textarea>
+
+	<h3>ContentEditable Div</h3>
+	<details>
+		<summary>Advanced Options</summary>
+		<fieldset>
+			<legend>Select a Paragraph Separator:</legend>
+
+			<div>
+				<input type="radio" id="div" name="separator" value="div" checked>
+				<label for="div">Div (Modern Firefox/Chromium browser default)</label>
+			</div>
+
+			<div>
+				<input type="radio" id="p" name="separator" value="p">
+				<label for="p">Paragraph (Thunderbird default)</label>
+			</div>
+
+			<div>
+				<input type="radio" id="louie" name="separator" value="br">
+				<label for="br">Line Break (Thunderbird's "Body text" mode, Firefox only)</label>
+			</div>
+		</fieldset>
+	</details>
+	<br>
+	<div contenteditable="true">This text can be edited by the user.<br>
+		Some <strong>bold</strong> and <em>italic and <strong>bold</strong></em> text.</div>
+	<script>
+		"use strict";
+
+		const separators = Array.from(document.getElementsByName("separator"));
+
+		function toggle() {
+			const separator = separators.find((r) => r.checked).value;
+			console.log("Separator", separator);
+			document.execCommand("defaultParagraphSeparator", false, separator);
+		}
+
+		window.addEventListener('load', toggle);
+
+		for (const radio of separators) {
+			radio.addEventListener('change', toggle);
+		}
+	</script>
+</body>
+
 </html>
