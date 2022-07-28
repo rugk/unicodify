@@ -28,6 +28,7 @@ const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 function applyAutocorrectPermissions(optionValue, option, event) {
     if (optionValue.enabled) {
         if (option && event?.target?.name === "enabled") {
+            // This will need to be localized
             // Remove IS_THUNDERBIRD once https://bugzilla.mozilla.org/show_bug.cgi?id=1780977 is fixed
             if (!IS_THUNDERBIRD && !IS_CHROME && !confirm("Are you sure you want to enable this experimental feature?")) {
                 // Remove once https://github.com/TinyWebEx/AutomaticSettings/issues/21 is fixed
