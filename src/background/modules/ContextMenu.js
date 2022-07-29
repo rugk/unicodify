@@ -1,6 +1,7 @@
 import * as UnicodeTransformationHandler from "/common/modules/UnicodeTransformationHandler.js";
 import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
 import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
+import { isMobile } from "/common/modules/MobileHelper.js";
 import * as Notifications from "/common/modules/Notifications.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
@@ -24,7 +25,7 @@ let pasteSymbol = null;
  */
 function fallback(text, fieldId) {
     navigator.clipboard.writeText(text);
-    // This will need to be localized
+    // TODO: This will need to be localized
     Notifications.showNotification(`📋 Press ${pasteSymbol}-V`, `Add-ons in Thunderbird are currently unable to access the “${fieldId.startsWith("compose") ? fieldId.slice("compose".length) : fieldId}” field directly, so the transformed text has been copied to your clipboard.\nPlease press ${pasteSymbol}-V to do the transformation.`);
 }
 
@@ -221,7 +222,7 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UPDATE_CONTEXT_MENU,
 export async function init() {
     const platformInfo = await browser.runtime.getPlatformInfo();
     // Remove once https://bugzilla.mozilla.org/show_bug.cgi?id=1595822 is fixed
-    if (platformInfo.os === "android") {
+    if (await isMobile()) { // platformInfo.os === "android"
         return;
     }
 
