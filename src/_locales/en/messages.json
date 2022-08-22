@@ -237,9 +237,22 @@
     "message": "Learn more",
     "description": "When a link to an explainer needs to be added, this is the link text."
   },
+  "optionMoreInformation": {
+    "message": "More information",
+    "description": "When a link to an explainer needs to be added and it is more informative and not about learning something, this is the link text."
+  },
   "optionsResetButton": {
     "message": "Reset all settings to defaults",
     "description": "The button to delete all current settings and load the defaults, shown in the add-on settings."
+  },
+
+  "optionWarningAutocorrectFeature": {
+    "message": "The Unicode autocorrect feature is experimental and may negatively affect some web pages.",
+    "description": "The warning used to mark the autocorrection feature as experimental. Try to keep it short."
+  },
+  "optionWarningAutocorrectFeatureLink": {
+    "message": "https://github.com/rugk/unicodify/wiki/FAQ#why-is-the-autocorrect-feature-experimental",
+    "description": "The link for more information about the optionWarningAutocorrectFeature warning."
   },
 
   "titleUnicodeAutocorrection": {

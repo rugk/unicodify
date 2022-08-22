@@ -54,6 +54,7 @@
 		<form>
 			<section>
 				<h1 data-i18n="__MSG_titleUnicodeAutocorrection__">Unicode autocorrection</h1>
+
 				<span class="helper-text" data-i18n="__MSG_optionHelperTextAutocorrection__"  data-opt-i18n-keep-children>
 				You can configure the automatic corrections that are done when you are typing text here.<br>
 				All the autocorrections are done after typing the first nonmatching character following the character sequence, such as a space (␣). Press Backspace (⌫) to undo an autocorrection.
@@ -62,13 +63,23 @@
 				<span class="helper-text" data-i18n="__MSG_optionHelperTextAutocorrectionEmoji__"  data-opt-i18n-keep-children>
 				For Emoji autocorrection, including <code data-i18n="__MSG_optionHelperTextAutocorrectionEmojiColonsCode__">:colon:</code> shortcodes and Emoticons, please also try out our <a id="link-awesome-emoji" data-i18n="__MSG_optionHelperTextAutocorrectionEmojiLinkText__">🤩&nbsp;Awesome Emoji Picker</a> add-on.
 				</span>
+
+				<div class="message-container">
+					<div aria-label="warning message" data-i18n data-i18n-aria-label="__MSG_ariaMessageWarning__" class="message-box warning">
+						<span class="message-text" data-i18n="__MSG_optionWarningAutocorrectFeature__">The Unicode autocorrect feature is experimental and may negatively affect some web pages.</span>
+						<a href="https://github.com/rugk/unicodify/wiki/FAQ#why-is-the-autocorrect-feature-experimental" data-i18n-href="__MSG_optionWarningAutocorrectFeatureLink__" >
+							<button data-i18n="__MSG_optionMoreInformation__" type="button" class="message-action-button micro-button warning">More information</button>
+						</a>
+					</div>
+				</div>
+
 				<ul>
 					<li>
 						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="autocorrect" data-optiongroup="autocorrect" name="enabled">
 							<label for="autocorrect">Enable autocorrection</label>
 						</div>
-						<span class="line indent helper-text">Enable the experimental Unicode autocorrection feature. ⚠️ This is for testing only.</span>
+						<span data-i18n="__MSG_optionAutocorrectSymbolsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>--</code> with –, <code>--></code> with ⟶ and <code>1/4</code> with ¼.</span>
 					</li>
 
 					<li>
