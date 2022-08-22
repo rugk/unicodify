@@ -25,8 +25,14 @@ let pasteSymbol = null;
  */
 function fallback(text, fieldId) {
     navigator.clipboard.writeText(text);
-    // TODO: This will need to be localized
-    Notifications.showNotification(`📋 Press ${pasteSymbol}-V`, `Add-ons in Thunderbird are currently unable to access the “${fieldId.startsWith("compose") ? fieldId.slice("compose".length) : fieldId}” field directly, so the transformed text has been copied to your clipboard.\nPlease press ${pasteSymbol}-V to do the transformation.`);
+    const fieldName = fieldId.startsWith("compose") ? fieldId.slice("compose".length) : fieldId;
+    Notifications.showNotification(
+        "menuNotificationPressCtrlVTitle",
+        "menuNotificationPressCtrlVContent",
+        [
+            browser.i18n.getMessage("menuCtrlKey"),
+            fieldName
+        ]);
 }
 
 /**
@@ -231,13 +237,13 @@ export async function init() {
 
     buildMenu(unicodeFontSettings);
 
-    // feature detection for this feature, as it is not compatible with CHrome/ium.
+    // feature detection for this feature, as it is not compatible with Chrome/ium.
     if (menus.onShown) {
         menus.onShown.addListener(handleMenuShown);
     }
     menus.onClicked.addListener(handleMenuChoosen);
 
-    pasteSymbol = platformInfo.os === "mac" ? "\u2318" : "Ctrl";
+    pasteSymbol = platformInfo.os === "mac" ? "\u2318" : browser.i18n.getMessage("menuCtrlKey");
 }
 
 BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, async (request) => {

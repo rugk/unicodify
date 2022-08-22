@@ -77,6 +77,35 @@
     }
   },
 
+  "menuCtrlKey": {
+    "message": "Strg",
+    "description": "The short key name used for the Control modifier key on typical Windows(-like) keyboards. For mac OS devices it automatically uses the Unicode symbol ⌘ instead."
+  },
+  "menuNotificationPressCtrlVTitle": {
+    "message": "📋 Drück $CTRL_KEY$+V",
+    "description": "The message title shown as a workaround to let users know to press Ctrl+V to insert the transformed text.",
+    "placeholders": {
+      "ctrl_key": {
+        "content": "$1",
+        "example": "Ctrl"
+      }
+    }
+  },
+  "menuNotificationPressCtrlVContent": {
+    "message": "Add-ons in Thunderbird können aktuell nicht auf das ausgewählte Feld („$FIELD_NAME$”) zugreifen. Daher wurde der transformierte Text in diene Zwischenablage kopiert.\nBitte drück $CTRL_KEY$+V um die Transformation auszuführen.",
+    "description": "The message title shown as a workaround to let users know to press Ctrl+V to insert the transformed text.",
+    "placeholders": {
+      "ctrl_key": {
+        "content": "$1",
+        "example": "Ctrl"
+      },
+      "field_name": {
+        "content": "$2",
+        "example": "compose"
+      }
+    }
+  },
+
   "menuCaseLowercase": {
     "message": "Kleinbuchstaben",
     "description": "An entry in the context menu. This is an entry for the case."
