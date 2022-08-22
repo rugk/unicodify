@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Unicodify DEV VERSION",
+  "name": "__MSG_extensionName__",
   "short_name": "__MSG_extensionNameShort__",
-  "version": "0.5",
+  "version": "0.5.2",
   "author": "Teal Dulcet, rugk",
 
   "description": "__MSG_extensionDescription__",
@@ -20,12 +20,12 @@
     {
       "matches": ["<all_urls>"],
       "all_frames": true,
+      "match_about_blank": true,
       "js": ["content_scripts/autocorrect.js"]
     }
   ],
 
-  // testing version allows loading unit test libraries from CDNs
-  "content_security_policy": "default-src 'self'; img-src data:; style-src 'self' https://unpkg.com; script-src 'self' https://unpkg.com",
+  "content_security_policy": "default-src 'self'",
   "icons": {
     "16": "icons/icon.svg",
     "32": "icons/icon.svg",
@@ -37,14 +37,17 @@
   "permissions": [
     "storage",
     "<all_urls>",
-    "contextMenus",
-    "tabs"
+    "tabs",
+    "compose",
+    "menus",
+    "notifications",
+    "clipboardWrite"
   ],
 
   "applications": {
     "gecko": {
       "id": "unicodify@rugk.github.io",
-      "strict_min_version": "87.0"
+      "strict_min_version": "91.0"
     }
   }
 }

@@ -7,15 +7,6 @@
 import * as AutomaticSettings from "/common/modules/AutomaticSettings/AutomaticSettings.js";
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
 
-// Thunderbird
-// https://bugzilla.mozilla.org/show_bug.cgi?id=1641573
-const IS_THUNDERBIRD = typeof messenger !== "undefined";
-
-// Chrome
-// Adapted from: https://github.com/mozilla/webextension-polyfill/blob/master/src/browser-polyfill.js
-const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
-
-
 /**
  * Apply the new autocorrect settings.
  *
