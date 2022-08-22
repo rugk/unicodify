@@ -92,7 +92,7 @@
     }
   },
   "menuNotificationPressCtrlVContent": {
-    "message": "Add-ons in Thunderbird können aktuell nicht auf das ausgewählte Feld („$FIELD_NAME$”) zugreifen. Daher wurde der transformierte Text in diene Zwischenablage kopiert.\nBitte drück $CTRL_KEY$+V um die Transformation auszuführen.",
+    "message": "Add-ons in Thunderbird können aktuell nicht auf das ausgewählte Feld („$FIELD_NAME$”) zugreifen. Daher wurde der transformierte Text in deine Zwischenablage kopiert.\nBitte drück $CTRL_KEY$+V um die Transformation auszuführen.",
     "description": "The message title shown as a workaround to let users know to press Ctrl+V to insert the transformed text.",
     "placeholders": {
       "ctrl_key": {
