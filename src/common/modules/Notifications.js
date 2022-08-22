@@ -5,6 +5,8 @@
  * @see {@link https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/user_interface/Notifications}
  */
 
+const ICON = (browser.runtime.getManifest()).icons[32];
+
 /**
  * Show a notification.
  *
@@ -21,7 +23,7 @@ export function showNotification(title, content) {
     console.info("Showing notification:", title, content);
     browser.notifications.create({
         "type": "basic",
-        "iconUrl": browser.runtime.getURL("icons/icon.svg"),
+        "iconUrl": browser.runtime.getURL(ICON),
         "title": title,
         "message": content
     });
