@@ -62,7 +62,7 @@ function handleMenuChoosen(info, tab) {
     }
 
     browser.tabs.executeScript(tab.id, {
-        code: `insertIntoPage("${output}");`,
+        code: `insertIntoPage(${JSON.stringify(output)});`,
         frameId: info.frameId
     });
 }
@@ -108,7 +108,7 @@ async function handleMenuShown(info) {
         text = null;
     }
 
-    await buildMenu(lastCachedUnicodeFontSettings, text, menuIsShown);
+    await buildMenu(lastCachedUnicodeFontSettings, text);
 
     menus.refresh();
 }
@@ -216,7 +216,7 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UPDATE_CONTEXT_MENU,
         text = null;
     }
 
-    await buildMenu(lastCachedUnicodeFontSettings, text, true);
+    await buildMenu(lastCachedUnicodeFontSettings, text);
 });
 
 /**

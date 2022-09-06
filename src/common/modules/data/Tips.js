@@ -111,7 +111,7 @@ const tipArray = [
             tipSpec.actionButton.action = await getBrowserValue({
                 firefox: "https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-tipYouLikeAddon&utm_campaign=unicodify-addon-tips",
                 thunderbird: "https://addons.thunderbird.net/thunderbird/addon/unicodify-text-transformer/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons&utm_campaign=unicodify-addon-tips",
-                chrome: "https://chrome.google.com/webstore/detail/unicodify-text-transformer/#...",
+                chrome: "https://chrome.google.com/webstore/detail/unicodify-text-transformer/reviews",
             });
             return null;
         }
@@ -134,7 +134,7 @@ const tipArray = [
         showTip: async (tipSpec) => {
             tipSpec.actionButton.action = await getBrowserValue({
                 firefox: "https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons&utm_campaign=unicodify-addon-tips",
-                thunderbird: "https://addons.thunderbird.net/thunderbird/addon/awesome-emoji-picker/reviews/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons&utm_campaign=unicodify-addon-tips",
+                thunderbird: "https://addons.thunderbird.net/thunderbird/addon/awesome-emoji-picker/?utm_source=unicodify-addon&utm_medium=addon&utm_content=unicodify-addon-tips-awesomeIcons&utm_campaign=unicodify-addon-tips",
                 chrome: "https://chrome.google.com/webstore/detail/awesome-emoji-picker/",
             });
             return null;
