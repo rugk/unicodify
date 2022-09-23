@@ -1,6 +1,7 @@
 "use strict";
 
 // Adapted from: https://entropymine.wordpress.com/2018/05/26/the-curious-case-of-small-caps-in-unicode/
+// https://en.wikipedia.org/wiki/Small_caps#Unicode
 const smallCaps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠᴡxʏᴢ";
 
 /**
@@ -87,6 +88,9 @@ export const menuStructure = Object.freeze({
 /**
  * Unicode fonts
  * Some of the fonts have characters that are not yet implemented.
+ * https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols
+ * https://en.wikipedia.org/wiki/Enclosed_Alphanumerics
+ * https://en.wikipedia.org/wiki/Enclosed_Alphanumeric_Supplement
  *
  * @private
  * @const
@@ -110,9 +114,11 @@ const fonts = Object.freeze({
     [`${FONT_ID_PREFIX}CircledBlack`]: "🅐🅑🅒🅓🅔🅕🅖🅗🅘🅙🅚🅛🅜🅝🅞🅟🅠🅡🅢🅣🅤🅥🅦🅧🅨🅩⓿❶❷❸❹❺❻❼❽❾",
     [`${FONT_ID_PREFIX}Squared`]: "!\"#$%&'()⧆⊞,⊟⊡⧄0123456789:;<=>?@🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉[⧅]^_`🄰🄱🄲🄳🄴🄵🄶🄷🄸🄹🄺🄻🄼🄽🄾🄿🅀🅁🅂🅃🅄🅅🅆🅇🅈🅉{|}~",
     [`${FONT_ID_PREFIX}SquaredBlack`]: "🅰🅱🅲🅳🅴🅵🅶🅷🅸🅹🅺🅻🅼🅽🅾🅿🆀🆁🆂🆃🆄🆅🆆🆇🆈🆉",
+    // https://en.wikipedia.org/wiki/Halfwidth_and_Fullwidth_Forms_(Unicode_block)
     [`${FONT_ID_PREFIX}Fullwidth`]: "！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～",
     // Adapted from: https://rupertshepherd.info/resource_pages/superscript-letters-in-unicode
-    [`${FONT_ID_PREFIX}Superscript`]: "ᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾQᴿˢᵀᵁⱽᵂˣʸᶻᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖqʳˢᵗᵘᵛʷˣʸᶻ⁰¹²³⁴⁵⁶⁷⁸⁹",
+    // https://en.wikipedia.org/wiki/Unicode_subscripts_and_superscripts
+    [`${FONT_ID_PREFIX}Superscript`]: "!\"#$%&'⁽⁾*⁺,⁻./⁰¹²³⁴⁵⁶⁷⁸⁹:;<⁼>?@ᴬᴮꟲᴰᴱꟳᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾꟴᴿˢᵀᵁⱽᵂˣʸᶻ[\]^_`ᵃᵇᶜᵈᵉᶠᵍʰⁱʲᵏˡᵐⁿᵒᵖ𐞥ʳˢᵗᵘᵛʷˣʸᶻ{|}~",
     [`${FONT_ID_PREFIX}SmallCaps`]: `ABCDEFGHIJKLMNOPQRSTUVWXYZ${smallCaps}`,
     [`${FONT_ID_PREFIX}AllSmallCaps`]: smallCaps,
     [`${FONT_ID_PREFIX}Unicase`]: `${smallCaps}abcdefghijklmnopqrstuvwxyz`
