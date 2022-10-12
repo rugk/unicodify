@@ -72,7 +72,7 @@ function getCaretPosition(target) {
         const temp = document.createTextNode("\0");
         range.insertNode(temp);
         const caretposition = target.innerText.indexOf("\0");
-        temp.parentNode.removeChild(temp);
+        temp.remove();
         return caretposition;
     }
     // input and textarea fields
