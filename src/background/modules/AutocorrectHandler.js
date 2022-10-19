@@ -7,10 +7,10 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
 import * as symbols from "/common/modules/data/Symbols.js";
 
 const settings = {
-    enabled:  null,
-    autocorrectEmojis:  null,
-    quotes:  null,
-    fracts:  null,
+    enabled: null,
+    autocorrectEmojis: null,
+    quotes: null,
+    fracts: null
 };
 
 let autocorrections = {};
@@ -50,7 +50,7 @@ function applySettings() {
     console.log("Longest autocorrection", longest);
 
     // Escape special characters
-    const regExSpecialChars = /[.*+?^${}()|[\]\\]/g;
+    const regExSpecialChars = /[.*+?^${}()|[\]\\]/gu;
 
     symbolpatterns = Object.keys(autocorrections).map((symbol) => symbol.replace(regExSpecialChars, "\\$&"));
 
@@ -87,8 +87,8 @@ function applySettings() {
 
     antipatterns = antipatterns.map((symbol) => symbol.replace(regExSpecialChars, "\\$&"));
 
-    symbolpatterns = new RegExp(`(${symbolpatterns.join("|")})$`);
-    antipatterns = new RegExp(`(${antipatterns.join("|")})$`);
+    symbolpatterns = new RegExp(`(${symbolpatterns.join("|")})$`, "u");
+    antipatterns = new RegExp(`(${antipatterns.join("|")})$`, "u");
 }
 
 /**
@@ -133,14 +133,14 @@ function sendSettings(autocorrect) {
             browser.tabs.sendMessage(
                 tab.id,
                 {
-                    "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
-                    "enabled": settings.enabled,
-                    "quotes": settings.quotes,
-                    "fracts": settings.fracts,
-                    "autocorrections": autocorrections,
-                    "longest": longest,
-                    "symbolpatterns": IS_CHROME ? symbolpatterns.source : symbolpatterns,
-                    "antipatterns": IS_CHROME ? antipatterns.source : antipatterns,
+                    type: COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
+                    enabled: settings.enabled,
+                    quotes: settings.quotes,
+                    fracts: settings.fracts,
+                    autocorrections: autocorrections,
+                    longest: longest,
+                    symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
+                    antipatterns: IS_CHROME ? antipatterns.source : antipatterns
                 }
             ).catch(onError);
         }
@@ -163,8 +163,8 @@ export async function init() {
     if (typeof messenger !== "undefined") {
         browser.composeScripts.register({
             js: [
-                { file: "/content_scripts/autocorrect.js" },
-            ],
+                { file: "/content_scripts/autocorrect.js" }
+            ]
         });
     }
 }
@@ -180,14 +180,14 @@ browser.runtime.onMessage.addListener((message) => {
     // console.log(message);
     if (message.type === COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
         const response = {
-            "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
-            "enabled": settings.enabled,
-            "quotes": settings.quotes,
-            "fracts": settings.fracts,
-            "autocorrections": autocorrections,
-            "longest": longest,
-            "symbolpatterns": IS_CHROME ? symbolpatterns.source : symbolpatterns,
-            "antipatterns": IS_CHROME ? antipatterns.source : antipatterns,
+            type: COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
+            enabled: settings.enabled,
+            quotes: settings.quotes,
+            fracts: settings.fracts,
+            autocorrections: autocorrections,
+            longest: longest,
+            symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
+            antipatterns: IS_CHROME ? antipatterns.source : antipatterns
         };
         return Promise.resolve(response);
     }

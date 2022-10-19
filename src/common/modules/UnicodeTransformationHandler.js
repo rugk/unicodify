@@ -39,9 +39,9 @@ export function getTransformationType(transformationId) {
         return TRANSFORMATION_TYPE.CASING;
     } else if (transformationId.startsWith(FONT_ID_PREFIX)) {
         return TRANSFORMATION_TYPE.FONT;
-    } else {
-        throw new Error(`Error while getting transformation type. Transformation with id=${transformationId} is unknown.`);
     }
+    throw new Error(`Error while getting transformation type. Transformation with id=${transformationId} is unknown.`);
+
 }
 
 /**

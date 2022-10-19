@@ -75,7 +75,7 @@ export const menuStructure = Object.freeze({
         `${FONT_ID_PREFIX}CircledBlack`,
         `${FONT_ID_PREFIX}Squared`,
         `${FONT_ID_PREFIX}SquaredBlack`,
-        `${FONT_ID_PREFIX}Fullwidth`,
+        `${FONT_ID_PREFIX}Fullwidth`
     ],
     [TRANSFORMATION_TYPE.CASING]: [
         `${CASE_ID_PREFIX}Lowercase`,

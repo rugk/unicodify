@@ -23,9 +23,9 @@ export function showNotification(title, content, substitutions) {
 
     console.info("Showing notification:", title, content);
     browser.notifications.create({
-        "type": "basic",
-        "iconUrl": browser.runtime.getURL(ICON),
-        "title": title,
-        "message": content
+        type: "basic",
+        iconUrl: browser.runtime.getURL(ICON),
+        title: title,
+        message: content
     });
 }
