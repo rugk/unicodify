@@ -13,8 +13,8 @@ const ICON = (browser.runtime.getManifest()).icons[32];
  * @public
  * @param {string} title the title
  * @param {string} content the message content
- * @param {string[] | string} substitutions the message parameters to pass for i18n.getMessage
- * @returns {Promise}
+ * @param {string[] | string} [substitutions] the message parameters to pass for i18n.getMessage
+ * @returns {void}
  * @see {@link https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/notifications/create}
  */
 export function showNotification(title, content, substitutions) {
@@ -23,9 +23,9 @@ export function showNotification(title, content, substitutions) {
 
     console.info("Showing notification:", title, content);
     browser.notifications.create({
-        "type": "basic",
-        "iconUrl": browser.runtime.getURL(ICON),
-        "title": title,
-        "message": content
+        type: "basic",
+        iconUrl: browser.runtime.getURL(ICON),
+        title: title,
+        message: content
     });
 }

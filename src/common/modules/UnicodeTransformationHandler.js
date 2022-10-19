@@ -31,7 +31,7 @@ export function transformText(text, transformationId) {
  *
  * @public
  * @param {string} transformationId
- * @returns {Symbol} TRANSFORMATION_TYPE
+ * @returns {symbol} TRANSFORMATION_TYPE
  * @throws {Error}
  */
 export function getTransformationType(transformationId) {
@@ -39,9 +39,9 @@ export function getTransformationType(transformationId) {
         return TRANSFORMATION_TYPE.CASING;
     } else if (transformationId.startsWith(FONT_ID_PREFIX)) {
         return TRANSFORMATION_TYPE.FONT;
-    } else {
-        throw new Error(`Error while getting transformation type. Transformation with id=${transformationId} is unknown.`);
     }
+    throw new Error(`Error while getting transformation type. Transformation with id=${transformationId} is unknown.`);
+
 }
 
 /**
@@ -130,7 +130,7 @@ function toggleCase(atext) {
  * Change Case
  *
  * @const
- * @type {Object.<string, function>}
+ * @type {Object.<string, function(string): string>}
  */
 const changeCase = Object.freeze({
     [`${CASE_ID_PREFIX}Lowercase`]: (str) => str.toLocaleLowerCase(),

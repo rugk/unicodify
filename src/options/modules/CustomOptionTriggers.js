@@ -14,7 +14,7 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
  * @param  {Object} optionValue
  * @param  {string} [option]
  * @param  {Object} [event]
- * @returns {Promise}
+ * @returns {Promise<void>|void}
  */
 function applyAutocorrectPermissions(optionValue, option, event) {
     if (optionValue.enabled) {
@@ -29,8 +29,8 @@ function applyAutocorrectPermissions(optionValue, option, event) {
 
     // trigger update for current session
     browser.runtime.sendMessage({
-        "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_BACKGROUND,
-        "optionValue": optionValue
+        type: COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_BACKGROUND,
+        optionValue: optionValue
     });
 }
 
@@ -41,13 +41,13 @@ function applyAutocorrectPermissions(optionValue, option, event) {
  * @param  {Object} optionValue
  * @param  {string} [option]
  * @param  {Object} [event]
- * @returns {Promise}
+ * @returns {void}
  */
 function applyUnicodeFontSettings(optionValue) {
     // trigger update for current session
     browser.runtime.sendMessage({
-        "type": COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT,
-        "optionValue": optionValue
+        type: COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT,
+        optionValue: optionValue
     });
 }
 
@@ -56,7 +56,7 @@ function applyUnicodeFontSettings(optionValue) {
  *
  * This is basically the "init" method.
  *
- * @returns {Promise}
+ * @returns {void}
  */
 export function registerTrigger() {
     // update slider status

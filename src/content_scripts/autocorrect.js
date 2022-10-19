@@ -1,29 +1,29 @@
 "use strict";
 
 const fractions = Object.freeze({
-    "¼": 1.0 / 4.0,
-    "½": 1.0 / 2.0,
-    "¾": 3.0 / 4.0,
-    "⅐": 1.0 / 7.0,
-    "⅑": 1.0 / 9.0,
-    "⅒": 1.0 / 10.0,
-    "⅓": 1.0 / 3.0,
-    "⅔": 2.0 / 3.0,
-    "⅕": 1.0 / 5.0,
-    "⅖": 2.0 / 5.0,
-    "⅗": 3.0 / 5.0,
-    "⅘": 4.0 / 5.0,
-    "⅙": 1.0 / 6.0,
-    "⅚": 5.0 / 6.0,
-    "⅛": 1.0 / 8.0,
-    "⅜": 3.0 / 8.0,
-    "⅝": 5.0 / 8.0,
-    "⅞": 7.0 / 8.0
+    "¼": 1 / 4,
+    "½": 1 / 2,
+    "¾": 3 / 4,
+    "⅐": 1 / 7,
+    "⅑": 1 / 9,
+    "⅒": 1 / 10,
+    "⅓": 1 / 3,
+    "⅔": 2 / 3,
+    "⅕": 1 / 5,
+    "⅖": 2 / 5,
+    "⅗": 3 / 5,
+    "⅘": 4 / 5,
+    "⅙": 1 / 6,
+    "⅚": 5 / 6,
+    "⅛": 1 / 8,
+    "⅜": 3 / 8,
+    "⅝": 5 / 8,
+    "⅞": 7 / 8
 });
 
 const constants = Object.freeze({
-    "π": Math.PI,
-    "e": Math.E
+    π: Math.PI,
+    e: Math.E
 });
 
 // communication type
@@ -57,8 +57,8 @@ const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 /**
  * Get caret position.
  *
- * @param {Object} target
- * @returns {number}
+ * @param {HTMLElement} target
+ * @returns {number|null}
  */
 function getCaretPosition(target) {
     // ContentEditable elements
@@ -76,19 +76,18 @@ function getCaretPosition(target) {
         return caretposition;
     }
     // input and textarea fields
-    else {
-        if (target.selectionStart !== target.selectionEnd) {
-            return null;
-        }
-        return target.selectionStart;
+
+    if (target.selectionStart !== target.selectionEnd) {
+        return null;
     }
+    return target.selectionStart;
 }
 
 /**
  * Insert at caret in the given element.
  * Adapted from: https://www.everythingfrontend.com/posts/insert-text-into-textarea-at-cursor-position.html
  *
- * @param {Object} target
+ * @param {HTMLElement} target
  * @param {string} atext
  * @throws {Error} if nothing is selected
  * @returns {void}
@@ -147,7 +146,7 @@ function countChars(str) {
 
     for (const s of split) {
         // removing the variation selectors
-        count += Array.from(s.split(/[\ufe00-\ufe0f]/).join("")).length;
+        count += Array.from(s.split(/[\uFE00-\uFE0F]/u).join("")).length;
     }
 
     return count;
@@ -156,7 +155,7 @@ function countChars(str) {
 /**
  * Delete at caret.
  *
- * @param {Object} target
+ * @param {HTMLElement} target
  * @param {string} atext
  * @returns {void}
  */
@@ -189,16 +188,16 @@ function deleteCaret(target, atext) {
  * Convert fractions and constants to Unicode characters.
  * Adapted from: https://github.com/tdulcet/Tables-and-Graphs/blob/master/graphs.hpp
  *
- * @param {number} anumber
- * @param {number} afraction
+ * @param {string} anumber
+ * @param {string} afraction
  * @returns {string}
  */
 function outputLabel(anumber, afraction) {
     let output = false;
 
-    const number = parseFloat(anumber);
+    const number = Number.parseFloat(anumber);
     let intpart = Math.trunc(number);
-    const fractionpart = afraction ? parseFloat(afraction) : Math.abs(number % 1);
+    const fractionpart = afraction ? Number.parseFloat(afraction) : Math.abs(number % 1);
 
     let str = "";
 
@@ -262,7 +261,7 @@ function firstDifferenceIndex(a, b) {
 /**
  * Autocorrect on text input even by evaluating the keys and replacing the characters/string.
  *
- * @param {Object} event
+ * @param {InputEvent} event
  * @returns {void}
  */
 function autocorrect(event) {
@@ -289,7 +288,7 @@ function autocorrect(event) {
         if (quotes && (insert === "'" || insert === '"')) {
             const previouschar = value.slice(caretposition < 1 ? 0 : caretposition - 1, caretposition);
             // White space
-            const re = /^\s*$/;
+            const re = /^\s*$/u;
             if (insert === "'") {
                 insert = re.test(previouschar) ? "‘" : "’";
             } else if (insert === '"') {
@@ -315,7 +314,7 @@ function autocorrect(event) {
             if (!output && fracts) {
                 // Numbers regular expression: https://regex101.com/r/7jUaSP/10
                 // Do not match version numbers: https://github.com/rugk/unicodify/issues/40
-                const numberRegex = /(?<!\.)\d+(?<fractionpart>\.\d+)?$/;
+                const numberRegex = /(?<!\.)\d+(?<fractionpart>\.\d+)?$/u;
                 const previousText = value.slice(0, caretposition);
                 const regexResult = numberRegex.exec(previousText);
                 if (regexResult && insert !== ".") {
@@ -357,7 +356,7 @@ function autocorrect(event) {
 /**
  * Undo autocorrect in case the backspace has been pressed.
  *
- * @param {Object} event
+ * @param {InputEvent} event
  * @returns {void}
  */
 function undoAutocorrect(event) {
@@ -407,8 +406,8 @@ function handleResponse(message, sender) {
     fracts = message.fracts;
     autocorrections = message.autocorrections;
     longest = message.longest;
-    symbolpatterns = IS_CHROME ? new RegExp(message.symbolpatterns) : message.symbolpatterns;
-    antipatterns = IS_CHROME ? new RegExp(message.antipatterns) : message.antipatterns;
+    symbolpatterns = IS_CHROME ? new RegExp(message.symbolpatterns, "u") : message.symbolpatterns;
+    antipatterns = IS_CHROME ? new RegExp(message.antipatterns, "u") : message.antipatterns;
     // console.log(message);
 
     if (enabled) {
@@ -430,6 +429,6 @@ function handleError(error) {
     console.error(`Error: ${error}`);
 }
 
-browser.runtime.sendMessage({ "type": AUTOCORRECT_CONTENT }).then(handleResponse, handleError);
+browser.runtime.sendMessage({ type: AUTOCORRECT_CONTENT }).then(handleResponse, handleError);
 browser.runtime.onMessage.addListener(handleResponse);
 console.log("Unicodify autocorrect module loaded.");

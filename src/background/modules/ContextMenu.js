@@ -76,7 +76,7 @@ function handleMenuChoosen(info, tab) {
  *
  * @param {Object} info
  * @param {Object} tab
- * @returns {void}
+ * @returns {Promise<void>}
  * @throws {Error}
  */
 async function handleMenuShown(info) {
@@ -95,7 +95,7 @@ async function handleMenuShown(info) {
     // shorten preview text as it may not be shown anyway
     if (text.length > PREVIEW_STRING_CUT_LENGTH) {
         // to be sure, we append … anyway, in case some strange OS has a tooltip for context menus or so
-        text = `${text.substring(0, PREVIEW_STRING_CUT_LENGTH)}…`;
+        text = `${text.slice(0, PREVIEW_STRING_CUT_LENGTH)}…`;
     }
     text = text.normalize();
 
@@ -118,7 +118,7 @@ async function handleMenuShown(info) {
  *
  * @param {Object} unicodeFontSettings
  * @param {string?} [exampleText=null]
- * @returns {void}
+ * @returns {Promise<void>}
  */
 async function buildMenu(unicodeFontSettings, exampleText = null) {
     if (unicodeFontSettings.changeFont) {
@@ -143,10 +143,10 @@ async function buildMenu(unicodeFontSettings, exampleText = null) {
 /**
  * Add Unicode menu items.
  *
- * @param {string[]} menuItems
+ * @param {string[]|symbol[]} menuItems
  * @param {Object} [unicodeFontSettings]
  * @param {string?} [exampleText=null]
- * @returns {void}
+ * @returns {Promise<void>}
  */
 async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSettings, exampleText = null) {
     for (const transformationId of menuItems) {
@@ -178,13 +178,13 @@ async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFo
 
         if (menuIsShown) {
             menus.update(transformationId, {
-                "title": menuText,
+                title: menuText
             });
         } else {
             await menus.create({
-                "id": transformationId,
-                "title": menuText,
-                "contexts": ["editable"],
+                id: transformationId,
+                title: menuText,
+                contexts: ["editable"]
             });
         }
     }
@@ -203,7 +203,7 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UPDATE_CONTEXT_MENU,
     // shorten preview text as it may not be shown anyway
     if (text.length > PREVIEW_STRING_CUT_LENGTH) {
         // to be sure, we append … anyway, in case some strange OS has a tooltip for context menus or so
-        text = `${text.substring(0, PREVIEW_STRING_CUT_LENGTH)}…`;
+        text = `${text.slice(0, PREVIEW_STRING_CUT_LENGTH)}…`;
     }
     text = text.normalize();
 
@@ -223,7 +223,7 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UPDATE_CONTEXT_MENU,
  * Init Unicode font module.
  *
  * @public
- * @returns {void}
+ * @returns {Promise<void>}
  */
 export async function init() {
     const platformInfo = await browser.runtime.getPlatformInfo();
