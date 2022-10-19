@@ -14,7 +14,7 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
  * @param  {Object} optionValue
  * @param  {string} [option]
  * @param  {Object} [event]
- * @returns {Promise}
+ * @returns {Promise<void>|void}
  */
 function applyAutocorrectPermissions(optionValue, option, event) {
     if (optionValue.enabled) {
@@ -41,7 +41,7 @@ function applyAutocorrectPermissions(optionValue, option, event) {
  * @param  {Object} optionValue
  * @param  {string} [option]
  * @param  {Object} [event]
- * @returns {Promise}
+ * @returns {void}
  */
 function applyUnicodeFontSettings(optionValue) {
     // trigger update for current session
@@ -56,7 +56,7 @@ function applyUnicodeFontSettings(optionValue) {
  *
  * This is basically the "init" method.
  *
- * @returns {Promise}
+ * @returns {void}
  */
 export function registerTrigger() {
     // update slider status

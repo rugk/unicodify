@@ -57,8 +57,8 @@ const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 /**
  * Get caret position.
  *
- * @param {Object} target
- * @returns {number}
+ * @param {HTMLElement} target
+ * @returns {number|null}
  */
 function getCaretPosition(target) {
     // ContentEditable elements
@@ -87,7 +87,7 @@ function getCaretPosition(target) {
  * Insert at caret in the given element.
  * Adapted from: https://www.everythingfrontend.com/posts/insert-text-into-textarea-at-cursor-position.html
  *
- * @param {Object} target
+ * @param {HTMLElement} target
  * @param {string} atext
  * @throws {Error} if nothing is selected
  * @returns {void}
@@ -155,7 +155,7 @@ function countChars(str) {
 /**
  * Delete at caret.
  *
- * @param {Object} target
+ * @param {HTMLElement} target
  * @param {string} atext
  * @returns {void}
  */
@@ -188,8 +188,8 @@ function deleteCaret(target, atext) {
  * Convert fractions and constants to Unicode characters.
  * Adapted from: https://github.com/tdulcet/Tables-and-Graphs/blob/master/graphs.hpp
  *
- * @param {number} anumber
- * @param {number} afraction
+ * @param {string} anumber
+ * @param {string} afraction
  * @returns {string}
  */
 function outputLabel(anumber, afraction) {
@@ -261,7 +261,7 @@ function firstDifferenceIndex(a, b) {
 /**
  * Autocorrect on text input even by evaluating the keys and replacing the characters/string.
  *
- * @param {Object} event
+ * @param {InputEvent} event
  * @returns {void}
  */
 function autocorrect(event) {
@@ -356,7 +356,7 @@ function autocorrect(event) {
 /**
  * Undo autocorrect in case the backspace has been pressed.
  *
- * @param {Object} event
+ * @param {InputEvent} event
  * @returns {void}
  */
 function undoAutocorrect(event) {

@@ -76,7 +76,7 @@ function handleMenuChoosen(info, tab) {
  *
  * @param {Object} info
  * @param {Object} tab
- * @returns {void}
+ * @returns {Promise<void>}
  * @throws {Error}
  */
 async function handleMenuShown(info) {
@@ -118,7 +118,7 @@ async function handleMenuShown(info) {
  *
  * @param {Object} unicodeFontSettings
  * @param {string?} [exampleText=null]
- * @returns {void}
+ * @returns {Promise<void>}
  */
 async function buildMenu(unicodeFontSettings, exampleText = null) {
     if (unicodeFontSettings.changeFont) {
@@ -143,10 +143,10 @@ async function buildMenu(unicodeFontSettings, exampleText = null) {
 /**
  * Add Unicode menu items.
  *
- * @param {string[]} menuItems
+ * @param {string[]|symbol[]} menuItems
  * @param {Object} [unicodeFontSettings]
  * @param {string?} [exampleText=null]
- * @returns {void}
+ * @returns {Promise<void>}
  */
 async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSettings, exampleText = null) {
     for (const transformationId of menuItems) {
@@ -223,7 +223,7 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UPDATE_CONTEXT_MENU,
  * Init Unicode font module.
  *
  * @public
- * @returns {void}
+ * @returns {Promise<void>}
  */
 export async function init() {
     const platformInfo = await browser.runtime.getPlatformInfo();

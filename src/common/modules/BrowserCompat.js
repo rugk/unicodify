@@ -9,8 +9,8 @@
  * Returns a value based on what browser this is running in.
  *
  * @private
- * @param  {Object} switchBrowser an object with values to return per browser
- * @returns {string}
+ * @param  {Object.<string, string>} switchBrowser an object with values to return per browser
+ * @returns {Promise<string>}
  */
 export async function getBrowserValue(switchBrowser) {
     if (browser.runtime.getBrowserInfo) {

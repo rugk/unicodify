@@ -151,7 +151,7 @@ function sendSettings(autocorrect) {
  * Init autocorrect module.
  *
  * @public
- * @returns {void}
+ * @returns {Promise<void>}
  */
 export async function init() {
     const autocorrect = await AddonSettings.get("autocorrect");

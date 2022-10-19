@@ -9,7 +9,7 @@ const smallCaps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠ�
  *
  * @public
  * @const
- * @type {Symbol}
+ * @type {Object.<string, symbol>}
  */
 export const TRANSFORMATION_TYPE = Object.freeze({
     CASING: Symbol("casing transformation"),
@@ -21,7 +21,7 @@ export const TRANSFORMATION_TYPE = Object.freeze({
  *
  * @public
  * @const
- * @type {Symbol}
+ * @type {symbol}
  */
 export const SEPARATOR_ID = Symbol("separator");
 
@@ -30,7 +30,7 @@ export const SEPARATOR_ID = Symbol("separator");
  *
  * @public
  * @const
- * @type {Symbol}
+ * @type {string}
  */
 export const CASE_ID_PREFIX = "menuCase";
 
@@ -48,7 +48,7 @@ export const FONT_ID_PREFIX = "menuFont";
  *
  * @public
  * @const
- * @type {Object.<Symbol, string[]>}
+ * @type {Object.<symbol, string[]|symbol[]>}
  */
 export const menuStructure = Object.freeze({
     [TRANSFORMATION_TYPE.FONT]: [
