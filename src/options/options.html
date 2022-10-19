@@ -20,40 +20,41 @@
 				<a href="#">
 					<button type="button" class="message-action-button micro-button info invisible"></button>
 				</a>
-				<img class="icon-dismiss invisible" src="/common/img/close.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__"></span>
+				<img class="icon-dismiss invisible" src="/common/img/close.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__">
 			</div>
 			<div id="messageInfo" aria-label="info message" data-i18n data-i18n-aria-label="__MSG_ariaMessageInfo__" class="message-box info invisible fade-hide">
 				<span class="message-text">Some settings are managed by your administrator and cannot be changed.</span>
 				<a href="#">
 					<button type="button" class="message-action-button micro-button info invisible"></button>
 				</a>
-				<img class="icon-dismiss invisible" src="/common/img/close.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__"></span>
+				<img class="icon-dismiss invisible" src="/common/img/close.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__">
 			</div>
 			<div id="messageSuccess" aria-label="success message" data-i18n data-i18n-aria-label="__MSG_ariaMessageSuccess__" class="message-box success invisible fade-hide">
 				<span class="message-text">That worked!</span>
 				<a href="#">
 					<button type="button" class="message-action-button micro-button success invisible"></button>
 				</a>
-				<img class="icon-dismiss invisible" src="/common/img/close.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__"></span>
+				<img class="icon-dismiss invisible" src="/common/img/close.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__">
 			</div>
 			<div id="messageError" aria-label="error message" data-i18n data-i18n-aria-label="__MSG_ariaMessageError__" class="message-box error invisible fade-hide">
 				<span class="message-text">An error happened.</span>
 				<a href="#">
 					<button type="button" class="message-action-button micro-button error invisible"></button>
 				</a>
-				<img class="icon-dismiss invisible" src="/common/img/close-white.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__"></span>
+				<img class="icon-dismiss invisible" src="/common/img/close-white.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__">
 			</div>
 			<div id="messageWarning" aria-label="warning message" data-i18n data-i18n-aria-label="__MSG_ariaMessageWarning__" class="message-box warning invisible fade-hide">
 				<span class="message-text">There were some difficulties.</span>
 				<a href="#">
 					<button type="button" class="message-action-button micro-button warning invisible"></button>
 				</a>
-				<img class="icon-dismiss invisible" src="/common/img/close.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__"></span>
+				<img class="icon-dismiss invisible" src="/common/img/close.svg" width="24" height="24" tabindex="0" data-i18n data-i18n-aria-label="__MSG_dismissIconDescription__">
 			</div>
 		</div>
 		<form>
 			<section>
 				<h1 data-i18n="__MSG_titleUnicodeAutocorrection__">Unicode autocorrection</h1>
+
 				<span class="helper-text" data-i18n="__MSG_optionHelperTextAutocorrection__"  data-opt-i18n-keep-children>
 				You can configure the automatic corrections that are done when you are typing text here.<br>
 				All the autocorrections are done after typing the first nonmatching character following the character sequence, such as a space (␣). Press Backspace (⌫) to undo an autocorrection.
@@ -62,30 +63,51 @@
 				<span class="helper-text" data-i18n="__MSG_optionHelperTextAutocorrectionEmoji__"  data-opt-i18n-keep-children>
 				For Emoji autocorrection, including <code data-i18n="__MSG_optionHelperTextAutocorrectionEmojiColonsCode__">:colon:</code> shortcodes and Emoticons, please also try out our <a id="link-awesome-emoji" data-i18n="__MSG_optionHelperTextAutocorrectionEmojiLinkText__">🤩&nbsp;Awesome Emoji Picker</a> add-on.
 				</span>
+
+				<div class="message-container">
+					<div aria-label="warning message" data-i18n data-i18n-aria-label="__MSG_ariaMessageWarning__" class="message-box warning">
+						<span class="message-text" data-i18n="__MSG_optionWarningAutocorrectFeature__">The Unicode autocorrect feature is experimental and may negatively affect some web pages.</span>
+						<a href="https://github.com/rugk/unicodify/wiki/FAQ#why-is-the-autocorrect-feature-experimental" data-i18n-href="__MSG_optionWarningAutocorrectFeatureLink__" >
+							<button data-i18n="__MSG_optionMoreInformation__" type="button" class="message-action-button micro-button warning">More information</button>
+						</a>
+					</div>
+				</div>
+
 				<ul>
 					<li>
 						<div class="line">
-							<input class="setting save-on-change" type="checkbox" id="autocorrectSymbols" data-optiongroup="autocorrect" name="autocorrectSymbols">
-							<label
-							data-i18n="__MSG_optionAutocorrectSymbols__" for="autocorrectSymbols">Autocorrect Unicode symbols</label>
+							<input class="setting save-on-change" type="checkbox" id="autocorrect" data-optiongroup="autocorrect" name="enabled">
+							<label for="autocorrect">Enable autocorrection</label>
 						</div>
-						<span data-i18n="__MSG_optionAutocorrectSymbolsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>--</code> with –, <code>--></code> with ⟶ and <code>1/4</code> with ¼.</span>
 					</li>
 
 					<li>
-						<div class="line">
-							<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeQuotes" data-optiongroup="autocorrect" name="autocorrectUnicodeQuotes">
-							<label data-i18n="__MSG_optionReplaceQuotes__" for="autocorrectUnicodeQuotes">Replace quotes with typographical ones</label>
-						</div>
-						<span data-i18n="__MSG_optionReplaceQuotesDescr__" class="line indent helper-text">This will replace "these ('replacement') quotes" with the so-called “smart quotes”, respectively their “somewhat ‘smaller’ variant”.</span>
-					</li>
+						<ul>
+							<li>
+								<div class="line">
+									<input class="setting save-on-change" type="checkbox" id="autocorrectSymbols" data-optiongroup="autocorrect" name="autocorrectSymbols">
+									<label
+									data-i18n="__MSG_optionAutocorrectSymbols__" for="autocorrectSymbols">Autocorrect Unicode symbols</label>
+								</div>
+								<span data-i18n="__MSG_optionAutocorrectSymbolsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>--</code> with –, <code>--></code> with ⟶ and <code>1/4</code> with ¼.</span>
+							</li>
 
-					<li>
-						<div class="line">
-							<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeFracts" data-optiongroup="autocorrect" name="autocorrectUnicodeFracts">
-							<label data-i18n="__MSG_optionConvertFractions__" data-opt-i18n-keep-children for="autocorrectUnicodeFracts">Convert fractions and mathematical constants to Unicode characters</label>
-						</div>
-						<span data-i18n="__MSG_optionConvertFractionsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>1234.25</code> with 1234¼.</span>
+							<li>
+								<div class="line">
+									<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeQuotes" data-optiongroup="autocorrect" name="autocorrectUnicodeQuotes">
+									<label data-i18n="__MSG_optionReplaceQuotes__" for="autocorrectUnicodeQuotes">Replace quotes with typographical ones</label>
+								</div>
+								<span data-i18n="__MSG_optionReplaceQuotesDescr__" class="line indent helper-text">This will replace "these ('replacement') quotes" with the so-called “smart quotes”, respectively their “somewhat ‘smaller’ variant”.</span>
+							</li>
+
+							<li>
+								<div class="line">
+									<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeFracts" data-optiongroup="autocorrect" name="autocorrectUnicodeFracts">
+									<label data-i18n="__MSG_optionConvertFractions__" data-opt-i18n-keep-children for="autocorrectUnicodeFracts">Convert fractions and mathematical constants to Unicode characters</label>
+								</div>
+								<span data-i18n="__MSG_optionConvertFractionsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>1234.25</code> with 1234¼.</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>

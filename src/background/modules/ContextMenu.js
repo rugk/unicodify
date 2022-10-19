@@ -2,6 +2,7 @@ import * as UnicodeTransformationHandler from "/common/modules/UnicodeTransforma
 import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
 import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
 import { isMobile } from "/common/modules/MobileHelper.js";
+import * as Notifications from "/common/modules/Notifications.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
 import { menuStructure, SEPARATOR_ID, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
@@ -11,6 +12,28 @@ const PREVIEW_STRING_CUT_LENGTH = 100; // a setting that may improve performance
 
 let lastCachedUnicodeFontSettings = null;
 let menuIsShown = false;
+
+let pasteSymbol = null;
+
+/**
+ * Copy text to clipboard and show notification when unable to do transformation directly.
+ * Thunderbird workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1641575
+ *
+ * @param {string} text
+ * @param {string} fieldId
+ * @returns {void}
+ */
+function fallback(text, fieldId) {
+    navigator.clipboard.writeText(text);
+    const fieldName = fieldId.startsWith("compose") ? fieldId.slice("compose".length) : fieldId;
+    Notifications.showNotification(
+        "menuNotificationPressCtrlVTitle",
+        "menuNotificationPressCtrlVContent",
+        [
+            pasteSymbol,
+            fieldName
+        ]);
+}
 
 /**
  * Handle selection of a context menu item.
@@ -32,8 +55,14 @@ function handleMenuChoosen(info, tab) {
     text = text.normalize();
     const output = UnicodeTransformationHandler.transformText(text, info.menuItemId);
 
+    // Thunderbird workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1641575
+    if (info.fieldId) {
+        fallback(output, info.fieldId);
+        return;
+    }
+
     browser.tabs.executeScript(tab.id, {
-        code: `insertIntoPage("${output}");`,
+        code: `insertIntoPage(${JSON.stringify(output)});`,
         frameId: info.frameId
     });
 }
@@ -79,7 +108,7 @@ async function handleMenuShown(info) {
         text = null;
     }
 
-    await buildMenu(lastCachedUnicodeFontSettings, text, menuIsShown);
+    await buildMenu(lastCachedUnicodeFontSettings, text);
 
     menus.refresh();
 }
@@ -187,7 +216,7 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UPDATE_CONTEXT_MENU,
         text = null;
     }
 
-    await buildMenu(lastCachedUnicodeFontSettings, text, true);
+    await buildMenu(lastCachedUnicodeFontSettings, text);
 });
 
 /**
@@ -197,8 +226,9 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UPDATE_CONTEXT_MENU,
  * @returns {void}
  */
 export async function init() {
+    const platformInfo = await browser.runtime.getPlatformInfo();
     // Remove once https://bugzilla.mozilla.org/show_bug.cgi?id=1595822 is fixed
-    if (await isMobile()) {
+    if (await isMobile()) { // platformInfo.os === "android"
         return;
     }
 
@@ -207,17 +237,19 @@ export async function init() {
 
     buildMenu(unicodeFontSettings);
 
-    // feature detection for this feature, as it is not compatible with CHrome/ium.
+    // feature detection for this feature, as it is not compatible with Chrome/ium.
     if (menus.onShown) {
         menus.onShown.addListener(handleMenuShown);
     }
     menus.onClicked.addListener(handleMenuChoosen);
 
-    BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, async (request) => {
-        lastCachedUnicodeFontSettings = request.optionValue;
-
-        await menus.removeAll();
-        menuIsShown = false;
-        return buildMenu(request.optionValue);
-    });
+    pasteSymbol = platformInfo.os === "mac" ? "\u2318" : browser.i18n.getMessage("menuCtrlKey");
 }
+
+BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, async (request) => {
+    lastCachedUnicodeFontSettings = request.optionValue;
+
+    await menus.removeAll();
+    menuIsShown = false;
+    return buildMenu(request.optionValue);
+});

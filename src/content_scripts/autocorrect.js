@@ -35,6 +35,7 @@ let deletedText; // Last deleted text
 let lastTarget; // Last target
 let lastCaretPosition; // Last caret position
 
+let enabled = false;
 let quotes = true;
 let fracts = true;
 
@@ -46,6 +47,8 @@ let longest = 0;
 let symbolpatterns = null;
 // Exceptions, do not autocorrect for these patterns
 let antipatterns = null;
+
+let running = false;
 
 // Chrome
 // Adapted from: https://github.com/mozilla/webextension-polyfill/blob/master/src/browser-polyfill.js
@@ -69,7 +72,7 @@ function getCaretPosition(target) {
         const temp = document.createTextNode("\0");
         range.insertNode(temp);
         const caretposition = target.innerText.indexOf("\0");
-        temp.parentNode.removeChild(temp);
+        temp.remove();
         return caretposition;
     }
     // input and textarea fields
@@ -93,7 +96,7 @@ function getCaretPosition(target) {
 function insertAtCaret(target, atext) {
     // document.execCommand is deprecated, although there is not yet an alternative: https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand
     // insertReplacementText
-    if(document.execCommand("insertText", false, atext)) {
+    if (document.execCommand("insertText", false, atext)) {
         return;
     }
 
@@ -102,7 +105,7 @@ function insertAtCaret(target, atext) {
         const start = target.selectionStart;
         const end = target.selectionEnd;
 
-        if (start !== undefined && end !== undefined) {
+        if (start != null && end != null) {
             target.setRangeText(atext);
 
             target.selectionStart = target.selectionEnd = start + atext.length;
@@ -132,6 +135,7 @@ function insertIntoPage(atext) {
 /**
  * Count Unicode characters.
  * Adapted from: https://blog.jonnew.com/posts/poo-dot-length-equals-two
+ * Intl.Segmenter is not yet supported by Firefox/Thunderbird: https://bugzilla.mozilla.org/show_bug.cgi?id=1423593
  *
  * @param {string} str
  * @returns {number}
@@ -269,6 +273,10 @@ function autocorrect(event) {
     if (!symbolpatterns) {
         throw new Error("Emoji autocorrect settings have not been received. Do not autocorrect.");
     }
+    if (running) {
+        return;
+    }
+    running = true;
     const target = event.target;
     const caretposition = getCaretPosition(target);
     if (caretposition) {
@@ -330,6 +338,7 @@ function autocorrect(event) {
 
             const text = deletecount ? value.slice(caretposition - deletecount, caretposition) : "";
             if (text) {
+                lastTarget = null;
                 deleteCaret(target, text);
             }
             insertAtCaret(target, insert);
@@ -342,6 +351,7 @@ function autocorrect(event) {
             lastCaretPosition = caretposition - deletecount + insert.length;
         }
     }
+    running = false;
 }
 
 /**
@@ -356,6 +366,10 @@ function undoAutocorrect(event) {
     if (event.inputType !== "deleteContentBackward") {
         return;
     }
+    if (running) {
+        return;
+    }
+    running = true;
     const target = event.target;
     const caretposition = getCaretPosition(target);
     if (caretposition) {
@@ -374,6 +388,7 @@ function undoAutocorrect(event) {
 
         lastTarget = null;
     }
+    running = false;
 }
 
 /**
@@ -387,6 +402,7 @@ function handleResponse(message, sender) {
     if (message.type !== AUTOCORRECT_CONTENT) {
         return;
     }
+    enabled = message.enabled;
     quotes = message.quotes;
     fracts = message.fracts;
     autocorrections = message.autocorrections;
@@ -394,6 +410,14 @@ function handleResponse(message, sender) {
     symbolpatterns = IS_CHROME ? new RegExp(message.symbolpatterns) : message.symbolpatterns;
     antipatterns = IS_CHROME ? new RegExp(message.antipatterns) : message.antipatterns;
     // console.log(message);
+
+    if (enabled) {
+        window.addEventListener("beforeinput", undoAutocorrect, true);
+        window.addEventListener("beforeinput", autocorrect, true);
+    } else {
+        window.removeEventListener("beforeinput", undoAutocorrect, true);
+        window.removeEventListener("beforeinput", autocorrect, true);
+    }
 }
 
 /**
@@ -408,6 +432,4 @@ function handleError(error) {
 
 browser.runtime.sendMessage({ "type": AUTOCORRECT_CONTENT }).then(handleResponse, handleError);
 browser.runtime.onMessage.addListener(handleResponse);
-window.addEventListener("beforeinput", undoAutocorrect, true);
-window.addEventListener("beforeinput", autocorrect, true);
 console.log("Unicodify autocorrect module loaded.");

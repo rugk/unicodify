@@ -7,7 +7,6 @@
 import * as AutomaticSettings from "/common/modules/AutomaticSettings/AutomaticSettings.js";
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
 
-
 /**
  * Apply the new autocorrect settings.
  *
@@ -17,7 +16,17 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
  * @param  {Object} [event]
  * @returns {Promise}
  */
-function applyAutocorrectPermissions(optionValue) {
+function applyAutocorrectPermissions(optionValue, option, event) {
+    if (optionValue.enabled) {
+        document.getElementById("autocorrectSymbols").disabled = false;
+        document.getElementById("autocorrectUnicodeQuotes").disabled = false;
+        document.getElementById("autocorrectUnicodeFracts").disabled = false;
+    } else {
+        document.getElementById("autocorrectSymbols").disabled = true;
+        document.getElementById("autocorrectUnicodeQuotes").disabled = true;
+        document.getElementById("autocorrectUnicodeFracts").disabled = true;
+    }
+
     // trigger update for current session
     browser.runtime.sendMessage({
         "type": COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_BACKGROUND,
@@ -53,4 +62,7 @@ export function registerTrigger() {
     // update slider status
     AutomaticSettings.Trigger.registerSave("autocorrect", applyAutocorrectPermissions);
     AutomaticSettings.Trigger.registerSave("unicodeFont", applyUnicodeFontSettings);
+
+    // handle loading of options correctly
+    AutomaticSettings.Trigger.registerAfterLoad(AutomaticSettings.Trigger.RUN_ALL_SAVE_TRIGGER);
 }

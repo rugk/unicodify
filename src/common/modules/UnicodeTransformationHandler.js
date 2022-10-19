@@ -53,6 +53,7 @@ export function getTransformationType(transformationId) {
 function capitalizeEachWord(text) {
     // Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
     // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
+    // Intl.Segmenter is not yet supported by Firefox/Thunderbird: https://bugzilla.mozilla.org/show_bug.cgi?id=1423593
     // \p{Alphabetic}
     return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(""));
 }
@@ -75,23 +76,23 @@ function changeFont(text, chosenFont) {
     let output = "";
 
     for (let letter of text) {
-        const code = letter.charCodeAt(0);
-        if (code >= 33 && code <= 127) {
-            if (font.length === 94) {
-                letter = font[code - "!".charCodeAt(0)];
+        const code = letter.codePointAt(0);
+        if (code >= 32 && code <= 127) {
+            if (font.length === 95) {
+                letter = font[code - " ".codePointAt(0)];
             } else if (letter >= "A" && letter <= "Z") {
-                letter = font[code - "A".charCodeAt(0)];
+                letter = font[code - "A".codePointAt(0)];
             } else if (letter >= "a" && letter <= "z") {
                 if (font.length === 26 || font.length === 26 + 10) {
-                    letter = font[code - "a".charCodeAt(0)];
+                    letter = font[code - "a".codePointAt(0)];
                 } else if (font.length === 26 + 26 || font.length === 26 + 26 + 10) {
-                    letter = font[code - "a".charCodeAt(0) + 26];
+                    letter = font[code - "a".codePointAt(0) + 26];
                 }
             } else if (letter >= "0" && letter <= "9") {
                 if (font.length === 26 + 10) {
-                    letter = font[code - "0".charCodeAt(0) + 26];
+                    letter = font[code - "0".codePointAt(0) + 26];
                 } else if (font.length === 26 + 26 + 10) {
-                    letter = font[code - "0".charCodeAt(0) + 26 + 26];
+                    letter = font[code - "0".codePointAt(0) + 26 + 26];
                 }
             }
         }
