@@ -30,7 +30,7 @@ function fallback(text, fieldId) {
         "menuNotificationPressCtrlVTitle",
         "menuNotificationPressCtrlVContent",
         [
-            browser.i18n.getMessage("menuCtrlKey"),
+            pasteSymbol,
             fieldName
         ]);
 }
