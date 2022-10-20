@@ -16,5 +16,6 @@ export const COMMUNICATION_MESSAGE_TYPE = Object.freeze({
     AUTOCORRECT_BACKGROUND: "autocorrectBackground",
     AUTOCORRECT_CONTENT: "autocorrectContent",
     UNICODE_FONT: "unicodeFont",
-    UPDATE_CONTEXT_MENU: "updateContextMenu"
+    UPDATE_CONTEXT_MENU: "updateContextMenu",
+    NOTIFICATIONS: "notifications"
 });

@@ -37,7 +37,8 @@
     "storage",
     "<all_urls>",
     "menus",
-    "tabs"
+    "tabs",
+    "notifications"
   ],
   "applications": {
     "gecko": {

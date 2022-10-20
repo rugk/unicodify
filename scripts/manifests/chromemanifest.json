@@ -44,6 +44,7 @@
     "storage",
     "<all_urls>",
     "tabs",
-    "contextMenus"
+    "contextMenus",
+    "notifications"
   ]
 }

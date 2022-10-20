@@ -38,7 +38,8 @@
     "storage",
     "<all_urls>",
     "contextMenus",
-    "tabs"
+    "tabs",
+    "notifications"
   ],
 
   "applications": {
