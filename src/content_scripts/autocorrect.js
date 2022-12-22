@@ -196,39 +196,43 @@ function outputLabel(anumber, afraction) {
     let output = false;
 
     const number = Number.parseFloat(anumber);
-    let intpart = Math.trunc(number);
-    const fractionpart = afraction ? Number.parseFloat(afraction) : Math.abs(number % 1);
+    const n = Math.abs(number);
 
     let str = "";
 
-    for (const fraction in fractions) {
-        if (Math.abs(fractionpart - fractions[fraction]) < Number.EPSILON) {
-            if (intpart !== 0) {
-                str += intpart;
-            }
+    if (n <= Number.MAX_SAFE_INTEGER) {
+        let intpart = Math.trunc(number);
+        const fractionpart = afraction ? Number.parseFloat(afraction) : Math.abs(number % 1);
 
-            str += fraction;
-
-            output = true;
-            break;
-        }
-    }
-
-    if (Math.abs(number) >= Number.EPSILON && !output) {
-        for (const constant in constants) {
-            if (!output && number % constants[constant] === 0) {
-                intpart = number / constants[constant];
-
-                if (intpart === -1) {
-                    str += "-";
-                } else if (intpart !== 1) {
+        for (const [fraction, value] of Object.entries(fractions)) {
+            if (Math.abs(fractionpart - value) <= Number.EPSILON * n) {
+                if (intpart !== 0) {
                     str += intpart;
                 }
 
-                str += constant;
+                str += fraction;
 
                 output = true;
                 break;
+            }
+        }
+
+        if (n > Number.EPSILON && !output) {
+            for (const [constant, value] of Object.entries(constants)) {
+                if (!output && number % value <= Number.EPSILON * n) {
+                    intpart = number / value;
+
+                    if (intpart === -1) {
+                        str += "-";
+                    } else if (intpart !== 1) {
+                        str += intpart;
+                    }
+
+                    str += constant;
+
+                    output = true;
+                    break;
+                }
             }
         }
     }
