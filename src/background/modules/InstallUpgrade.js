@@ -43,12 +43,14 @@ function handleInstalled(details) {
     case "update":
         if (Notifications.SEND) {
             const [major, minor, patch = 0] = details.previousVersion.split(".").map((x) => Number.parseInt(x, 10));
+            // The autocorrection feature was disabled by default in version 0.5.1
+            const disabled = major === 0 && (minor < 5 || minor === 5 && patch === 0);
             // TODO: This will need to be localized
             browser.notifications.create({
                 type: "basic",
                 iconUrl: browser.runtime.getURL("icons/icon.svg"),
                 title: `✨ ${manifest.name} updated`,
-                message: `The “${manifest.name}” add-on has been updated to version ${manifest.version}. Click to see the release notes.\n\nThe experimental Unicode autocorrection feature ${major === 0 && (minor < 5 || minor === 5 && patch === 0) ? "has been disabled by default" : "was disabled by default in version 0.5.1"}. Open the options/preferences page to reenable.`
+                message: `The “${manifest.name}” add-on has been updated to version ${manifest.version}. Click to see the release notes.\n\nThe experimental Unicode autocorrection feature ${disabled ? "has been disabled by default" : "was disabled by default in version 0.5.1"}. Open the options/preferences page to reenable.`
             }).then(async (notificationId) => {
                 const url = await getBrowserValue({
                     firefox: `https://addons.mozilla.org/firefox/addon/unicodify-text-transformer/versions/${manifest.version}`,

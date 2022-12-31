@@ -22,13 +22,14 @@ export let SEND = true;
  * @param {string} title the title
  * @param {string} content the message content
  * @param {string[] | string} [substitutions] the message parameters to pass for i18n.getMessage
+ * @param {boolean} [send]
  * @returns {void}
  * @see {@link https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/notifications/create}
  */
-export function showNotification(title, content, substitutions) {
+export function showNotification(title, content, substitutions, send) {
     console.info("Showing notification:", title, content);
 
-    if (!SEND) {
+    if (!SEND && !send) {
         return;
     }
 

@@ -29,37 +29,37 @@ const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 /**
  * Traverse Trie tree of objects to create RegEx.
  *
- * @param {Object.<string, Object|boolean>} obj
+ * @param {Object.<string, Object|boolean>} tree
  * @returns {string}
  */
-function pattern(obj) {
-    const alt = [];
-    const cc = [];
+function createRegEx(tree) {
+    const alternatives = [];
+    const characterClass = [];
 
     // Escape special characters
     const regExSpecialChars = /[.*+?^${}()|[\]\\]/gu;
 
-    for (const char in obj) {
+    for (const char in tree) {
         if (char) {
-            const achar = char.replace(regExSpecialChars, "\\$&");
+            const escaptedChar = char.replace(regExSpecialChars, "\\$&");
 
-            if (!("" in obj[char] && Object.keys(obj[char]).length === 1)) {
-                const recurse = pattern(obj[char]);
-                alt.push(recurse + achar);
+            if (!("" in tree[char] && Object.keys(tree[char]).length === 1)) {
+                const recurse = createRegEx(tree[char]);
+                alternatives.push(recurse + escaptedChar);
             } else {
-                cc.push(achar);
+                characterClass.push(escaptedChar);
             }
         }
     }
 
-    if (cc.length) {
-        alt.push(cc.length === 1 ? cc[0] : `[${cc.join("")}]`);
+    if (characterClass.length) {
+        alternatives.push(characterClass.length === 1 ? characterClass[0] : `[${characterClass.join("")}]`);
     }
 
-    let result = alt.length === 1 ? alt[0] : `(?:${alt.join("|")})`;
+    let result = alternatives.length === 1 ? alternatives[0] : `(?:${alternatives.join("|")})`;
 
-    if ("" in obj) {
-        if (cc.length || alt.length > 1) {
+    if ("" in tree) {
+        if (characterClass.length || alternatives.length > 1) {
             result += "?";
         } else {
             result = `(?:${result})?`;
@@ -75,13 +75,15 @@ function pattern(obj) {
  * @param {string[]} arr
  * @returns {string}
  */
-function createRegEx(arr) {
+function createTree(arr) {
     const tree = {};
 
-    for (const s of arr.sort((a, b) => b.length - a.length)) {
+    arr.sort((a, b) => b.length - a.length);
+
+    for (const str of arr) {
         let temp = tree;
 
-        for (const char of Array.from(s).reverse()) {
+        for (const char of Array.from(str).reverse()) {
             if (!(char in temp)) {
                 temp[char] = {};
             }
@@ -93,7 +95,7 @@ function createRegEx(arr) {
     }
 
     Object.freeze(tree);
-    return pattern(tree);
+    return createRegEx(tree);
 }
 
 /**
@@ -119,7 +121,7 @@ function applySettings() {
     }
     console.log("Longest autocorrection", longest);
 
-    symbolpatterns = createRegEx(Object.keys(autocorrections));
+    symbolpatterns = createTree(Object.keys(autocorrections));
 
     // Do not autocorrect for these patterns
     antipatterns = [];
@@ -152,7 +154,7 @@ function applySettings() {
     antipatterns = antipatterns.filter((item, pos) => antipatterns.indexOf(item) === pos);
     console.log("Do not autocorrect for these patterns", antipatterns);
 
-    antipatterns = createRegEx(antipatterns);
+    antipatterns = createTree(antipatterns);
 
     symbolpatterns = new RegExp(`(${symbolpatterns})$`, "u");
     antipatterns = new RegExp(`(${antipatterns})$`, "u");
