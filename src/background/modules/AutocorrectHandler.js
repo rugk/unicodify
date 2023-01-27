@@ -104,6 +104,7 @@ function createTree(arr) {
  * @returns {void}
  */
 function applySettings() {
+    const start = performance.now();
     autocorrections = {};
 
     // Add all symbols to our autocorrections map, we want to replace
@@ -158,6 +159,8 @@ function applySettings() {
 
     symbolpatterns = new RegExp(`(${symbolpatterns})$`, "u");
     antipatterns = new RegExp(`(${antipatterns})$`, "u");
+    const end = performance.now();
+    console.log(`The new autocorrect settings were applied in ${end - start} ms.`);
 }
 
 /**

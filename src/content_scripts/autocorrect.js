@@ -206,7 +206,9 @@ function outputLabel(anumber, afraction) {
 
         for (const [fraction, value] of Object.entries(fractions)) {
             if (Math.abs(fractionpart - value) <= Number.EPSILON * n) {
-                if (intpart !== 0) {
+                if (intpart === 0 && number < 0) {
+                    str += "-";
+                } else if (intpart !== 0) {
                     str += intpart;
                 }
 
