@@ -146,7 +146,7 @@ function countChars(str) {
 
     for (const s of split) {
         // removing the variation selectors
-        count += Array.from(s.split(/[\uFE00-\uFE0F]/u).join("")).length;
+        count += Array.from(s.removeAll(/[\uFE00-\uFE0F]/gu)).length;
     }
 
     return count;
@@ -186,7 +186,7 @@ function deleteCaret(target, atext) {
 
 /**
  * Convert fractions and constants to Unicode characters.
- * Adapted from: https://github.com/tdulcet/Tables-and-Graphs/blob/master/graphs.hpp
+ * Adapted from: https://github.com/tdulcet/Table-and-Graph-Libs/blob/master/graphs.hpp
  *
  * @param {string} anumber
  * @param {string} afraction
@@ -417,11 +417,11 @@ function handleResponse(message, sender) {
     // console.log(message);
 
     if (enabled) {
-        window.addEventListener("beforeinput", undoAutocorrect, true);
-        window.addEventListener("beforeinput", autocorrect, true);
+        addEventListener("beforeinput", undoAutocorrect, true);
+        addEventListener("beforeinput", autocorrect, true);
     } else {
-        window.removeEventListener("beforeinput", undoAutocorrect, true);
-        window.removeEventListener("beforeinput", autocorrect, true);
+        removeEventListener("beforeinput", undoAutocorrect, true);
+        removeEventListener("beforeinput", autocorrect, true);
     }
 }
 
