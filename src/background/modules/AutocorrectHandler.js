@@ -13,6 +13,9 @@ const settings = {
     fracts: null
 };
 
+// Leaf node
+const LEAF = Symbol("leaf");
+
 let autocorrections = {};
 
 // Longest autocorrection
@@ -43,8 +46,9 @@ function createRegEx(tree) {
         if (char) {
             const escaptedChar = char.replace(regExSpecialChars, "\\$&");
 
-            if (!("" in tree[char] && Object.keys(tree[char]).length === 1)) {
-                const recurse = createRegEx(tree[char]);
+            const atree = tree[char];
+            if (!(LEAF in atree && Object.keys(atree).length === 0)) {
+                const recurse = createRegEx(atree);
                 alternatives.push(recurse + escaptedChar);
             } else {
                 characterClass.push(escaptedChar);
@@ -58,7 +62,7 @@ function createRegEx(tree) {
 
     let result = alternatives.length === 1 ? alternatives[0] : `(?:${alternatives.join("|")})`;
 
-    if ("" in tree) {
+    if (LEAF in tree) {
         if (characterClass.length || alternatives.length > 1) {
             result += "?";
         } else {
@@ -91,7 +95,7 @@ function createTree(arr) {
         }
 
         // Leaf node
-        temp[""] = true;
+        temp[LEAF] = true;
     }
 
     Object.freeze(tree);

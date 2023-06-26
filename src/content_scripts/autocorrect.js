@@ -146,7 +146,7 @@ function countChars(str) {
 
     for (const s of split) {
         // removing the variation selectors
-        count += Array.from(s.removeAll(/[\uFE00-\uFE0F]/gu)).length;
+        count += Array.from(s.replaceAll(/[\uFE00-\uFE0F]/gu, "")).length;
     }
 
     return count;

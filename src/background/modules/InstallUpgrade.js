@@ -37,7 +37,7 @@ function handleInstalled(details) {
     const manifest = browser.runtime.getManifest();
     switch (details.reason) {
     case "install":
-        // TODO: This will need to be localized
+        // TODO(to: 'rugk'): This will need to be localized
         Notifications.showNotification(`🎉 ${manifest.name} installed`, `Thank you for installing the “${manifest.name}” add-on!\nVersion: ${manifest.version}\n\nOpen the options/preferences page to configure this extension.`);
         break;
     case "update":
@@ -45,7 +45,7 @@ function handleInstalled(details) {
             const [major, minor, patch = 0] = details.previousVersion.split(".").map((x) => Number.parseInt(x, 10));
             // The autocorrection feature was disabled by default in version 0.5.1
             const disabled = major === 0 && (minor < 5 || minor === 5 && patch === 0);
-            // TODO: This will need to be localized
+            // TODO(to: 'rugk'): This will need to be localized
             browser.notifications.create({
                 type: "basic",
                 iconUrl: browser.runtime.getURL("icons/icon.svg"),
