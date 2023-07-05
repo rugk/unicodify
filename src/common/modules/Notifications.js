@@ -16,20 +16,20 @@ const ICON = browser.runtime.getManifest().icons[32];
 export let SEND = true;
 
 /**
- * Show a notification.
+ * Show a notification. If the notification is optional, the user can disable it with an add-on setting. If it is required, the notification will always be shown. Use the latter notification type only sparsely, e.g. for user-initiated actions providing feedback to the user.
  *
  * @public
  * @param {string} title the title
  * @param {string} content the message content
  * @param {string[] | string} [substitutions] the message parameters to pass for i18n.getMessage
- * @param {boolean} [send]
+ * @param {boolean} [requiredNotification]
  * @returns {void}
  * @see {@link https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/notifications/create}
  */
-export function showNotification(title, content, substitutions, send) {
+export function showNotification(title, content, substitutions, requiredNotification) {
     console.info("Showing notification:", title, content);
 
-    if (!SEND && !send) {
+    if (!SEND && !requiredNotification) {
         return;
     }
 
