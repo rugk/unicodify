@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Unicodify DEV VERSION",
   "short_name": "__MSG_extensionNameShort__",
-  "version": "0.5",
+  "version": "0.6",
   "author": "Teal Dulcet, rugk",
 
   "description": "__MSG_extensionDescription__",
@@ -38,10 +38,11 @@
     "storage",
     "<all_urls>",
     "contextMenus",
-    "tabs"
+    "tabs",
+    "notifications"
   ],
 
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "unicodify@rugk.github.io",
       "strict_min_version": "87.0"

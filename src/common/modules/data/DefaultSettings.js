@@ -19,13 +19,16 @@ const defaultSettings = {
         enabled: false,
         autocorrectSymbols: true,
         autocorrectUnicodeQuotes: true,
-        autocorrectUnicodeFracts: true,
+        autocorrectUnicodeFracts: true
     },
     unicodeFont: {
         changeFont: true,
         changeCase: true,
         showReadableText: false,
         livePreview: false
+    },
+    notifications: {
+        send: true
     }
 };
 

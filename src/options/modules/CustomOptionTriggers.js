@@ -52,6 +52,23 @@ function applyUnicodeFontSettings(optionValue) {
 }
 
 /**
+ * Apply the new Notification settings.
+ *
+ * @private
+ * @param  {Object} optionValue
+ * @param  {string} [option]
+ * @param  {Object} [event]
+ * @returns {void}
+ */
+function applyNotificationSettings(optionValue) {
+    // trigger update for current session
+    browser.runtime.sendMessage({
+        type: COMMUNICATION_MESSAGE_TYPE.NOTIFICATIONS,
+        optionValue: optionValue
+    });
+}
+
+/**
  * Binds the triggers.
  *
  * This is basically the "init" method.
@@ -62,6 +79,7 @@ export function registerTrigger() {
     // update slider status
     AutomaticSettings.Trigger.registerSave("autocorrect", applyAutocorrectPermissions);
     AutomaticSettings.Trigger.registerSave("unicodeFont", applyUnicodeFontSettings);
+    AutomaticSettings.Trigger.registerSave("notifications", applyNotificationSettings);
 
     // handle loading of options correctly
     AutomaticSettings.Trigger.registerAfterLoad(AutomaticSettings.Trigger.RUN_ALL_SAVE_TRIGGER);

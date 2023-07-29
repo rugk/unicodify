@@ -146,7 +146,7 @@ function countChars(str) {
 
     for (const s of split) {
         // removing the variation selectors
-        count += Array.from(s.split(/[\uFE00-\uFE0F]/u).join("")).length;
+        count += Array.from(s.replaceAll(/[\uFE00-\uFE0F]/gu, "")).length;
     }
 
     return count;
@@ -186,7 +186,7 @@ function deleteCaret(target, atext) {
 
 /**
  * Convert fractions and constants to Unicode characters.
- * Adapted from: https://github.com/tdulcet/Tables-and-Graphs/blob/master/graphs.hpp
+ * Adapted from: https://github.com/tdulcet/Table-and-Graph-Libs/blob/master/graphs.hpp
  *
  * @param {string} anumber
  * @param {string} afraction
@@ -196,39 +196,45 @@ function outputLabel(anumber, afraction) {
     let output = false;
 
     const number = Number.parseFloat(anumber);
-    let intpart = Math.trunc(number);
-    const fractionpart = afraction ? Number.parseFloat(afraction) : Math.abs(number % 1);
+    const n = Math.abs(number);
 
     let str = "";
 
-    for (const fraction in fractions) {
-        if (Math.abs(fractionpart - fractions[fraction]) < Number.EPSILON) {
-            if (intpart !== 0) {
-                str += intpart;
-            }
+    if (n <= Number.MAX_SAFE_INTEGER) {
+        let intpart = Math.trunc(number);
+        const fractionpart = afraction ? Number.parseFloat(afraction) : Math.abs(number % 1);
 
-            str += fraction;
-
-            output = true;
-            break;
-        }
-    }
-
-    if (Math.abs(number) >= Number.EPSILON && !output) {
-        for (const constant in constants) {
-            if (!output && number % constants[constant] === 0) {
-                intpart = number / constants[constant];
-
-                if (intpart === -1) {
+        for (const [fraction, value] of Object.entries(fractions)) {
+            if (Math.abs(fractionpart - value) <= Number.EPSILON * n) {
+                if (intpart === 0 && number < 0) {
                     str += "-";
-                } else if (intpart !== 1) {
+                } else if (intpart !== 0) {
                     str += intpart;
                 }
 
-                str += constant;
+                str += fraction;
 
                 output = true;
                 break;
+            }
+        }
+
+        if (n > Number.EPSILON && !output) {
+            for (const [constant, value] of Object.entries(constants)) {
+                if (!output && number % value <= Number.EPSILON * n) {
+                    intpart = number / value;
+
+                    if (intpart === -1) {
+                        str += "-";
+                    } else if (intpart !== 1) {
+                        str += intpart;
+                    }
+
+                    str += constant;
+
+                    output = true;
+                    break;
+                }
             }
         }
     }
@@ -411,11 +417,11 @@ function handleResponse(message, sender) {
     // console.log(message);
 
     if (enabled) {
-        window.addEventListener("beforeinput", undoAutocorrect, true);
-        window.addEventListener("beforeinput", autocorrect, true);
+        addEventListener("beforeinput", undoAutocorrect, true);
+        addEventListener("beforeinput", autocorrect, true);
     } else {
-        window.removeEventListener("beforeinput", undoAutocorrect, true);
-        window.removeEventListener("beforeinput", autocorrect, true);
+        removeEventListener("beforeinput", undoAutocorrect, true);
+        removeEventListener("beforeinput", autocorrect, true);
     }
 }
 

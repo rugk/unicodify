@@ -32,7 +32,7 @@ function fallback(text, fieldId) {
         [
             pasteSymbol,
             fieldName
-        ]);
+        ], true);
 }
 
 /**

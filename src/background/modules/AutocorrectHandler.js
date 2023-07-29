@@ -13,6 +13,9 @@ const settings = {
     fracts: null
 };
 
+// Leaf node
+const LEAF = Symbol("leaf");
+
 let autocorrections = {};
 
 // Longest autocorrection
@@ -27,11 +30,85 @@ let antipatterns = [];
 const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 
 /**
+ * Traverse Trie tree of objects to create RegEx.
+ *
+ * @param {Object.<string, Object|boolean>} tree
+ * @returns {string}
+ */
+function createRegEx(tree) {
+    const alternatives = [];
+    const characterClass = [];
+
+    // Escape special characters
+    const regExSpecialChars = /[.*+?^${}()|[\]\\]/gu;
+
+    for (const char in tree) {
+        if (char) {
+            const escaptedChar = char.replace(regExSpecialChars, "\\$&");
+
+            const atree = tree[char];
+            if (!(LEAF in atree && Object.keys(atree).length === 0)) {
+                const recurse = createRegEx(atree);
+                alternatives.push(recurse + escaptedChar);
+            } else {
+                characterClass.push(escaptedChar);
+            }
+        }
+    }
+
+    if (characterClass.length) {
+        alternatives.push(characterClass.length === 1 ? characterClass[0] : `[${characterClass.join("")}]`);
+    }
+
+    let result = alternatives.length === 1 ? alternatives[0] : `(?:${alternatives.join("|")})`;
+
+    if (LEAF in tree) {
+        if (characterClass.length || alternatives.length > 1) {
+            result += "?";
+        } else {
+            result = `(?:${result})?`;
+        }
+    }
+
+    return result;
+}
+
+/**
+ * Convert autocorrections into Trie tree of objects.
+ *
+ * @param {string[]} arr
+ * @returns {string}
+ */
+function createTree(arr) {
+    const tree = {};
+
+    arr.sort((a, b) => b.length - a.length);
+
+    for (const str of arr) {
+        let temp = tree;
+
+        for (const char of Array.from(str).reverse()) {
+            if (!(char in temp)) {
+                temp[char] = {};
+            }
+            temp = temp[char];
+        }
+
+        // Leaf node
+        temp[LEAF] = true;
+    }
+
+    Object.freeze(tree);
+    return createRegEx(tree);
+}
+
+/**
  * Apply new autocorrect settings and create regular expressions.
  *
  * @returns {void}
  */
 function applySettings() {
+    const start = performance.now();
     autocorrections = {};
 
     // Add all symbols to our autocorrections map, we want to replace
@@ -49,10 +126,7 @@ function applySettings() {
     }
     console.log("Longest autocorrection", longest);
 
-    // Escape special characters
-    const regExSpecialChars = /[.*+?^${}()|[\]\\]/gu;
-
-    symbolpatterns = Object.keys(autocorrections).map((symbol) => symbol.replace(regExSpecialChars, "\\$&"));
+    symbolpatterns = createTree(Object.keys(autocorrections));
 
     // Do not autocorrect for these patterns
     antipatterns = [];
@@ -75,7 +149,7 @@ function applySettings() {
             }
         }
 
-        if (length > 0) {
+        if (length) {
             length = x.length - (index + length);
             if (length > 1) {
                 antipatterns.push(x.slice(0, -(length - 1)));
@@ -85,10 +159,12 @@ function applySettings() {
     antipatterns = antipatterns.filter((item, pos) => antipatterns.indexOf(item) === pos);
     console.log("Do not autocorrect for these patterns", antipatterns);
 
-    antipatterns = antipatterns.map((symbol) => symbol.replace(regExSpecialChars, "\\$&"));
+    antipatterns = createTree(antipatterns);
 
-    symbolpatterns = new RegExp(`(${symbolpatterns.join("|")})$`, "u");
-    antipatterns = new RegExp(`(${antipatterns.join("|")})$`, "u");
+    symbolpatterns = new RegExp(`(${symbolpatterns})$`, "u");
+    antipatterns = new RegExp(`(${antipatterns})$`, "u");
+    const end = performance.now();
+    console.log(`The new autocorrect settings were applied in ${end - start} ms.`);
 }
 
 /**
