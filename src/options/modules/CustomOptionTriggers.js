@@ -30,7 +30,7 @@ function applyAutocorrectPermissions(optionValue, option, event) {
     // trigger update for current session
     browser.runtime.sendMessage({
         type: COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_BACKGROUND,
-        optionValue: optionValue
+        optionValue
     });
 }
 
@@ -47,7 +47,7 @@ function applyUnicodeFontSettings(optionValue) {
     // trigger update for current session
     browser.runtime.sendMessage({
         type: COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT,
-        optionValue: optionValue
+        optionValue
     });
 }
 
@@ -64,7 +64,7 @@ function applyNotificationSettings(optionValue) {
     // trigger update for current session
     browser.runtime.sendMessage({
         type: COMMUNICATION_MESSAGE_TYPE.NOTIFICATIONS,
-        optionValue: optionValue
+        optionValue
     });
 }
 

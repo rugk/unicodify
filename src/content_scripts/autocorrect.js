@@ -29,6 +29,7 @@ const constants = Object.freeze({
 // communication type
 // directly include magic constant as a workaround as we cannot import modules in content scripts due to https://bugzilla.mozilla.org/show_bug.cgi?id=1451545
 const AUTOCORRECT_CONTENT = "autocorrectContent";
+const INSERT = "insert";
 
 let insertedText; // Last insert text
 let deletedText; // Last deleted text
@@ -272,7 +273,7 @@ function firstDifferenceIndex(a, b) {
  */
 function autocorrect(event) {
     // console.log('beforeinput', event.inputType, event.data);
-    if (!(event.inputType === "insertText" || event.inputType === "insertCompositionText" || event.inputType === "insertParagraph" || event.inputType === "insertLineBreak")) {
+    if (!["insertText", "insertCompositionText", "insertParagraph", "insertLineBreak"].includes(event.inputType)) {
         return;
     }
     if (!symbolpatterns) {
@@ -287,7 +288,7 @@ function autocorrect(event) {
     if (caretposition) {
         const value = target.value || target.innerText;
         let deletecount = 0;
-        let insert = event.inputType === "insertLineBreak" || event.inputType === "insertParagraph" ? "\n" : event.data;
+        let insert = ["insertLineBreak", "insertParagraph"].includes(event.inputType) ? "\n" : event.data;
         const inserted = insert;
         let output = false;
         // Use Unicode smart quotes
@@ -311,8 +312,9 @@ function autocorrect(event) {
             const aregexResult = symbolpatterns.exec(text);
             const aaregexResult = antipatterns.exec(text);
             if (!aaregexResult && (!aregexResult || (caretposition <= longest ? regexResult.index < aregexResult.index : regexResult.index <= aregexResult.index))) {
-                insert = autocorrections[regexResult[0]] + inserted;
-                deletecount = regexResult[0].length;
+                const [autocorrection] = regexResult;
+                insert = autocorrections[autocorrection] + inserted;
+                deletecount = autocorrection.length;
                 output = true;
             }
         } else {
@@ -327,11 +329,12 @@ function autocorrect(event) {
                     const text = value.slice(0, caretposition) + inserted;
                     const aregexResult = numberRegex.exec(text);
                     if (!aregexResult) {
-                        const label = outputLabel(regexResult[0], regexResult.groups.fractionpart);
-                        const index = firstDifferenceIndex(label, regexResult[0]);
+                        const [number] = regexResult;
+                        const label = outputLabel(number, regexResult.groups.fractionpart);
+                        const index = firstDifferenceIndex(label, number);
                         if (index >= 0) {
                             insert = label.slice(index) + inserted;
-                            deletecount = regexResult[0].length - index;
+                            deletecount = number.length - index;
                             output = true;
                         }
                     }
@@ -404,24 +407,29 @@ function undoAutocorrect(event) {
  * @returns {void}
  */
 function handleResponse(message, sender) {
-    if (message.type !== AUTOCORRECT_CONTENT) {
-        return;
-    }
-    enabled = message.enabled;
-    quotes = message.quotes;
-    fracts = message.fracts;
-    autocorrections = message.autocorrections;
-    longest = message.longest;
-    symbolpatterns = IS_CHROME ? new RegExp(message.symbolpatterns, "u") : message.symbolpatterns;
-    antipatterns = IS_CHROME ? new RegExp(message.antipatterns, "u") : message.antipatterns;
-    // console.log(message);
+    if (message.type === AUTOCORRECT_CONTENT) {
+        ({
+            enabled,
+            quotes,
+            fracts,
+            autocorrections,
+            longest,
+            symbolpatterns,
+            antipatterns
+        } = message);
+        symbolpatterns = IS_CHROME ? new RegExp(symbolpatterns, "u") : symbolpatterns;
+        antipatterns = IS_CHROME ? new RegExp(antipatterns, "u") : antipatterns;
+        // console.log(message);
 
-    if (enabled) {
-        addEventListener("beforeinput", undoAutocorrect, true);
-        addEventListener("beforeinput", autocorrect, true);
-    } else {
-        removeEventListener("beforeinput", undoAutocorrect, true);
-        removeEventListener("beforeinput", autocorrect, true);
+        if (enabled) {
+            addEventListener("beforeinput", undoAutocorrect, true);
+            addEventListener("beforeinput", autocorrect, true);
+        } else {
+            removeEventListener("beforeinput", undoAutocorrect, true);
+            removeEventListener("beforeinput", autocorrect, true);
+        }
+    } else if (message.type === INSERT) {
+        insertIntoPage(message.text);
     }
 }
 

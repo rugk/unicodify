@@ -41,7 +41,7 @@ export function showNotification(title, content, substitutions, requiredNotifica
     browser.notifications.create({
         type: "basic",
         iconUrl: browser.runtime.getURL(ICON),
-        title: title,
+        title,
         message: content
     });
 }
@@ -59,7 +59,7 @@ async function init() {
 
 init();
 
-BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.NOTIFICATIONS, async (request) => {
+BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.NOTIFICATIONS, (request) => {
     const notifications = request.optionValue;
 
     SEND = notifications.send;

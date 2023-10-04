@@ -61,10 +61,10 @@ function handleMenuChoosen(info, tab) {
         return;
     }
 
-    browser.tabs.executeScript(tab.id, {
-        code: `insertIntoPage(${JSON.stringify(output)});`,
-        frameId: info.frameId
-    });
+    browser.tabs.sendMessage(tab.id, {
+        type: COMMUNICATION_MESSAGE_TYPE.INSERT,
+        text: output
+    }, { frameId: info.frameId });
 }
 
 /**
