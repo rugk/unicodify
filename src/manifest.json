@@ -9,12 +9,12 @@
   "homepage_url": "https://github.com/rugk/unicodify",
 
   "options_ui": {
-    "page": "options/options.html",
-    "browser_style": true
+    "page": "options/options.html"
   },
 
   "background": {
-    "page": "background/background.html"
+    "scripts": ["background/modules/InstallUpgrade.js", "background/background.js"],
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -45,7 +45,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "unicodify@rugk.github.io",
-      "strict_min_version": "87.0"
+      "strict_min_version": "112.0"
     }
   }
 }

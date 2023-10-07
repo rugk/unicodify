@@ -213,8 +213,8 @@ function sendSettings(autocorrect) {
                     enabled: settings.enabled,
                     quotes: settings.quotes,
                     fracts: settings.fracts,
-                    autocorrections: autocorrections,
-                    longest: longest,
+                    autocorrections,
+                    longest,
                     symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
                     antipatterns: IS_CHROME ? antipatterns.source : antipatterns
                 }
@@ -260,8 +260,8 @@ browser.runtime.onMessage.addListener((message) => {
             enabled: settings.enabled,
             quotes: settings.quotes,
             fracts: settings.fracts,
-            autocorrections: autocorrections,
-            longest: longest,
+            autocorrections,
+            longest,
             symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
             antipatterns: IS_CHROME ? antipatterns.source : antipatterns
         };

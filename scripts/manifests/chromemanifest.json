@@ -9,13 +9,12 @@
   "homepage_url": "https://github.com/rugk/unicodify",
 
   "options_ui": {
-    "page": "options/options.html",
-    "browser_style": true,
-    "chrome_style": true
+    "page": "options/options.html"
   },
 
   "background": {
-    "page": "background/background.html"
+    "scripts": ["browser-polyfill.js", "background/modules/InstallUpgrade.js", "background/background.js"],
+    "type": "module"
   },
   "content_scripts": [
     {
