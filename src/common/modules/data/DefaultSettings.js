@@ -24,8 +24,9 @@ const defaultSettings = {
     unicodeFont: {
         changeFont: true,
         changeCase: true,
-        showReadableText: false,
-        livePreview: false
+        showReadableText: true,
+        livePreview: true,
+        nested: true
     },
     notifications: {
         send: true
