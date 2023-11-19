@@ -198,7 +198,7 @@ async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFo
                 }
             }
         } else {
-            for (const atransformationId of amenuItems) {
+            for (const currentTransformationId of currentMenuItems) {
                 const translatedMenuText = browser.i18n.getMessage(atransformationId);
                 const textToBeTransformed = unicodeFontSettings.livePreview && exampleText ? exampleText : translatedMenuText;
                 const transformedText = UnicodeTransformationHandler.transformText(textToBeTransformed, atransformationId);
@@ -211,7 +211,7 @@ async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFo
                     });
                 } else {
                     await menus.create({
-                        id: atransformationId,
+                        id: currentTransformationId,
                         title: menuText,
                         contexts: ["editable"]
                     });
