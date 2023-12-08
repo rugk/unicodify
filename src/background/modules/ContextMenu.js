@@ -142,9 +142,41 @@ async function buildMenu(unicodeFontSettings, exampleText = null) {
 }
 
 /**
+ * Create Unicode menu items.
+ *
+ * @param {string|null} transformationId
+ * @param {string[]} menuItems
+ * @param {Object} unicodeFontSettings
+ * @param {string?} exampleText
+ * @returns {Promise<void>}
+ */
+async function createMenu(transformationId, menuItems, unicodeFontSettings, exampleText) {
+    for (const currentTransformationId of menuItems) {
+        const translatedMenuText = browser.i18n.getMessage(currentTransformationId);
+        const textToBeTransformed = unicodeFontSettings.livePreview && exampleText ? exampleText : translatedMenuText;
+        const transformedText = UnicodeTransformationHandler.transformText(textToBeTransformed, currentTransformationId);
+
+        let menuText = unicodeFontSettings.showReadableText ? browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, transformedText]) : transformedText;
+        menuText = menuText.replaceAll("&", "&&");
+        if (menuIsShown) {
+            menus.update(currentTransformationId, {
+                title: menuText
+            });
+        } else {
+            await menus.create({
+                id: currentTransformationId,
+                parentId: transformationId,
+                title: menuText,
+                contexts: ["editable"]
+            });
+        }
+    }
+}
+
+/**
  * Add Unicode menu items.
  *
- * @param {string[]|symbol[]} menuItems
+ * @param {Object.<string, string[]>} menuItems
  * @param {Object} [unicodeFontSettings]
  * @param {string?} [exampleText=null]
  * @returns {Promise<void>}
@@ -177,46 +209,9 @@ async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFo
                     contexts: ["editable"]
                 });
             }
-            for (const currentTransformationId of currentMenuItems) {
-                const translatedMenuText = browser.i18n.getMessage(currentTransformationId);
-                const textToBeTransformed = unicodeFontSettings.livePreview && exampleText ? exampleText : translatedMenuText;
-                const transformedText = UnicodeTransformationHandler.transformText(textToBeTransformed, currentTransformationId);
-
-                let menuText = unicodeFontSettings.showReadableText ? browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, transformedText]) : transformedText;
-                menuText = menuText.replaceAll("&", "&&");
-                if (menuIsShown) {
-                    menus.update(currentTransformationId, {
-                        title: menuText
-                    });
-                } else {
-                    await menus.create({
-                        id: currentTransformationId,
-                        parentId: transformationId,
-                        title: menuText,
-                        contexts: ["editable"]
-                    });
-                }
-            }
+            await createMenu(transformationId, currentMenuItems, unicodeFontSettings, exampleText);
         } else {
-            for (const currentTransformationId of currentMenuItems) {
-                const translatedMenuText = browser.i18n.getMessage(currentTransformationId);
-                const textToBeTransformed = unicodeFontSettings.livePreview && exampleText ? exampleText : translatedMenuText;
-                const transformedText = UnicodeTransformationHandler.transformText(textToBeTransformed, currentTransformationId);
-
-                let menuText = unicodeFontSettings.showReadableText ? browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, transformedText]) : transformedText;
-                menuText = menuText.replaceAll("&", "&&");
-                if (menuIsShown) {
-                    menus.update(currentTransformationId, {
-                        title: menuText
-                    });
-                } else {
-                    await menus.create({
-                        id: currentTransformationId,
-                        title: menuText,
-                        contexts: ["editable"]
-                    });
-                }
-            }
+            await createMenu(null, currentMenuItems, unicodeFontSettings, exampleText);
         }
     }
 }
