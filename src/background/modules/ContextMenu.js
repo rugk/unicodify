@@ -5,7 +5,7 @@ import { isMobile } from "/common/modules/MobileHelper.js";
 import * as Notifications from "/common/modules/Notifications.js";
 
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
-import { menuStructure, SEPARATOR_ID, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
+import { menuStructure, SEPARATOR_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
 const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 const PREVIEW_STRING_CUT_LENGTH = 100; // a setting that may improve performance by not calculating invisible parts of the context menu
@@ -124,7 +124,8 @@ async function buildMenu(unicodeFontSettings, exampleText = null) {
     if (unicodeFontSettings.changeFont) {
         await addMenuItems(menuStructure[TRANSFORMATION_TYPE.FONT], unicodeFontSettings, exampleText);
     }
-    if (unicodeFontSettings.changeFont &&
+    if (!unicodeFontSettings.nested &&
+        unicodeFontSettings.changeFont &&
         unicodeFontSettings.changeCase &&
         !menuIsShown) {
         await menus.create({
@@ -141,17 +142,49 @@ async function buildMenu(unicodeFontSettings, exampleText = null) {
 }
 
 /**
+ * Create Unicode menu items.
+ *
+ * @param {string|null} transformationId
+ * @param {string[]} menuItems
+ * @param {Object} unicodeFontSettings
+ * @param {string?} exampleText
+ * @returns {Promise<void>}
+ */
+async function createMenu(transformationId, menuItems, unicodeFontSettings, exampleText) {
+    for (const currentTransformationId of menuItems) {
+        const translatedMenuText = browser.i18n.getMessage(currentTransformationId);
+        const textToBeTransformed = unicodeFontSettings.livePreview && exampleText ? exampleText : translatedMenuText;
+        const transformedText = UnicodeTransformationHandler.transformText(textToBeTransformed, currentTransformationId);
+
+        let menuText = unicodeFontSettings.showReadableText ? browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, transformedText]) : transformedText;
+        menuText = menuText.replaceAll("&", "&&");
+        if (menuIsShown) {
+            menus.update(currentTransformationId, {
+                title: menuText
+            });
+        } else {
+            await menus.create({
+                id: currentTransformationId,
+                parentId: transformationId,
+                title: menuText,
+                contexts: ["editable"]
+            });
+        }
+    }
+}
+
+/**
  * Add Unicode menu items.
  *
- * @param {string[]|symbol[]} menuItems
+ * @param {Object.<string, string[]>} menuItems
  * @param {Object} [unicodeFontSettings]
  * @param {string?} [exampleText=null]
  * @returns {Promise<void>}
  */
 async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSettings, exampleText = null) {
-    for (const transformationId of menuItems) {
-        if (transformationId === SEPARATOR_ID) {
-            if (menuIsShown) {
+    for (const [transformationId, currentMenuItems] of Object.entries(menuItems)) {
+        if (transformationId.startsWith(SEPARATOR_ID_PREFIX)) {
+            if (unicodeFontSettings.nested || menuIsShown) {
                 continue;
             }
 
@@ -163,29 +196,22 @@ async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFo
             continue;
         }
 
-        const translatedMenuText = browser.i18n.getMessage(transformationId);
-        let textToBeTransformed = translatedMenuText;
-        if (unicodeFontSettings.livePreview && exampleText) {
-            textToBeTransformed = exampleText;
-        }
-        const transformedText = UnicodeTransformationHandler.transformText(textToBeTransformed, transformationId);
-
-        let menuText = transformedText;
-        if (unicodeFontSettings.showReadableText) {
-            menuText = browser.i18n.getMessage("menuReadableTextWrapper", [translatedMenuText, transformedText]);
-        }
-        menuText = menuText.replaceAll("&", "&&");
-
-        if (menuIsShown) {
-            menus.update(transformationId, {
-                title: menuText
-            });
+        if (unicodeFontSettings.nested && currentMenuItems.length > 1) {
+            const translatedMenuText = browser.i18n.getMessage(transformationId);
+            if (menuIsShown) {
+                menus.update(transformationId, {
+                    title: translatedMenuText
+                });
+            } else {
+                await menus.create({
+                    id: transformationId,
+                    title: translatedMenuText,
+                    contexts: ["editable"]
+                });
+            }
+            await createMenu(transformationId, currentMenuItems, unicodeFontSettings, exampleText);
         } else {
-            await menus.create({
-                id: transformationId,
-                title: menuText,
-                contexts: ["editable"]
-            });
+            await createMenu(null, currentMenuItems, unicodeFontSettings, exampleText);
         }
     }
 }

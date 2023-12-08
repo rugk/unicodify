@@ -118,6 +118,10 @@
     }
   },
 
+  "menuCaseCasing": {
+    "message": "Change casing",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
   "menuCaseLowercase": {
     "message": "Lowercase",
     "description": "An entry in the context menu. This is an entry for the case."
@@ -139,6 +143,14 @@
     "message": "Superscript",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
+  "menuFontSubscript": {
+    "message": "Subscript",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSmallCapsSmallCaps": {
+    "message": "Small Caps",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
   "menuFontSmallCaps": {
     "message": "Small Caps",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
@@ -151,6 +163,10 @@
     "message": "Unicase",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
+  "menuFontSerif": {
+    "message": "Serif",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
   "menuFontSerifBold": {
     "message": "Serif bold",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
@@ -161,6 +177,10 @@
   },
   "menuFontSerifBoldItalic": {
     "message": "Serif bold italic",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontSansSerifSansSerif": {
+    "message": "Sans-serif",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSansSerif": {
@@ -179,6 +199,10 @@
     "message": "Sans-serif bold italic",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
+  "menuFontScriptScript": {
+    "message": "Script",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
   "menuFontScript": {
     "message": "Script",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
@@ -187,7 +211,11 @@
     "message": "Script bold",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
-  "menuFontScriptFraktur": {
+  "menuFontFrakturFraktur": {
+    "message": "Fraktur",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontFraktur": {
     "message": "Fraktur",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
@@ -201,6 +229,10 @@
   },
   "menuFontDoubleStruck": {
     "message": "Double-struck",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontOther": {
+    "message": "Other/Emojis",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontCircled": {
