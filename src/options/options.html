@@ -129,10 +129,26 @@
 
 					<li>
 						<div class="line">
+							<input class="setting save-on-change" type="checkbox" id="changeFormat" data-optiongroup="unicodeFont" name="changeFormat">
+							<label for="changeFormat">Show Unicode format options</label>
+						</div>
+						<span class="line indent helper-text">For example, O̅v̅e̅r̅l̅i̅n̅e̅d̅, S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶ and U̲n̲d̲e̲r̲l̲i̲n̲e̲d̲.</span>
+					</li>
+
+					<li>
+						<div class="line">
 							<input class="setting save-on-change" type="checkbox" id="changeCase" data-optiongroup="unicodeFont" name="changeCase">
 							<label data-i18n="__MSG_optionMenuCasing__" for="changeCase">Show case changing options</label>
 						</div>
 						<span data-i18n="__MSG_optionMenuCasingDescr__" class="line indent helper-text">For example, “UPPER CASE”, “lower case”, “Capitalize Each Word” or “tOGGLE cASE”.</span>
+					</li>
+
+					<li>
+						<div class="line">
+							<input class="setting save-on-change" type="checkbox" id="changeCodeCase" data-optiongroup="unicodeFont" name="changeCodeCase">
+							<label for="changeCodeCase">Show code case changing options</label>
+						</div>
+						<span class="line indent helper-text">For example, “camelCase”, “UpperCamelCase”, “snake_case” or “kebab-case”.</span>
 					</li>
 
 					<h2 data-i18n="__MSG_subtitleEntryPreview__">Entry design</h2>

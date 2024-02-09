@@ -139,6 +139,35 @@
     "description": "An entry in the context menu. This is an entry for the case."
   },
 
+  "menuCodeCaseCodeCasing": {
+    "message": "Change code casing",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCodeCaseCamelCase": {
+    "message": "Camel case",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCodeCaseUpperCamelCase": {
+    "message": "Upper camel case",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCodeCaseSnakeCase": {
+    "message": "Snake case",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCodeCaseConstantCase": {
+    "message": "Constant case",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCodeCaseKebabCase": {
+    "message": "Kebab case",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+  "menuCodeCaseTrainCase": {
+    "message": "Train case",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
+
   "menuFontSuperscript": {
     "message": "Superscript",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
@@ -251,9 +280,38 @@
     "message": "Squared (black)",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
+  "menuFontParenthesized": {
+    "message": "Parenthesized",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
   "menuFontFullwidth": {
     "message": "Fullwidth",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+
+  "menuFormatFormatting": {
+    "message": "Change formatting",
+    "description": "An entry in the context menu. This is an entry for the Unicode format."
+  },
+  "menuFormatOverlined": {
+    "message": "Overlined",
+    "description": "An entry in the context menu. This is an entry for the Unicode format."
+  },
+  "menuFormatDoubleOverlined": {
+    "message": "Double overlined",
+    "description": "An entry in the context menu. This is an entry for the Unicode format."
+  },
+  "menuFormatStrikethrough": {
+    "message": "Strikethrough",
+    "description": "An entry in the context menu. This is an entry for the Unicode format."
+  },
+  "menuFormatUnderlined": {
+    "message": "Underlined",
+    "description": "An entry in the context menu. This is an entry for the Unicode format."
+  },
+  "menuFormatDoubleUnderlined": {
+    "message": "Double underlined",
+    "description": "An entry in the context menu. This is an entry for the Unicode format."
   },
 
   // options
