@@ -176,16 +176,16 @@ const changeCase = Object.freeze({
  * @returns {string[]}
  */
 function split(str) {
-    // /[^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]+/u
+    // \p{Alphabetic} \p{Mark} \p{Decimal_Number} \p{Join_Control}
     const re = /[^\p{Alpha}\p{M}\p{digit}\p{Join_C}]+/gu;
-    let arr = str.split(/\s+/u).map((x) => x.replaceAll(re, "")).filter((x) => x);
+    let arr = str.split(/\s+/u).map((x) => x.replaceAll(re, "")).filter(Boolean);
     if (!arr.length || arr.length > 1) {
         return arr;
     }
 
-    arr = str.split(re).filter((x) => x);
-    // /\p{Uppercase}*\P{Uppercase}+|\p{Uppercase}+/gu
-    return !arr.length || arr.length > 1 ? arr : Array.from(arr[0].matchAll(/\p{Upper}*\P{Upper}+|\p{Upper}+/gu), (x) => x[0]);
+    arr = str.split(re).filter(Boolean);
+    // \p{Uppercase}
+    return !arr.length || arr.length > 1 ? arr : arr[0].match(/\p{Upper}*\P{Upper}+|\p{Upper}+/gu);
 }
 
 /**

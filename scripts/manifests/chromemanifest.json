@@ -13,8 +13,7 @@
   },
 
   "background": {
-    "scripts": ["browser-polyfill.js", "background/modules/InstallUpgrade.js", "background/background.js"],
-    "type": "module"
+    "page": "background.html"
   },
   "content_scripts": [
     {
