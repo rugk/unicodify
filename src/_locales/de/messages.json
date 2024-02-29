@@ -2,63 +2,92 @@
   // manifest.json
   "extensionName": {
     "message": "Unicodify – Text transformer",
-    "description": "Name of the extension."
+    "description": "Name of the extension.",
+    "hash": "ddd3bd6dcf8e2e5281dc210f79bf5139"
   },
   "extensionNameShort": {
     "message": "Unicodify",
-    "description": "Name of the extension."
+    "description": "Name of the extension.",
+    "hash": "e64f147712822c45d13476bb79638225"
   },
   "extensionDescription": {
     "message": "Erlaubt es übliche Zeichenfolgen/Texte zu automatisch zu korrigieren und Zeichenfolgen automatisch wie einen speziellen Unicode-Schriftart aussehen zu lassen.",
-    "description": "Description of the extension."
+    "description": "Description of the extension.",
+    "hash": "2eac8bdced7f72d047ae904eeb231874"
   },
 
   // errors or other messages (mostly for settings)
   "errorShowingMessage": {
     "message": "Konnte Nachricht nicht anzeigen.",
-    "description": "When there is an error when showing the error/info/…."
+    "description": "When there is an error when showing the error/info/….",
+    "hash": "a9440e4f824a372841d4de2b7e2643ee"
   },
   "couldNotLoadOptions": {
     "message": "Konnte Einstellungen nicht laden.",
-    "description": "When one or all settings could not be loaded."
+    "description": "When one or all settings could not be loaded.",
+    "hash": "9497a5d2c9473aeb2ed9601f46c456be"
   },
   "couldNotSaveOption": {
     "message": "Konnte diese Einstellung nicht speichern.",
-    "description": "When a setting could not be saved."
+    "description": "When a setting could not be saved.",
+    "hash": "6bcb9e36d2c33172b948515a9c50aa8e"
   },
   "messageUndoButton": {
     "message": "Rückgängig machen",
-    "description": "The text of a button that undoes the last action."
+    "description": "The text of a button that undoes the last action.",
+    "hash": "a85e775d7404b86c8060a20efd31241c"
   },
   "couldNotUndoAction": {
     "message": "Konnte Aktion nicht rückgängig machen.",
-    "description": "Shown when an action cannot be undone."
+    "description": "Shown when an action cannot be undone.",
+    "hash": "d2883c6ca0164afc4f360f3e02e3166a"
   },
   "resettingOptionsWorked": {
     "message": "Alle Einstellungen benutzen nun wieder die Standardwerte!",
-    "description": "The message shown, when the options of the settings were reset."
+    "description": "The message shown, when the options of the settings were reset.",
+    "hash": "257b99ed2a074fccbfc658d770b50107"
   },
   "resettingOptionsFailed": {
     "message": "Konnte Optionen nicht zurück setzen!",
-    "description": "The message shown, when the options of the settings could not have been reset."
+    "description": "The message shown, when the options of the settings could not have been reset.",
+    "hash": "76e950d2db72a824482411ca6564fb1f"
   },
 
   // tips
   "tipYouLikeAddon": {
     "message": "Magst du dieses Add-on?",
-    "description": "A tip shown to remind the user to rate the addon."
+    "description": "A tip shown to remind the user to rate the addon.",
+    "hash": "0f5680a5a42bcebf793a44b9dfcf79a1"
   },
   "tipYouLikeAddonButton": {
     "message": "Bewerte es!",
-    "description": "Button for the tip shown to remind the user to rate the addon."
+    "description": "Button for the tip shown to remind the user to rate the addon.",
+    "hash": "821d7f942b02e2b56cd0424d3ab65de8"
   },
   "tipAwesomeIcons": {
     "message": "Willst du auch Emoji-Autovervollstäündigung? Hier ist ein anderes Add-on dafür…",
-    "description": "A tip shown to remind the user to rate the addon."
+    "description": "A tip shown to let the user know of another suggested addon.",
+    "hash": "91b7a6b09d5a2d0ac273fa94d43d1fab"
   },
   "tipAwesomeIconsButton": {
     "message": "Teste es",
-    "description": "Button for the tip shown to remind the user to rate the addon."
+    "description": "Button for the tip shown to let the user know of another suggested addon.",
+    "hash": "4740e792da5ff4d07ba10a5583f4d7f5"
+  },
+  "tipTranslateAddon": {
+    "message": "Wenn du eine andere Sprache sprichst, kannst du helfen, dieses Add-on zu übersetzen.",
+    "description": "A tip shown to users that potentially speak another language to translate this add-on.",
+    "hash": "f22661cb0e9cdc8144d0c3cf59f854e3"
+  },
+  "tipTranslateAddonLink": {
+    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTING.md#translations",
+    "description": "The link to a description of the translation service/way you can use.",
+    "hash": "f470a3a2293959ea331f9bc3d669f9c6"
+  },
+  "tipLearnMore": {
+    "message": "Mehr Infos",
+    "description": "The common button for tips, where you can get more information on click.",
+    "hash": "9085b09f4748be12ab0c241d2e643b31"
   },
 
   // context menu
@@ -66,310 +95,363 @@
     "message": "$READABLE_TEXT$ – $TRANSFORMED_EXAMPLE$",
     "description": "The wrapper that is enabled if you enable the showReadableText option to also show the text without transformation. Usually does not need to be translated.",
     "placeholders": {
-      "readable_text": {
-        "content": "$1",
-        "example": "Superscript"
-      },
-      "transformed_example": {
-        "content": "$2",
-        "example": "ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ"
-      }
-    }
+      "readable_text": { "content": "$1", "example": "Superscript" },
+      "transformed_example": { "content": "$2", "example": "ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ" }
+    },
+    "hash": "1c445f650c073566200f4344d83d691e"
   },
-
   "menuCtrlKey": {
     "message": "Strg",
-    "description": "The short key name used for the Control modifier key on typical Windows(-like) keyboards. For mac OS devices it automatically uses the Unicode symbol ⌘ instead."
+    "description": "The short key name used for the Control modifier key on typical Windows(-like) keyboards. For mac OS devices it automatically uses the Unicode symbol ⌘ instead.",
+    "hash": "9a56ef2052b663bb43d70803ccf4c907"
   },
   "menuNotificationPressCtrlVTitle": {
     "message": "📋 Drück $CTRL_KEY$+V",
     "description": "The message title shown as a workaround to let users know to press Ctrl+V to insert the transformed text.",
     "placeholders": {
-      "ctrl_key": {
-        "content": "$1",
-        "example": "Ctrl"
-      }
-    }
+      "ctrl_key": { "content": "$1", "example": "Ctrl" }
+    },
+    "hash": "08949c893e2af8c0fe0a24fc432bfe69"
   },
   "menuNotificationPressCtrlVContent": {
     "message": "Add-ons in Thunderbird können aktuell nicht auf das ausgewählte Feld („$FIELD_NAME$”) zugreifen. Daher wurde der transformierte Text in deine Zwischenablage kopiert.\nBitte drück $CTRL_KEY$+V um die Transformation auszuführen.",
     "description": "The message title shown as a workaround to let users know to press Ctrl+V to insert the transformed text.",
     "placeholders": {
-      "ctrl_key": {
-        "content": "$1",
-        "example": "Ctrl"
-      },
-      "field_name": {
-        "content": "$2",
-        "example": "compose"
-      }
-    }
+      "ctrl_key": { "content": "$1", "example": "Ctrl" },
+      "field_name": { "content": "$2", "example": "Subject" }
+    },
+    "hash": "8ad376e38e7645d34706b54ef7940c41"
   },
-
+  "menuCaseCasing": {
+    "message": "Groß-/Kleinschreibung ändern",
+    "description": "An entry in the context menu. This is an entry for the case.",
+    "hash": "3cbd5434fe8a3c3c4dd938a221dd5d71"
+  },
   "menuCaseLowercase": {
     "message": "Kleinbuchstaben",
-    "description": "An entry in the context menu. This is an entry for the case."
+    "description": "An entry in the context menu. This is an entry for the case.",
+    "hash": "6fa3d72f3edb864a7f1e58af42232755"
   },
   "menuCaseUppercase": {
     "message": "Großbuchstaben",
-    "description": "An entry in the context menu. This is an entry for the case."
+    "description": "An entry in the context menu. This is an entry for the case.",
+    "hash": "f260f256ce9436a152695732bb1c4aa6"
   },
   "menuCaseCapitalizeEachWord": {
     "message": "Jedes Wort großschreiben",
-    "description": "An entry in the context menu. This is an entry for the case."
+    "description": "An entry in the context menu. This is an entry for the case.",
+    "hash": "4d4ab673ce65f874085e77a8bb579637"
   },
   "menuCaseToggleCase": {
     "message": "Großschreibung umkehren",
-    "description": "An entry in the context menu. This is an entry for the case."
+    "description": "An entry in the context menu. This is an entry for the case.",
+    "hash": "26ce7788834722acabc0f220f2a78f6a"
   },
-
   "menuFontSuperscript": {
     "message": "Hochgestellt",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "cbaea9daddc21f13c0325da318d86337"
+  },
+  "menuFontSubscript": {
+    "message": "Tiefgestellt",
+    "hash": "bb5064a632dcca8c34a01ac6c10d7092"
+  },
+  "menuFontSmallCapsSmallCaps": {
+    "message": "Kleine Kapitälchen",
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "22a17f27f94b9283826439b552da9960"
   },
   "menuFontSmallCaps": {
     "message": "Kleine Kapitälchen",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "22a17f27f94b9283826439b552da9960"
   },
   "menuFontAllSmallCaps": {
     "message": "Immer kleine Kapitälchen",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "83558fcc29c9c20ac11b12f82dfda13c"
   },
   "menuFontUnicase": {
     "message": "Unicase",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "f1b2c7147f11185b008227ecb9d62424"
+  },
+  "menuFontSerif": {
+    "message": "Serifen",
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "dbc19d4798eb7ae7eccf95bb73b0c2c5"
   },
   "menuFontSerifBold": {
     "message": "Mit Serifen und fett",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "ed38daee82c04a86dcd2bdf81e072971"
   },
   "menuFontSerifItalic": {
     "message": "Mit Serfien und kursiv",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "4ab730bcd80ca110549c48fa1653a94f"
   },
   "menuFontSerifBoldItalic": {
     "message": "Mit Serfien, fett und kursiv",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "894ef23cd1c40ca0f211e239082380f8"
+  },
+  "menuFontSansSerifSansSerif": {
+    "message": "serifenlos",
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "db7243e522fc141e506b662a6c75e173"
   },
   "menuFontSansSerif": {
     "message": "serifenlos",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "db7243e522fc141e506b662a6c75e173"
   },
   "menuFontSansSerifBold": {
     "message": "serifenlos und fett",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "fd1796eae8f4ab438d020700d2d79e37"
   },
   "menuFontSansSerifItalic": {
     "message": "serifenlos und kursiv",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "3ccf22953d08aebad82c07a874823a6c"
   },
   "menuFontSansSerifBoldItalic": {
     "message": "serifenlos, fett und kursiv",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "3b84c6e05089c01dba2f22d53f85bc2a"
+  },
+  "menuFontScriptScript": {
+    "message": "Skript",
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "800852212eead329c861d1d6fcc9495f"
   },
   "menuFontScript": {
     "message": "Skript",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "800852212eead329c861d1d6fcc9495f"
   },
   "menuFontScriptBold": {
     "message": "Skript und fett",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "a6a822d22108f7ef4671030b2c701808"
   },
-  "menuFontScriptFraktur": {
+  "menuFontFrakturFraktur": {
     "message": "Fraktur",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "8c4680897f31577952528bb0e6465b3b"
+  },
+  "menuFontFraktur": {
+    "message": "Fraktur",
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "8c4680897f31577952528bb0e6465b3b"
   },
   "menuFontFrakturBold": {
     "message": "Fraktur und fett",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "adf25a07b402cb30b031811b561337bd"
   },
   "menuFontMonospace": {
     "message": "dickengleich (monospace)",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "9b0525396ab62a61cc7702000c186176"
   },
   "menuFontDoubleStruck": {
     "message": "Doppelt gestrichen",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "855be3f4898e20eaedc2c800b227770e"
+  },
+  "menuFontOther": {
+    "message": "Andere/Emojis",
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "f03a06e744406e01c2ec4078b44de61d"
   },
   "menuFontCircled": {
     "message": "Eingekreist",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "b8126d81a748e3ebcf56e1ee1d2a066d"
   },
   "menuFontCircledBlack": {
     "message": "Eingekreist (schwarz)",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "7ae09fc81461e5e8e911cb1fb067919e"
   },
   "menuFontSquared": {
     "message": "im Quadrat",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "f93152953a5a7086c85beb20b6300f15"
   },
   "menuFontSquaredBlack": {
     "message": "im Quadrat (schwarz)",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "be88d98ec0ff94fb92e82ae96b60e06b"
   },
   "menuFontFullwidth": {
     "message": "volle Breite",
-    "description": "An entry in the context menu. This is an entry for the Unicode font."
+    "description": "An entry in the context menu. This is an entry for the Unicode font.",
+    "hash": "90b339c7b3382662026cffa067db8742"
   },
 
   // options
   "someSettingsAreManaged": {
     "message": "Einige Einstellung werden von deinem Systemadministrator festgelegt und können nicht geändert werden.",
-    "description": "The message, which appears, when settings are pre-defined (as managed options) by administrators."
+    "description": "The message, which appears, when settings are pre-defined (as managed options) by administrators.",
+    "hash": "148604ebbeb7df28974d8233f1418d1f"
   },
   "optionIsDisabledBecauseManaged": {
     "message": "Diese Option ist deaktiviert, weil sie von deinem Systemadministrator festgelegt wurde.",
-    "description": "The title (tooltip) shown, when hovering over a disabled, managed option."
+    "description": "The title (tooltip) shown, when hovering over a disabled, managed option.",
+    "hash": "50fb70682c64e1a1fb4d8884b33cca64"
   },
   "optionLearnMore": {
     "message": "Weitere Informationen",
-    "description": "When a link to an explainer needs to be added, this is the link text."
+    "description": "When a link to an explainer needs to be added, this is the link text.",
+    "hash": "9085b09f4748be12ab0c241d2e643b31"
   },
   "optionMoreInformation": {
     "message": "Mehr Informationen",
-    "description": "When a link to an explainer needs to be added and it is more informative and not about learning something, this is the link text."
+    "description": "When a link to an explainer needs to be added and it is more informative and not about learning something, this is the link text.",
+    "hash": "3fa53083a7df58e45ac33d3288a34d17"
   },
   "optionsResetButton": {
     "message": "Setze alle Einstellungen auf Standardwerte zurück",
-    "description": "The button to delete all current settings and load the defaults, shown in the add-on settings."
+    "description": "The button to delete all current settings and load the defaults, shown in the add-on settings.",
+    "hash": "4bb60c6c7e7b9e2ff987c244e76ee044"
   },
-
   "optionWarningAutocorrectFeature": {
     "message": "Die Unicode-Autokorrektur-Funktion ist experimentell und kann einige Webseiten beeinträchtigen.",
-    "description": "The warning used to mark the autocorrection feature as experimental. Try to keep it short."
+    "description": "The warning used to mark the autocorrection feature as experimental. Try to keep it short.",
+    "hash": "22d311c9cb78026ff96af6cf13359ca5"
   },
   "optionWarningAutocorrectFeatureLink": {
     "message": "https://github.com/rugk/unicodify/wiki/FAQ-(deutsch)#warum-ist-die-autokorrektur-funktion-experimentell",
-    "description": "The link for more information about the optionWarningAutocorrectFeature warning."
+    "description": "The link for more information about the optionWarningAutocorrectFeature warning.",
+    "hash": "b7fe574b151609751fd6d7091bffa6d5"
   },
-
   "titleUnicodeAutocorrection": {
     "message": "Unicode-Autokorrektur",
-    "description": "A title in the add-on settings."
+    "description": "A title in the add-on settings.",
+    "hash": "8e03ca5a1dc320e5b0ddcf9c61083b8a"
   },
   "titleContextMenu": {
     "message": "Kontextmenü",
-    "description": "A title in the add-on settings."
+    "description": "A title in the add-on settings.",
+    "hash": "42b7d6be5194f8ce4492f96420343bc4"
   },
-
   "optionHelperTextAutocorrection": {
     "message": "Du kannst die automatischen Korrekturen, welche bei Eingabe von Text ausgeführt werden, hier konfigurieren.$BR$Alle Autokorreturen werden ausgeführt, sobald du das ersten nicht-passenden Zeichen, gefolgt von einer Zeichensequenz wie einem Leerzeichen (␣), schreibst. Drück die Rücktaste (⌫) um eine Autokorrektur rückgängig zu machen. Nur das Ersetzen der Anführungszeichen wird sofort ausgeführt.",
     "description": "Description for the section titleUnicodeAutocorrection explaining how the autocorrection works.",
     "placeholders": {
-      "br": {
-        "content": "$1",
-        "example": "<br>"
-      }
-    }
+      "br": { "content": "$1", "example": "<br>" }
+    },
+    "hash": "166be030523940c224538718a18e587b"
   },
   "optionHelperTextAutocorrectionEmoji": {
     "message": "Um auch Emojis, inklusive $COLON$-Codes und Emoticons, automatisch zu korrigieren zu lassen, teste auch unser $LINK$ add-on.",
     "description": "Description for the section titleUnicodeAutocorrection advertising the Awesome Emoji Picker add-on.",
     "placeholders": {
-      "colon": {
-        "content": "$1",
-        "example": "<code>:colon:</code>"
-      },
-      "link": {
-        "content": "$2",
-        "example": "<a href=\"https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/\">🤩&nbsp;Awesome Emoji Picker</a>"
-      }
-    }
+      "colon": { "content": "$1", "example": "<code>:colon:</code>" },
+      "link": { "content": "$2", "example": "<a href=\"https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/\">🤩&nbsp;Awesome Emoji Picker</a>" }
+    },
+    "hash": "cb0ba1f489c3ec17ad167d9b846ebd86"
   },
   "optionHelperTextAutocorrectionEmojiColonsCode": {
     "message": ":Doppelpunkt:",
-    "description": "This is included in code-style in optionHelperTextAutocorrectionEmoji."
+    "description": "This is included in code-style in optionHelperTextAutocorrectionEmoji.",
+    "hash": "819569cbed023888af57dd20c147264e"
   },
   "optionHelperTextAutocorrectionEmojiLinkText": {
     "message": "🤩\u00a0Awesome Emoji Picker",
-    "description": "The text for the link provided in optionHelperTextAutocorrectionEmoji. Should be the official name of the emoji picker add-on in your language."
+    "description": "The text for the link provided in optionHelperTextAutocorrectionEmoji. Should be the official name of the emoji picker add-on in your language.",
+    "hash": "53cc7c9f6dedb8c946ee3bf91ead676b"
   },
   "optionHelperTextContextMenu": {
     "message": "Schreibe Text, markiere diesen und wähle die passende Option im Kontextmenü aus, um schnell das den Zeichenstil oder die Groß-/Kleinschreibung. Dies ist nützlich bei Websieten, welche es nicht erlauben die Schriftart oder die Textformattierung anzupassen.",
-    "description": "Description for the section titleContextMenu explaining how the autocorrection works."
+    "description": "Description for the section titleContextMenu explaining how the autocorrection works.",
+    "hash": "007f3b8d1aba72c90f655b815455857b"
   },
-
   "optionAutocorrectSymbols": {
     "message": "Korrigiere Unicode-Symbole",
-    "description": "This is an option shown in the add-on settings."
+    "description": "This is an option shown in the add-on settings.",
+    "hash": "91b3deb810bd57de07a6f00bbef02873"
   },
   "optionAutocorrectSymbolsDescr": {
     "message": "Dies ersetzt bspw. $CODE_HYPHEN$ durch –, $CODE_ARROW$ durch ⟶ und $CODE_FRACTION$ mit ¼.",
     "description": "This is an option shown in the add-on settings. It describes the optionAutocorrectSymbols setting.",
     "placeholders": {
-      "code_hyphen": {
-        "content": "$1",
-        "example": "<code>--</code>"
-      },
-      "code_arrow": {
-        "content": "$2",
-        "example": "<code>--></code>"
-      },
-      "code_fraction": {
-        "content": "$3",
-        "example": "<code>1/4</code>"
-      }
-    }
+      "code_hyphen": { "content": "$1", "example": "<code>--</code>" },
+      "code_arrow": { "content": "$2", "example": "<code>--></code>" },
+      "code_fraction": { "content": "$3", "example": "<code>1/4</code>" }
+    },
+    "hash": "a02766192b86ddd6135a3c6dfc2977cc"
   },
   "optionReplaceQuotes": {
     "message": "Ersetze Anführungszeichen mit der typografischen Version",
-    "description": "This is an option shown in the add-on settings."
+    "description": "This is an option shown in the add-on settings.",
+    "hash": "b299e383596d6db183ce85fb73af7276"
   },
   "optionReplaceQuotesDescr": {
     "message": "Dies ersetzt \"diese ('Ersatz-')Anführungszeichen\" mit den sogenannten “smart quotes” bzw. deren “etwas ‘kleinerer’ Variante”.",
-    "description": "This is an option shown in the add-on settings. It describes the optionReplaceQuotes setting."
+    "description": "This is an option shown in the add-on settings. It describes the optionReplaceQuotes setting.",
+    "hash": "67b1ff4561c1b87899bb64ac7afc52e9"
   },
   "optionConvertFractions": {
     "message": "Konvertiere Brüche und andere mathematische Konstanten zu Unicode-Zeichen",
-    "description": "This is an option shown in the add-on settings."
+    "description": "This is an option shown in the add-on settings.",
+    "hash": "bc964460856fae6072753de55589bc38"
   },
   "optionConvertFractionsDescr": {
     "message": "Dies wird bspw. $CODE_NUMBER$ mit 1234¼ ersetzen.",
     "description": "This is an option shown in the add-on settings. It describes the optionConvertFractions setting.",
     "placeholders": {
-      "code_number": {
-        "content": "$1",
-        "example": "<code>1234.25</code>"
-      }
-    }
+      "code_number": { "content": "$1", "example": "<code>1234.25</code>" }
+    },
+    "hash": "a19f4aca7eb018a878c1e257e86a925a"
   },
-
   "optionMenuUnicodeFont": {
     "message": "Zeige Uncode-Schriftarten-Optionen",
-    "description": "This is an option shown in the add-on settings."
+    "description": "This is an option shown in the add-on settings.",
+    "hash": "d79aa44e5d44657c9570690183234829"
   },
   "optionMenuUnicodeFontDescr": {
     "message": "Wie bspw. ᴴᵒᶜʰᵍᵉˢᵗᵉˡˡᵗ, Kʟᴇɪɴᴇ Kᴀᴘɪᴛäʟᴄʜᴇɴ, 𝒮𝓀𝓇𝒾𝓅𝓉, 𝔉𝔯𝔞𝔨𝔱𝔲𝔯 und 🄸🄼 🅀🅄🄰🄳🅁🄰🅃.",
-    "description": "This is an option shown in the add-on settings. It describes the optionMenuUnicodeFont setting. IMPORTANT: You may choose any (number of) examples here that look good in your language."
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuUnicodeFont setting. IMPORTANT: You may choose any (number of) examples here that look good in your language.",
+    "hash": "b536b785a186cb23ac67d278a0969f0f"
   },
   "optionMenuCasing": {
     "message": "Zeige Optionen zur Änderung der Groß-/Kleinschreibung",
-    "description": "This is an option shown in the add-on settings."
+    "description": "This is an option shown in the add-on settings.",
+    "hash": "649ad74a0d537fe8ee75aa3a1cd934fc"
   },
   "optionMenuCasingDescr": {
     "message": "Zum Beispiel, “GROẞSCHREIBUNG”, “kleinschreibung”, “Schreibe Jedes Wort Groß” or “kEHRE gROẞSCHREIBUNG uM”.",
-    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting.",
+    "hash": "6e39ac0bd40044ed79d51f27d523a856"
   },
-
   "subtitleEntryPreview": {
     "message": "Vorschau",
-    "description": "The heading/grouping title shown for options customizing the design of the context menu entry."
+    "description": "The heading/grouping title shown for options customizing the design of the context menu entry.",
+    "hash": "b2ce6f78ea0a002ab97efea02562c3c0"
   },
   "optionMenuShowReadableText": {
     "message": "Zeige eine lesbare Beschreibung der Transformation",
-    "description": "This is an option shown in the add-on settings."
+    "description": "This is an option shown in the add-on settings.",
+    "hash": "e7d9d984a0ea8e4d4f2cf3c5d748610f"
   },
   "optionMenuShowReadableTextDescr": {
     "message": "Zusätzlich zu den Beispieltransformationen zeigt dies auch den Namen der Transformation als Text an.",
-    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting.",
+    "hash": "750332893f1a2bbfd4ac70f8ca2d32f9"
   },
   "optionMenuShowLivePreview": {
     "message": "Zeige eine Live-Vorschau des ausgewählten Texts",
-    "description": "This is an option shown in the add-on settings."
+    "description": "This is an option shown in the add-on settings.",
+    "hash": "74718ef334125728bc3dd2698ac4e7c4"
   },
   "optionMenuShowLivePreviewDescr": {
     "message": "Zeigt den Effeckt der Transformation anhand des ausgewählten Texts statt eines Beispieltexts.",
-    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
+    "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting.",
+    "hash": "cafb6422747ff42bdab025b6fb1e681f"
   },
 
   // option footer
@@ -377,63 +459,70 @@
     "message": "Dieses Add-on wurde von $TRANSLATORS$ ins Deutsche übersetzt.",
     "description": "The credit text for the translator. See https://github.com/TinyWebEx/common/blob/master/CONTRIBUTING.md#translator-credit-inside-of-add-on for how to translate this.",
     "placeholders": {
-      "translators": {
-        "content": "$1",
-        "example": "<a href=\"https://github.com/rugk/\">@rugk</a>"
-      }
-    }
+      "translators": { "content": "$1", "example": "<a href=\"https://github.com/rugk/\">@rugk</a>" }
+    },
+    "hash": "a6f5deecd624d5f8cd58350c72dd8fdf"
   },
   "translatorLink": {
     "message": "https://github.com/rugk",
-    "description": "The link to the translator's GitHub profile."
+    "description": "The link to the translator's GitHub profile.",
+    "hash": "43b02c4e0fe39384318afa12a03e6abe"
   },
   "translatorUsername": {
     "message": "rugk",
-    "description": "The username that the translator wants to be referred to."
+    "description": "The username that the translator wants to be referred to.",
+    "hash": "a681e2393fb7fa7705dfb623b5897e8a"
   },
-
   "contributorsThanks": {
     "message": "Ebenfalls vielen Dank an $CONTRIBUTORS$.",
     "description": "Text thanking all contributors and linking to the contributors file.",
     "placeholders": {
-      "contributors": {
-        "content": "$1",
-        "example": "<a href=\"https://github.com/rugk/…/CONTRIBUTORS.md\">all other contributors</a>"
-      }
-    }
+      "contributors": { "content": "$1", "example": "<a href=\"https://github.com/rugk/…/CONTRIBUTORS.md\">all other contributors</a>" }
+    },
+    "hash": "b1434b8b42b1707f37d0531a8efdc7f8"
   },
   "contributorsThanksLink": {
     "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTORS.md",
-    "description": "The link to the CONTRIBUTORS file."
+    "description": "The link to the CONTRIBUTORS file.",
+    "hash": "073019ce53aa124007bb99de9eb37e0f"
   },
   "contributorsThanksLinkText": {
     "message": "alle anderen Beitragenden",
-    "description": "The link text linking to the contributors file. See contributorsThanks."
+    "description": "The link text linking to the contributors file. See contributorsThanks.",
+    "hash": "ce03e1f3b15df3bba66048b30c4f8de4"
   },
 
   // ARIA labels/descriptions
   "dismissIconDescription": {
     "message": "Diese Nachricht schließen",
-    "description": "the aria label for the close button of the message box"
+    "description": "the aria label for the close button of the message box",
+    "hash": "632720ab193dcacba4286cb364124856"
   },
   "ariaMessageLoading": {
     "message": "Ladenachricht",
-    "description": "the aria label to label the message box as an info message box"
+    "description": "the aria label to label the message box as an info message box",
+    "hash": "570016a957498a1fa1b3e818eb282adb"
   },
   "ariaMessageInfo": {
     "message": "Info",
-    "description": "the aria label to label the message box as an info message box"
+    "description": "the aria label to label the message box as an info message box",
+    "hash": "5f54e42067e19895a2641b17a5233418"
   },
   "ariaMessageSuccess": {
     "message": "Erfolg",
-    "description": "the aria label to label the message box as an success message box"
+    "description": "the aria label to label the message box as an success message box",
+    "hash": "334387b4ae53483d17f11519a70dd3af"
   },
   "ariaMessageError": {
     "message": "Fehlermeldung",
-    "description": "the aria label to label the message box as an error message box"
+    "description": "the aria label to label the message box as an error message box",
+    "hash": "fcda6eedc61727fe8aae7392a0a541a5"
   },
   "ariaMessageWarning": {
     "message": "Warnung",
-    "description": "the aria label to label the message box as an warning message box"
-  }
+    "description": "the aria label to label the message box as an warning message box",
+    "hash": "8a5dd7528bead1ccd27cb7430d797bd2"
+  },
+
+  "__WET_LOCALE__": { "message": "de" }
 }
