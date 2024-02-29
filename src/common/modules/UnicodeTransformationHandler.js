@@ -1,4 +1,4 @@
-import { fontLetters, CASE_ID_PREFIX, FONT_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
+import { fontLetters, formats, CASE_ID_PREFIX, CODE_CASE_ID_PREFIX, FONT_ID_PREFIX, FORMAT_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
 /**
  * Transforms the given text according to the given transformation.
@@ -12,11 +12,20 @@ import { fontLetters, CASE_ID_PREFIX, FONT_ID_PREFIX, TRANSFORMATION_TYPE } from
 export function transformText(text, transformationId) {
     let output = null;
     const transformationType = getTransformationType(transformationId);
-    if (transformationType === TRANSFORMATION_TYPE.CASING) {
-        output = changeCase[transformationId](text);
-    } else if (transformationType === TRANSFORMATION_TYPE.FONT) {
+    switch (transformationType) {
+    case TRANSFORMATION_TYPE.CASING:
+        output = changeCase[transformationId.slice(CASE_ID_PREFIX.length)](text);
+        break;
+    case TRANSFORMATION_TYPE.CODE_CASING:
+        output = changeCodeCase[transformationId.slice(CODE_CASE_ID_PREFIX.length)](text);
+        break;
+    case TRANSFORMATION_TYPE.FONT:
         output = changeFont(text, transformationId);
-    } else {
+        break;
+    case TRANSFORMATION_TYPE.FORMAT:
+        output = changeFormat(text, transformationId);
+        break;
+    default:
         throw new Error(`Transformation with id=${transformationId} is unknown and could not be processed.`);
     }
 
@@ -37,8 +46,12 @@ export function transformText(text, transformationId) {
 export function getTransformationType(transformationId) {
     if (transformationId.startsWith(CASE_ID_PREFIX)) {
         return TRANSFORMATION_TYPE.CASING;
+    } else if (transformationId.startsWith(CODE_CASE_ID_PREFIX)) {
+        return TRANSFORMATION_TYPE.CODE_CASING;
     } else if (transformationId.startsWith(FONT_ID_PREFIX)) {
         return TRANSFORMATION_TYPE.FONT;
+    } else if (transformationId.startsWith(FORMAT_ID_PREFIX)) {
+        return TRANSFORMATION_TYPE.FORMAT;
     }
     throw new Error(`Error while getting transformation type. Transformation with id=${transformationId} is unknown.`);
 
@@ -55,7 +68,7 @@ function capitalizeEachWord(text) {
     // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
     // Intl.Segmenter is not yet supported by Firefox/Thunderbird: https://bugzilla.mozilla.org/show_bug.cgi?id=1423593
     // \p{Alphabetic}
-    return text.replace(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(""));
+    return text.replaceAll(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(""));
 }
 
 /**
@@ -69,7 +82,7 @@ function capitalizeEachWord(text) {
  * @throws {Error}
  */
 function changeFont(text, chosenFont) {
-    const font = fontLetters[chosenFont];
+    const font = fontLetters[chosenFont.slice(FONT_ID_PREFIX.length)];
     if (!font) {
         throw new Error(`Font ${chosenFont} could not be processed.`);
     }
@@ -103,6 +116,23 @@ function changeFont(text, chosenFont) {
 }
 
 /**
+ * Changes the Unicode format of the given text.
+ *
+ * @param {string} text
+ * @param {string} chosenFormat
+ * @returns {string}
+ * @throws {Error}
+ */
+function changeFormat(text, chosenFormat) {
+    const format = formats[chosenFormat.slice(FORMAT_ID_PREFIX.length)];
+    if (!format) {
+        throw new Error(`Format ${chosenFormat} could not be processed.`);
+    }
+
+    return Array.from(text, (letter) => letter + format).join("");
+}
+
+/**
  * Toggle Case.
  *
  * @param {string} atext
@@ -133,8 +163,103 @@ function toggleCase(atext) {
  * @type {Object.<string, function(string): string>}
  */
 const changeCase = Object.freeze({
-    [`${CASE_ID_PREFIX}Lowercase`]: (str) => str.toLocaleLowerCase(),
-    [`${CASE_ID_PREFIX}Uppercase`]: (str) => str.toLocaleUpperCase(),
-    [`${CASE_ID_PREFIX}CapitalizeEachWord`]: (str) => capitalizeEachWord(str.toLocaleLowerCase()),
-    [`${CASE_ID_PREFIX}ToggleCase`]: (str) => toggleCase(str)
+    Lowercase: (str) => str.toLocaleLowerCase(),
+    Uppercase: (str) => str.toLocaleUpperCase(),
+    CapitalizeEachWord: (str) => capitalizeEachWord(str.toLocaleLowerCase()),
+    ToggleCase: (str) => toggleCase(str)
+});
+
+/**
+ * Split string to change coding case.
+ *
+ * @param {string} str
+ * @returns {string[]}
+ */
+function split(str) {
+    // \p{Alphabetic} \p{Mark} \p{Decimal_Number} \p{Join_Control}
+    const re = /[^\p{Alpha}\p{M}\p{digit}\p{Join_C}]+/gu;
+    let arr = str.split(/\s+/u).map((x) => x.replaceAll(re, "")).filter(Boolean);
+    if (!arr.length || arr.length > 1) {
+        return arr;
+    }
+
+    arr = str.split(re).filter(Boolean);
+    // \p{Uppercase}
+    return !arr.length || arr.length > 1 ? arr : arr[0].match(/\p{Upper}*\P{Upper}+|\p{Upper}+/gu);
+}
+
+/**
+ * Lower camel case.
+ *
+ * @param {string} atext
+ * @returns {string}
+ */
+function camelCase(atext) {
+    const [head, ...tail] = split(atext);
+    return head.toLowerCase() + tail.map(([h, ...t]) => h.toUpperCase() + t.join("").toLowerCase()).join("");
+}
+
+/**
+ * Upper camel case.
+ *
+ * @param {string} atext
+ * @returns {string}
+ */
+function upperCamelCase(atext) {
+    return split(atext).map(([h, ...t]) => h.toUpperCase() + t.join("").toLowerCase()).join("");
+}
+
+/**
+ * Snake case.
+ *
+ * @param {string} atext
+ * @returns {string}
+ */
+function snakeCase(atext) {
+    return split(atext).map((x) => x.toLowerCase()).join("_");
+}
+
+/**
+ * Constant case.
+ *
+ * @param {string} atext
+ * @returns {string}
+ */
+function constantCase(atext) {
+    return split(atext).map((x) => x.toUpperCase()).join("_");
+}
+
+/**
+ * Kebab case.
+ *
+ * @param {string} atext
+ * @returns {string}
+ */
+function kebabCase(atext) {
+    return split(atext).map((x) => x.toLowerCase()).join("-");
+}
+
+/**
+ * Train case.
+ *
+ * @param {string} atext
+ * @returns {string}
+ */
+function trainCase(atext) {
+    return split(atext).map((x) => x.toUpperCase()).join("-");
+}
+
+/**
+ * Change Coding Case
+ *
+ * @const
+ * @type {Object.<string, function(string): string>}
+ */
+const changeCodeCase = Object.freeze({
+    CamelCase: camelCase,
+    UpperCamelCase: upperCamelCase,
+    SnakeCase: snakeCase,
+    ConstantCase: constantCase,
+    KebabCase: kebabCase,
+    TrainCase: trainCase
 });

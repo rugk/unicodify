@@ -142,7 +142,7 @@ function insertIntoPage(atext) {
  */
 function countChars(str) {
     // removing the joiners
-    const split = str.split("\u{200D}");
+    const split = str.split("\u200D");
     let count = 0;
 
     for (const s of split) {

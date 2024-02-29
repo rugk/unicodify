@@ -23,7 +23,9 @@ const defaultSettings = {
     },
     unicodeFont: {
         changeFont: true,
+        changeFormat: false,
         changeCase: true,
+        changeCodeCase: true,
         showReadableText: true,
         livePreview: true,
         nested: true

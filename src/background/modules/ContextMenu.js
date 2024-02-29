@@ -126,16 +126,42 @@ async function buildMenu(unicodeFontSettings, exampleText = null) {
     }
     if (!unicodeFontSettings.nested &&
         unicodeFontSettings.changeFont &&
+        unicodeFontSettings.changeFormat &&
+        !menuIsShown) {
+        await menus.create({
+            id: "seperator-format-font",
+            type: "separator",
+            contexts: ["editable"]
+        });
+    }
+    if (unicodeFontSettings.changeFormat) {
+        await addMenuItems(menuStructure[TRANSFORMATION_TYPE.FORMAT], unicodeFontSettings, exampleText);
+    }
+    if (!unicodeFontSettings.nested &&
+        (unicodeFontSettings.changeFont || unicodeFontSettings.changeFormat) &&
         unicodeFontSettings.changeCase &&
         !menuIsShown) {
         await menus.create({
-            id: "seperator-case-font",
+            id: "seperator-case-format",
             type: "separator",
             contexts: ["editable"]
         });
     }
     if (unicodeFontSettings.changeCase) {
         await addMenuItems(menuStructure[TRANSFORMATION_TYPE.CASING], unicodeFontSettings, exampleText);
+    }
+    if (!unicodeFontSettings.nested &&
+        (unicodeFontSettings.changeFont || unicodeFontSettings.changeFormat || unicodeFontSettings.changeCase) &&
+        unicodeFontSettings.changeCodeCase &&
+        !menuIsShown) {
+        await menus.create({
+            id: "seperator-code-case",
+            type: "separator",
+            contexts: ["editable"]
+        });
+    }
+    if (unicodeFontSettings.changeCodeCase) {
+        await addMenuItems(menuStructure[TRANSFORMATION_TYPE.CODE_CASING], unicodeFontSettings, exampleText);
     }
 
     menuIsShown = true;
