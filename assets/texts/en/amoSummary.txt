@@ -1,1 +1,1 @@
-Easily and quickly autocorrect common symbols as ¼ in text fields and transform text to “Unicode fonts” 𝐟𝐨𝐫 𝔢𝔵𝔞𝔪𝔭𝔩𝔢 𝚕𝚒𝚔𝚎 𝘵𝘩𝘪𝘴 as text characters and change the casing of texts.
+Easily and quickly transform text to “Unicode fonts” 𝐟𝐨𝐫 𝔢𝔵𝔞𝔪𝔭𝔩𝔢 𝚕𝚒𝚔𝚎 𝘵𝘩𝘪𝘴 as text characters and change the casing of texts.
