@@ -16,7 +16,7 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
  * @param  {Object} [event]
  * @returns {Promise<void>|void}
  */
-function applyAutocorrectPermissions(optionValue, option, event) {
+function applyAutocorrectPermissions(optionValue, _option, _event) {
     if (optionValue.enabled) {
         document.getElementById("autocorrectSymbols").disabled = false;
         document.getElementById("autocorrectUnicodeQuotes").disabled = false;

@@ -159,6 +159,10 @@
     "message": "Constant case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
+  "menuCodeCaseAdaCase": {
+    "message": "Ada case",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
   "menuCodeCaseKebabCase": {
     "message": "Kebab case",
     "description": "An entry in the context menu. This is an entry for the case."

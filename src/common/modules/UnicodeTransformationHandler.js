@@ -46,11 +46,14 @@ export function transformText(text, transformationId) {
 export function getTransformationType(transformationId) {
     if (transformationId.startsWith(CASE_ID_PREFIX)) {
         return TRANSFORMATION_TYPE.CASING;
-    } else if (transformationId.startsWith(CODE_CASE_ID_PREFIX)) {
+    }
+    if (transformationId.startsWith(CODE_CASE_ID_PREFIX)) {
         return TRANSFORMATION_TYPE.CODE_CASING;
-    } else if (transformationId.startsWith(FONT_ID_PREFIX)) {
+    }
+    if (transformationId.startsWith(FONT_ID_PREFIX)) {
         return TRANSFORMATION_TYPE.FONT;
-    } else if (transformationId.startsWith(FORMAT_ID_PREFIX)) {
+    }
+    if (transformationId.startsWith(FORMAT_ID_PREFIX)) {
         return TRANSFORMATION_TYPE.FORMAT;
     }
     throw new Error(`Error while getting transformation type. Transformation with id=${transformationId} is unknown.`);
@@ -185,7 +188,7 @@ function split(str) {
 
     arr = str.split(re).filter(Boolean);
     // \p{Uppercase}
-    return !arr.length || arr.length > 1 ? arr : arr[0].match(/\p{Upper}*\P{Upper}+|\p{Upper}+/gu);
+    return !arr.length || arr.length > 1 ? arr : arr[0].match(/\p{Upper}\P{Upper}*|\P{Upper}+/gu);
 }
 
 /**
@@ -230,6 +233,16 @@ function constantCase(atext) {
 }
 
 /**
+ * Ada case.
+ *
+ * @param {string} atext
+ * @returns {string}
+ */
+function adaCase(atext) {
+    return split(atext).map(([h, ...t]) => h.toUpperCase() + t.join("").toLowerCase()).join("_");
+}
+
+/**
  * Kebab case.
  *
  * @param {string} atext
@@ -260,6 +273,7 @@ const changeCodeCase = Object.freeze({
     UpperCamelCase: upperCamelCase,
     SnakeCase: snakeCase,
     ConstantCase: constantCase,
+    AdaCase: adaCase,
     KebabCase: kebabCase,
     TrainCase: trainCase
 });

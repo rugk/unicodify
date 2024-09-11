@@ -236,7 +236,7 @@ export async function init() {
 
     // Thunderbird
     // Remove if part 3 of https://bugzilla.mozilla.org/show_bug.cgi?id=1630786#c4 is ever done
-    if (typeof messenger !== "undefined") {
+    if (browser.composeScripts) {
         browser.composeScripts.register({
             js: [
                 { file: "/content_scripts/autocorrect.js" }

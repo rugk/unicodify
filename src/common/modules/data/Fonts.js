@@ -144,6 +144,7 @@ export const menuStructure = Object.freeze({
             `${CODE_CASE_ID_PREFIX}UpperCamelCase`,
             `${CODE_CASE_ID_PREFIX}SnakeCase`,
             `${CODE_CASE_ID_PREFIX}ConstantCase`,
+            `${CODE_CASE_ID_PREFIX}AdaCase`,
             `${CODE_CASE_ID_PREFIX}KebabCase`,
             `${CODE_CASE_ID_PREFIX}TrainCase`
         ]

@@ -101,7 +101,7 @@ function insertAtCaret(target, atext) {
     }
 
     // Firefox input and textarea fields: https://bugzilla.mozilla.org/show_bug.cgi?id=1220696
-    if (typeof target.setRangeText === "function") {
+    if (target.setRangeText) {
         const start = target.selectionStart;
         const end = target.selectionEnd;
 
@@ -170,7 +170,7 @@ function deleteCaret(target, atext) {
             }
         }
         // Firefox input and textarea fields: https://bugzilla.mozilla.org/show_bug.cgi?id=1220696
-        else if (typeof target.setRangeText === "function") {
+        else if (target.setRangeText) {
             const start = target.selectionStart;
 
             target.selectionStart = start - atext.length;
@@ -283,7 +283,7 @@ function autocorrect(event) {
         return;
     }
     running = true;
-    const target = event.target;
+    const { target } = event;
     const caretposition = getCaretPosition(target);
     if (caretposition) {
         const value = target.value || target.innerText;
@@ -378,7 +378,7 @@ function undoAutocorrect(event) {
         return;
     }
     running = true;
-    const target = event.target;
+    const { target } = event;
     const caretposition = getCaretPosition(target);
     if (caretposition) {
         if (target === lastTarget && caretposition === lastCaretPosition) {
@@ -406,7 +406,7 @@ function undoAutocorrect(event) {
  * @param {Object} sender
  * @returns {void}
  */
-function handleResponse(message, sender) {
+function handleResponse(message, _sender) {
     if (message.type === AUTOCORRECT_CONTENT) {
         ({
             enabled,

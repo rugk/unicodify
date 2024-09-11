@@ -10,10 +10,10 @@
 This is a (Firefox, Chromium/Chrome and Thunderbird) add-on (WebExtension) that allows you to autocorrect common text sequences and convert text characters to a look like a special font.
 For instance, it converts quotes like `"these"` to `“these”`, which are typographically correct.
 
-Additionally, you can convert text into more than 20 different font styles and casing changes.
+Additionally, you can convert text into more than 40 different font styles and casing changes.
 You can enable and disable any features in the options and adjust more settings regarding the behavior of the add-on.
 
-This extension works with modern Firefox v87 or higher, Chromium/Chrome and Thunderbird v87 or higher.
+This extension works with modern Firefox v112 or higher, Chromium/Chrome and Thunderbird v112 or higher.
 
 ## Download
 
@@ -30,7 +30,7 @@ See:
 * [More screenshots](assets/screenshots)
 
 ## Features
-* Unicode autocorrection as you type:
+* \*Unicode autocorrection as you type:
     * Autocorrect [Unicode symbols](https://en.wikipedia.org/wiki/Miscellaneous_Symbols) (i.e. hyphens `--` with –, fractions `1/4` with ¼, etc.). Supports more than 85 symbols.
     * Use Unicode smart quotes ('single quotes' with ‘Unicode single quotes’ and "double quotes" with “Unicode double quotes”)
     * Convert [fractions](https://en.wikipedia.org/wiki/Number_Forms) and [mathematical constants](https://en.wikipedia.org/wiki/Mathematical_constant) to Unicode characters (i.e. `1234.25` with 1234¼, etc.). Supports all Unicode fraction characters, Pi and e constants.
@@ -49,3 +49,5 @@ See:
 * Compatible with Firefox for Android.
 * Translated into several languages. [Contribute your own language!](./CONTRIBUTING.md#Translations)
 * Settings can be managed by your administrator.
+
+\* The Unicode autocorrection feature is experimental and must be first enabled in the settings.
