@@ -13,7 +13,7 @@ For instance, it converts quotes like `"these"` to `“these”`, which are typo
 Additionally, you can convert text into more than 40 different font styles and casing changes.
 You can enable and disable any features in the options and adjust more settings regarding the behavior of the add-on.
 
-This extension works with modern Firefox v112 or higher, Chromium/Chrome and Thunderbird v112 or higher.
+This extension works with modern Firefox v125 or higher, Chromium/Chrome and Thunderbird v125 or higher.
 
 ## Download
 

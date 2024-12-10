@@ -31,6 +31,8 @@ const constants = Object.freeze({
 const AUTOCORRECT_CONTENT = "autocorrectContent";
 const INSERT = "insert";
 
+const segmenter = new Intl.Segmenter();
+
 let insertedText; // Last insert text
 let deletedText; // Last deleted text
 let lastTarget; // Last target
@@ -65,7 +67,11 @@ function getCaretPosition(target) {
     // ContentEditable elements
     if (target.isContentEditable || document.designMode === "on") {
         target.focus();
-        const _range = document.getSelection().getRangeAt(0);
+        const selection = document.getSelection();
+        if (selection.rangeCount !== 1) {
+            return null;
+        }
+        const _range = selection.getRangeAt(0);
         if (!_range.collapsed) {
             return null;
         }
@@ -77,7 +83,6 @@ function getCaretPosition(target) {
         return caretposition;
     }
     // input and textarea fields
-
     if (target.selectionStart !== target.selectionEnd) {
         return null;
     }
@@ -135,22 +140,13 @@ function insertIntoPage(atext) {
 /**
  * Count Unicode characters.
  * Adapted from: https://blog.jonnew.com/posts/poo-dot-length-equals-two
- * Intl.Segmenter is not yet supported by Firefox/Thunderbird: https://bugzilla.mozilla.org/show_bug.cgi?id=1423593
  *
  * @param {string} str
  * @returns {number}
  */
 function countChars(str) {
     // removing the joiners
-    const split = str.split("\u200D");
-    let count = 0;
-
-    for (const s of split) {
-        // removing the variation selectors
-        count += Array.from(s.replaceAll(/[\uFE00-\uFE0F]/gu, "")).length;
-    }
-
-    return count;
+    return Array.from(segmenter.segment(str.replaceAll("\u200D", ""))).length;
 }
 
 /**

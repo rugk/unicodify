@@ -122,6 +122,10 @@
     "message": "Change casing",
     "description": "An entry in the context menu. This is an entry for the case."
   },
+  "menuCaseSentenceCase": {
+    "message": "Sentence case.",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
   "menuCaseLowercase": {
     "message": "Lowercase",
     "description": "An entry in the context menu. This is an entry for the case."

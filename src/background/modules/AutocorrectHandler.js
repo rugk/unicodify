@@ -44,14 +44,14 @@ function createRegEx(tree) {
 
     for (const char in tree) {
         if (char) {
-            const escaptedChar = char.replace(regExSpecialChars, "\\$&");
+            const escaptedChar = RegExp.escape ? RegExp.escape(char) : char.replaceAll(regExSpecialChars, String.raw`\$&`);
 
             const atree = tree[char];
-            if (!(LEAF in atree && Object.keys(atree).length === 0)) {
+            if (LEAF in atree && Object.keys(atree).length === 0) {
+                characterClass.push(escaptedChar);
+            } else {
                 const recurse = createRegEx(atree);
                 alternatives.push(recurse + escaptedChar);
-            } else {
-                characterClass.push(escaptedChar);
             }
         }
     }
@@ -139,7 +139,7 @@ function applySettings() {
                 continue;
             }
             const aindex = x.indexOf(y);
-            if (aindex >= 0) {
+            if (aindex !== -1) {
                 if (aindex < index) {
                     index = aindex;
                     length = y.length;
@@ -235,7 +235,7 @@ export async function init() {
     setSettings(autocorrect);
 
     // Thunderbird
-    // Remove if part 3 of https://bugzilla.mozilla.org/show_bug.cgi?id=1630786#c4 is ever done
+    // Cannot register scripts in manifest.json file: https://bugzilla.mozilla.org/show_bug.cgi?id=1902843
     if (browser.composeScripts) {
         browser.composeScripts.register({
             js: [

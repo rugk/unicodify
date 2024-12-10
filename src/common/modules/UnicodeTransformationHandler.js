@@ -1,5 +1,9 @@
 import { fontLetters, formats, CASE_ID_PREFIX, CODE_CASE_ID_PREFIX, FONT_ID_PREFIX, FORMAT_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
+const segmenter = new Intl.Segmenter();
+const segmenter1 = new Intl.Segmenter([], { granularity: "word" });
+const segmenter2 = new Intl.Segmenter([], { granularity: "sentence" });
+
 /**
  * Transforms the given text according to the given transformation.
  *
@@ -67,11 +71,23 @@ export function getTransformationType(transformationId) {
  * @returns {string}
  */
 function capitalizeEachWord(text) {
-    // Regular expression Unicode property escapes and lookbehind assertions require Firefox/Thunderbird 78
-    // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#bcd:javascript.builtins.RegExp
-    // Intl.Segmenter is not yet supported by Firefox/Thunderbird: https://bugzilla.mozilla.org/show_bug.cgi?id=1423593
-    // \p{Alphabetic}
-    return text.replaceAll(/(?<=^|\P{Alpha})\p{Alpha}\S*/gu, ([h, ...t]) => h.toLocaleUpperCase() + t.join(""));
+    return Array.from(segmenter1.segment(text), ({ segment, isWordLike }) => {
+        if (isWordLike) {
+            const [h, ...t] = segment;
+            return h.toLocaleUpperCase() + t.join("");
+        }
+        return segment;
+    }).join("");
+}
+
+/**
+ * Sentence Case.
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+function sentenceCase(text) {
+    return Array.from(segmenter2.segment(text), ({ segment: [h, ...t] }) => h.toLocaleUpperCase() + t.join("")).join("");
 }
 
 /**
@@ -132,7 +148,7 @@ function changeFormat(text, chosenFormat) {
         throw new Error(`Format ${chosenFormat} could not be processed.`);
     }
 
-    return Array.from(text, (letter) => letter + format).join("");
+    return Array.from(segmenter.segment(text), ({ segment }) => segment + format).join("");
 }
 
 /**
@@ -166,6 +182,7 @@ function toggleCase(atext) {
  * @type {Object.<string, function(string): string>}
  */
 const changeCase = Object.freeze({
+    SentenceCase: (str) => sentenceCase(str.toLocaleLowerCase()),
     Lowercase: (str) => str.toLocaleLowerCase(),
     Uppercase: (str) => str.toLocaleUpperCase(),
     CapitalizeEachWord: (str) => capitalizeEachWord(str.toLocaleLowerCase()),
