@@ -404,7 +404,7 @@
     "description": "This is an option shown in the add-on settings."
   },
   "optionAutocorrectSymbolsDescr": {
-    "message": "For example, this will replace $CODE_HYPHEN$ with –, $CODE_ARROW$ with ⟶ and $CODE_FRACTION$ with ¼.",
+    "message": "For example, this will replace $CODE_HYPHEN$ with – and $CODE_ARROW$ with ⟶.",
     "description": "This is an option shown in the add-on settings. It describes the optionAutocorrectSymbols setting.",
     "placeholders": {
       "code_hyphen": {
@@ -414,10 +414,6 @@
       "code_arrow": {
         "content": "$2",
         "example": "<code>--></code>"
-      },
-      "code_fraction": {
-        "content": "$3",
-        "example": "<code>1/4</code>"
       }
     }
   },

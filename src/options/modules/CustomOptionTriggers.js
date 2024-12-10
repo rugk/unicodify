@@ -21,10 +21,12 @@ function applyAutocorrectPermissions(optionValue, _option, _event) {
         document.getElementById("autocorrectSymbols").disabled = false;
         document.getElementById("autocorrectUnicodeQuotes").disabled = false;
         document.getElementById("autocorrectUnicodeFracts").disabled = false;
+        document.getElementById("autocorrectUnicodeNumbers").disabled = false;
     } else {
         document.getElementById("autocorrectSymbols").disabled = true;
         document.getElementById("autocorrectUnicodeQuotes").disabled = true;
         document.getElementById("autocorrectUnicodeFracts").disabled = true;
+        document.getElementById("autocorrectUnicodeNumbers").disabled = true;
     }
 
     // trigger update for current session

@@ -8,9 +8,10 @@ import * as symbols from "/common/modules/data/Symbols.js";
 
 const settings = {
     enabled: null,
-    autocorrectEmojis: null,
+    autocorrectSymbols: null,
     quotes: null,
-    fracts: null
+    fracts: null,
+    numbers: null
 };
 
 // Leaf node
@@ -188,6 +189,7 @@ function setSettings(autocorrect) {
     settings.autocorrectSymbols = autocorrect.autocorrectSymbols;
     settings.quotes = autocorrect.autocorrectUnicodeQuotes;
     settings.fracts = autocorrect.autocorrectUnicodeFracts;
+    settings.numbers = autocorrect.autocorrectUnicodeNumbers;
 
     if (settings.enabled) {
         applySettings();
@@ -213,6 +215,7 @@ function sendSettings(autocorrect) {
                     enabled: settings.enabled,
                     quotes: settings.quotes,
                     fracts: settings.fracts,
+                    numbers: settings.numbers,
                     autocorrections,
                     longest,
                     symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
@@ -260,6 +263,7 @@ browser.runtime.onMessage.addListener((message) => {
             enabled: settings.enabled,
             quotes: settings.quotes,
             fracts: settings.fracts,
+            numbers: settings.numbers,
             autocorrections,
             longest,
             symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,

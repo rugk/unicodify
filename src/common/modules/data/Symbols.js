@@ -25,7 +25,7 @@ export const symbols = Object.freeze({
     "<=>": "⇔",
 
     // Fractions
-    "1/4": "¼",
+    /* "1/4": "¼",
     "1/2": "½",
     "3/4": "¾",
     "1/7": "⅐",
@@ -42,7 +42,7 @@ export const symbols = Object.freeze({
     "1/8": "⅛",
     "3/8": "⅜",
     "5/8": "⅝",
-    "7/8": "⅞",
+    "7/8": "⅞", */
 
     // Fira Code (https://github.com/tonsky/FiraCode)
     "<--": "⟵",
