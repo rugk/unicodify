@@ -21,7 +21,7 @@ const afractions = Object.freeze({
     "⅞": [7, 8]
 });
 
-const fractions = Object.freeze(Object.fromEntries(Object.entries(afractions).map(([f, [n, d]]) => [f, n / d])));
+const fractions = Object.freeze(Object.fromEntries(Object.entries(afractions).map(([fraction, [numerator, denominator]]) => [fraction, numerator / denominator])));
 
 const constants = Object.freeze({
     π: Math.PI,
@@ -74,11 +74,11 @@ function getCaretPosition(target) {
         if (selection.rangeCount !== 1) {
             return null;
         }
-        const _range = selection.getRangeAt(0);
-        if (!_range.collapsed) {
+        const arange = selection.getRangeAt(0);
+        if (!arange.collapsed) {
             return null;
         }
-        const range = _range.cloneRange();
+        const range = arange.cloneRange();
         const temp = document.createTextNode("\0");
         range.insertNode(temp);
         const caretposition = target.innerText.indexOf("\0");
@@ -318,6 +318,7 @@ function autocorrect(event) {
         } else {
             // Convert fractions to Unicode characters
             if (!output && fracts) {
+                // Fractions regular expression: https://regex101.com/r/RtUMrA/1
                 const fractionRegex = /(?<!\/\d*)(?<numerator>\d+)\/(?<denominator>\d+)$/u;
                 const previousText = value.slice(0, caretposition);
                 const regexResult = fractionRegex.exec(previousText);
@@ -327,11 +328,12 @@ function autocorrect(event) {
                         const [fraction] = regexResult;
                         const numerator = Number.parseInt(regexResult.groups.numerator, 10);
                         const denominator = Number.parseInt(regexResult.groups.denominator, 10);
-                        const result = Object.entries(afractions).find(([, [anumerator, adenominator]]) => anumerator === numerator && adenominator === denominator);
+                        const result = Object.entries(afractions).find(([, [n, d]]) => n === numerator && d === denominator);
                         let label;
                         if (result) {
                             [label] = result;
                         } else {
+                            // Fraction slash character: https://en.wikipedia.org/wiki/Numerals_in_Unicode#Fractions
                             label = `${numerator}\u2044${denominator}`;
                         }
                         const index = firstDifferenceIndex(label, fraction);
@@ -345,7 +347,7 @@ function autocorrect(event) {
             }
             // Convert numbers with fractions and mathematical constants to Unicode characters
             if (!output && numbers) {
-                // Numbers regular expression: https://regex101.com/r/7jUaSP/10
+                // Numbers regular expression: https://regex101.com/r/7jUaSP/11
                 // Do not match version numbers: https://github.com/rugk/unicodify/issues/40
                 const numberRegex = /(?<!\.\d*)\d+(?<fractionpart>\.\d+)?$/u;
                 const previousText = value.slice(0, caretposition);

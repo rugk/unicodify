@@ -430,12 +430,26 @@
     "description": "This is an option shown in the add-on settings. It describes the optionReplaceQuotes setting."
   },
   "optionConvertFractions": {
-    "message": "Convert fractions and mathematical constants to Unicode characters",
+    "message": "Convert fractions to Unicode characters",
     "description": "This is an option shown in the add-on settings."
   },
   "optionConvertFractionsDescr": {
-    "message": "For example, this will replace $CODE_NUMBER$ with 1234¼.",
+    "message": "For example, this will replace $CODE_FRACTION$ with ¼.",
     "description": "This is an option shown in the add-on settings. It describes the optionConvertFractions setting.",
+    "placeholders": {
+      "code_fraction": {
+        "content": "$1",
+        "example": "<code>1/4</code>"
+      }
+    }
+  },
+  "optionConvertNumbers": {
+    "message": "Convert numbers with fractions and mathematical constants to Unicode characters",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionConvertNumbersDescr": {
+    "message": "For example, this will replace $CODE_NUMBER$ with 1234¼.",
+    "description": "This is an option shown in the add-on settings. It describes the optionConvertNumbers setting.",
     "placeholders": {
       "code_number": {
         "content": "$1",

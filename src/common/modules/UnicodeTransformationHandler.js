@@ -1,8 +1,8 @@
 import { fontLetters, formats, CASE_ID_PREFIX, CODE_CASE_ID_PREFIX, FONT_ID_PREFIX, FORMAT_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
 const segmenter = new Intl.Segmenter();
-const segmenter1 = new Intl.Segmenter([], { granularity: "word" });
-const segmenter2 = new Intl.Segmenter([], { granularity: "sentence" });
+const segmenterWord = new Intl.Segmenter([], { granularity: "word" });
+const segmenterSentence = new Intl.Segmenter([], { granularity: "sentence" });
 
 /**
  * Transforms the given text according to the given transformation.
@@ -71,7 +71,7 @@ export function getTransformationType(transformationId) {
  * @returns {string}
  */
 function capitalizeEachWord(text) {
-    return Array.from(segmenter1.segment(text), ({ segment, isWordLike }) => {
+    return Array.from(segmenterWord.segment(text), ({ segment, isWordLike }) => {
         if (isWordLike) {
             const [h, ...t] = segment;
             return h.toLocaleUpperCase() + t.join("");
@@ -87,7 +87,7 @@ function capitalizeEachWord(text) {
  * @returns {string}
  */
 function sentenceCase(text) {
-    return Array.from(segmenter2.segment(text), ({ segment: [h, ...t] }) => h.toLocaleUpperCase() + t.join("")).join("");
+    return Array.from(segmenterSentence.segment(text), ({ segment: [h, ...t] }) => h.toLocaleUpperCase() + t.join("")).join("");
 }
 
 /**
