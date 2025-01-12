@@ -186,13 +186,15 @@ async function createMenu(transformationId, menuItems, unicodeFontSettings, exam
         menuText = menuText.replaceAll("&", "&&");
         if (menuIsShown) {
             menus.update(currentTransformationId, {
-                title: menuText
+                title: menuText,
+                enabled: !exampleText || exampleText !== transformedText
             });
         } else {
             await menus.create({
                 id: currentTransformationId,
                 parentId: transformationId,
                 title: menuText,
+                enabled: !exampleText || exampleText !== transformedText,
                 contexts: ["editable"]
             });
         }

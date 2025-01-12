@@ -73,8 +73,8 @@ export function getTransformationType(transformationId) {
 function capitalizeEachWord(text) {
     return Array.from(segmenterWord.segment(text), ({ segment, isWordLike }) => {
         if (isWordLike) {
-            const [h, ...t] = segment;
-            return h.toLocaleUpperCase() + t.join("");
+            const [head, ...tail] = segment;
+            return head.toLocaleUpperCase() + tail.join("");
         }
         return segment;
     }).join("");
@@ -87,7 +87,7 @@ function capitalizeEachWord(text) {
  * @returns {string}
  */
 function sentenceCase(text) {
-    return Array.from(segmenterSentence.segment(text), ({ segment: [h, ...t] }) => h.toLocaleUpperCase() + t.join("")).join("");
+    return Array.from(segmenterSentence.segment(text), ({ segment: [head, ...tail] }) => head.toLocaleUpperCase() + tail.join("")).join("");
 }
 
 /**
@@ -226,7 +226,7 @@ function camelCase(atext) {
  * @returns {string}
  */
 function upperCamelCase(atext) {
-    return split(atext).map(([h, ...t]) => h.toUpperCase() + t.join("").toLowerCase()).join("");
+    return split(atext).map(([head, ...tail]) => head.toUpperCase() + tail.join("").toLowerCase()).join("");
 }
 
 /**
@@ -256,7 +256,7 @@ function constantCase(atext) {
  * @returns {string}
  */
 function adaCase(atext) {
-    return split(atext).map(([h, ...t]) => h.toUpperCase() + t.join("").toLowerCase()).join("_");
+    return split(atext).map(([head, ...tail]) => head.toUpperCase() + tail.join("").toLowerCase()).join("_");
 }
 
 /**

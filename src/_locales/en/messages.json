@@ -264,6 +264,10 @@
     "message": "Monospace",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
+  "menuFontDoubleStruckDoubleStruck": {
+    "message": "Double-struck",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
   "menuFontDoubleStruck": {
     "message": "Double-struck",
     "description": "An entry in the context menu. This is an entry for the Unicode font."

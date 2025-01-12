@@ -106,7 +106,7 @@ export const menuStructure = Object.freeze({
         [`${FONT_ID_PREFIX}Monospace`]: [
             `${FONT_ID_PREFIX}Monospace`
         ],
-        [`${FONT_ID_PREFIX}DoubleStruck`]: [
+        [`${FONT_ID_PREFIX}DoubleStruckDoubleStruck`]: [
             `${FONT_ID_PREFIX}DoubleStruck`,
             `${FONT_ID_PREFIX}Outlined`
         ],
