@@ -89,7 +89,7 @@
 									<label
 									data-i18n="__MSG_optionAutocorrectSymbols__" for="autocorrectSymbols">Autocorrect Unicode symbols</label>
 								</div>
-								<span data-i18n="__MSG_optionAutocorrectSymbolsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>--</code> with –, <code>--></code> with ⟶ and <code>1/4</code> with ¼.</span>
+								<span data-i18n="__MSG_optionAutocorrectSymbolsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>--</code> with – and <code>--></code> with ⟶.</span>
 							</li>
 
 							<li>
@@ -103,9 +103,17 @@
 							<li>
 								<div class="line">
 									<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeFracts" data-optiongroup="autocorrect" name="autocorrectUnicodeFracts">
-									<label data-i18n="__MSG_optionConvertFractions__" data-opt-i18n-keep-children for="autocorrectUnicodeFracts">Convert fractions and mathematical constants to Unicode characters</label>
+									<label data-i18n="__MSG_optionConvertFractions__" data-opt-i18n-keep-children for="autocorrectUnicodeFracts">Convert fractions to Unicode characters</label>
 								</div>
-								<span data-i18n="__MSG_optionConvertFractionsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>1234.25</code> with 1234¼.</span>
+								<span data-i18n="__MSG_optionConvertFractionsDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>1/4</code> with ¼.</span>
+							</li>
+
+							<li>
+								<div class="line">
+									<input class="setting save-on-change" type="checkbox" id="autocorrectUnicodeNumbers" data-optiongroup="autocorrect" name="autocorrectUnicodeNumbers">
+									<label data-i18n="__MSG_optionConvertNumbers__" data-opt-i18n-keep-children for="autocorrectUnicodeNumbers">Convert numbers with fractions and mathematical constants to Unicode characters</label>
+								</div>
+								<span data-i18n="__MSG_optionConvertNumbersDescr__" data-opt-i18n-keep-children class="line indent helper-text">For example, this will replace <code>1234.25</code> with 1234¼.</span>
 							</li>
 						</ul>
 					</li>

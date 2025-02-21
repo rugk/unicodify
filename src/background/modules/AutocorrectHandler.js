@@ -8,9 +8,10 @@ import * as symbols from "/common/modules/data/Symbols.js";
 
 const settings = {
     enabled: null,
-    autocorrectEmojis: null,
+    autocorrectSymbols: null,
     quotes: null,
-    fracts: null
+    fracts: null,
+    numbers: null
 };
 
 // Leaf node
@@ -44,14 +45,14 @@ function createRegEx(tree) {
 
     for (const char in tree) {
         if (char) {
-            const escaptedChar = char.replace(regExSpecialChars, "\\$&");
+            const escaptedChar = RegExp.escape ? RegExp.escape(char) : char.replaceAll(regExSpecialChars, String.raw`\$&`);
 
             const atree = tree[char];
-            if (!(LEAF in atree && Object.keys(atree).length === 0)) {
+            if (LEAF in atree && Object.keys(atree).length === 0) {
+                characterClass.push(escaptedChar);
+            } else {
                 const recurse = createRegEx(atree);
                 alternatives.push(recurse + escaptedChar);
-            } else {
-                characterClass.push(escaptedChar);
             }
         }
     }
@@ -139,7 +140,7 @@ function applySettings() {
                 continue;
             }
             const aindex = x.indexOf(y);
-            if (aindex >= 0) {
+            if (aindex !== -1) {
                 if (aindex < index) {
                     index = aindex;
                     length = y.length;
@@ -188,6 +189,7 @@ function setSettings(autocorrect) {
     settings.autocorrectSymbols = autocorrect.autocorrectSymbols;
     settings.quotes = autocorrect.autocorrectUnicodeQuotes;
     settings.fracts = autocorrect.autocorrectUnicodeFracts;
+    settings.numbers = autocorrect.autocorrectUnicodeNumbers;
 
     if (settings.enabled) {
         applySettings();
@@ -213,6 +215,7 @@ function sendSettings(autocorrect) {
                     enabled: settings.enabled,
                     quotes: settings.quotes,
                     fracts: settings.fracts,
+                    numbers: settings.numbers,
                     autocorrections,
                     longest,
                     symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
@@ -235,7 +238,7 @@ export async function init() {
     setSettings(autocorrect);
 
     // Thunderbird
-    // Remove if part 3 of https://bugzilla.mozilla.org/show_bug.cgi?id=1630786#c4 is ever done
+    // Cannot register scripts in manifest.json file: https://bugzilla.mozilla.org/show_bug.cgi?id=1902843
     if (browser.composeScripts) {
         browser.composeScripts.register({
             js: [
@@ -260,6 +263,7 @@ browser.runtime.onMessage.addListener((message) => {
             enabled: settings.enabled,
             quotes: settings.quotes,
             fracts: settings.fracts,
+            numbers: settings.numbers,
             autocorrections,
             longest,
             symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,

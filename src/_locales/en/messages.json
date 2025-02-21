@@ -122,6 +122,10 @@
     "message": "Change casing",
     "description": "An entry in the context menu. This is an entry for the case."
   },
+  "menuCaseSentenceCase": {
+    "message": "Sentence case.",
+    "description": "An entry in the context menu. This is an entry for the case."
+  },
   "menuCaseLowercase": {
     "message": "Lowercase",
     "description": "An entry in the context menu. This is an entry for the case."
@@ -260,8 +264,16 @@
     "message": "Monospace",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
+  "menuFontDoubleStruckDoubleStruck": {
+    "message": "Double-struck",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
   "menuFontDoubleStruck": {
     "message": "Double-struck",
+    "description": "An entry in the context menu. This is an entry for the Unicode font."
+  },
+  "menuFontOutlined": {
+    "message": "Outlined",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontOther": {
@@ -400,7 +412,7 @@
     "description": "This is an option shown in the add-on settings."
   },
   "optionAutocorrectSymbolsDescr": {
-    "message": "For example, this will replace $CODE_HYPHEN$ with –, $CODE_ARROW$ with ⟶ and $CODE_FRACTION$ with ¼.",
+    "message": "For example, this will replace $CODE_HYPHEN$ with – and $CODE_ARROW$ with ⟶.",
     "description": "This is an option shown in the add-on settings. It describes the optionAutocorrectSymbols setting.",
     "placeholders": {
       "code_hyphen": {
@@ -410,10 +422,6 @@
       "code_arrow": {
         "content": "$2",
         "example": "<code>--></code>"
-      },
-      "code_fraction": {
-        "content": "$3",
-        "example": "<code>1/4</code>"
       }
     }
   },
@@ -426,12 +434,26 @@
     "description": "This is an option shown in the add-on settings. It describes the optionReplaceQuotes setting."
   },
   "optionConvertFractions": {
-    "message": "Convert fractions and mathematical constants to Unicode characters",
+    "message": "Convert fractions to Unicode characters",
     "description": "This is an option shown in the add-on settings."
   },
   "optionConvertFractionsDescr": {
-    "message": "For example, this will replace $CODE_NUMBER$ with 1234¼.",
+    "message": "For example, this will replace $CODE_FRACTION$ with ¼.",
     "description": "This is an option shown in the add-on settings. It describes the optionConvertFractions setting.",
+    "placeholders": {
+      "code_fraction": {
+        "content": "$1",
+        "example": "<code>1/4</code>"
+      }
+    }
+  },
+  "optionConvertNumbers": {
+    "message": "Convert numbers with fractions and mathematical constants to Unicode characters",
+    "description": "This is an option shown in the add-on settings."
+  },
+  "optionConvertNumbersDescr": {
+    "message": "For example, this will replace $CODE_NUMBER$ with 1234¼.",
+    "description": "This is an option shown in the add-on settings. It describes the optionConvertNumbers setting.",
     "placeholders": {
       "code_number": {
         "content": "$1",

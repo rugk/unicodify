@@ -19,7 +19,8 @@ const defaultSettings = {
         enabled: false,
         autocorrectSymbols: true,
         autocorrectUnicodeQuotes: true,
-        autocorrectUnicodeFracts: true
+        autocorrectUnicodeFracts: true,
+        autocorrectUnicodeNumbers: true
     },
     unicodeFont: {
         changeFont: true,

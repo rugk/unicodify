@@ -45,7 +45,7 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "unicodify@rugk.github.io",
-      "strict_min_version": "112.0"
+      "strict_min_version": "125.0"
     }
   }
 }

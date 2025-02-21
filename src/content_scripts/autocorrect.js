@@ -1,25 +1,27 @@
 "use strict";
 
-const fractions = Object.freeze({
-    "¼": 1 / 4,
-    "½": 1 / 2,
-    "¾": 3 / 4,
-    "⅐": 1 / 7,
-    "⅑": 1 / 9,
-    "⅒": 1 / 10,
-    "⅓": 1 / 3,
-    "⅔": 2 / 3,
-    "⅕": 1 / 5,
-    "⅖": 2 / 5,
-    "⅗": 3 / 5,
-    "⅘": 4 / 5,
-    "⅙": 1 / 6,
-    "⅚": 5 / 6,
-    "⅛": 1 / 8,
-    "⅜": 3 / 8,
-    "⅝": 5 / 8,
-    "⅞": 7 / 8
+const afractions = Object.freeze({
+    "¼": [1, 4],
+    "½": [1, 2],
+    "¾": [3, 4],
+    "⅐": [1, 7],
+    "⅑": [1, 9],
+    "⅒": [1, 10],
+    "⅓": [1, 3],
+    "⅔": [2, 3],
+    "⅕": [1, 5],
+    "⅖": [2, 5],
+    "⅗": [3, 5],
+    "⅘": [4, 5],
+    "⅙": [1, 6],
+    "⅚": [5, 6],
+    "⅛": [1, 8],
+    "⅜": [3, 8],
+    "⅝": [5, 8],
+    "⅞": [7, 8]
 });
+
+const fractions = Object.freeze(Object.fromEntries(Object.entries(afractions).map(([fraction, [numerator, denominator]]) => [fraction, numerator / denominator])));
 
 const constants = Object.freeze({
     π: Math.PI,
@@ -31,6 +33,8 @@ const constants = Object.freeze({
 const AUTOCORRECT_CONTENT = "autocorrectContent";
 const INSERT = "insert";
 
+const segmenter = new Intl.Segmenter();
+
 let insertedText; // Last insert text
 let deletedText; // Last deleted text
 let lastTarget; // Last target
@@ -39,6 +43,7 @@ let lastCaretPosition; // Last caret position
 let enabled = false;
 let quotes = true;
 let fracts = true;
+let numbers = true;
 
 let autocorrections = {};
 
@@ -65,11 +70,15 @@ function getCaretPosition(target) {
     // ContentEditable elements
     if (target.isContentEditable || document.designMode === "on") {
         target.focus();
-        const _range = document.getSelection().getRangeAt(0);
-        if (!_range.collapsed) {
+        const selection = document.getSelection();
+        if (selection.rangeCount !== 1) {
             return null;
         }
-        const range = _range.cloneRange();
+        const arange = selection.getRangeAt(0);
+        if (!arange.collapsed) {
+            return null;
+        }
+        const range = arange.cloneRange();
         const temp = document.createTextNode("\0");
         range.insertNode(temp);
         const caretposition = target.innerText.indexOf("\0");
@@ -77,7 +86,6 @@ function getCaretPosition(target) {
         return caretposition;
     }
     // input and textarea fields
-
     if (target.selectionStart !== target.selectionEnd) {
         return null;
     }
@@ -135,22 +143,13 @@ function insertIntoPage(atext) {
 /**
  * Count Unicode characters.
  * Adapted from: https://blog.jonnew.com/posts/poo-dot-length-equals-two
- * Intl.Segmenter is not yet supported by Firefox/Thunderbird: https://bugzilla.mozilla.org/show_bug.cgi?id=1423593
  *
  * @param {string} str
  * @returns {number}
  */
 function countChars(str) {
     // removing the joiners
-    const split = str.split("\u200D");
-    let count = 0;
-
-    for (const s of split) {
-        // removing the variation selectors
-        count += Array.from(s.replaceAll(/[\uFE00-\uFE0F]/gu, "")).length;
-    }
-
-    return count;
+    return Array.from(segmenter.segment(str.replaceAll("\u200D", ""))).length;
 }
 
 /**
@@ -285,7 +284,7 @@ function autocorrect(event) {
     running = true;
     const { target } = event;
     const caretposition = getCaretPosition(target);
-    if (caretposition) {
+    if (caretposition != null) {
         const value = target.value || target.innerText;
         let deletecount = 0;
         let insert = ["insertLineBreak", "insertParagraph"].includes(event.inputType) ? "\n" : event.data;
@@ -310,25 +309,52 @@ function autocorrect(event) {
             const length = longest - 1;
             const text = value.slice(caretposition < length ? 0 : caretposition - length, caretposition) + inserted;
             const aregexResult = symbolpatterns.exec(text);
-            const aaregexResult = antipatterns.exec(text);
-            if (!aaregexResult && (!aregexResult || (caretposition <= longest ? regexResult.index < aregexResult.index : regexResult.index <= aregexResult.index))) {
+            if (!antipatterns.test(text) && (!aregexResult || (caretposition <= longest ? regexResult.index < aregexResult.index : regexResult.index <= aregexResult.index))) {
                 const [autocorrection] = regexResult;
                 insert = autocorrections[autocorrection] + inserted;
                 deletecount = autocorrection.length;
                 output = true;
             }
         } else {
-            // Convert fractions and mathematical constants to Unicode characters
+            // Convert fractions to Unicode characters
             if (!output && fracts) {
-                // Numbers regular expression: https://regex101.com/r/7jUaSP/10
+                // Fractions regular expression: https://regex101.com/r/RtUMrA/1
+                const fractionRegex = /(?<!\/\d*)(?<numerator>\d+)\/(?<denominator>\d+)$/u;
+                const previousText = value.slice(0, caretposition);
+                const regexResult = fractionRegex.exec(previousText);
+                if (regexResult && insert !== "/") {
+                    const text = value.slice(0, caretposition) + inserted;
+                    if (!fractionRegex.test(text)) {
+                        const [fraction] = regexResult;
+                        const numerator = Number.parseInt(regexResult.groups.numerator, 10);
+                        const denominator = Number.parseInt(regexResult.groups.denominator, 10);
+                        const result = Object.entries(afractions).find(([, [n, d]]) => n === numerator && d === denominator);
+                        let label;
+                        if (result) {
+                            [label] = result;
+                        } else {
+                            // Fraction slash character: https://en.wikipedia.org/wiki/Numerals_in_Unicode#Fractions
+                            label = `${numerator}\u2044${denominator}`;
+                        }
+                        const index = firstDifferenceIndex(label, fraction);
+                        if (index >= 0) {
+                            insert = label.slice(index) + inserted;
+                            deletecount = fraction.length - index;
+                            output = true;
+                        }
+                    }
+                }
+            }
+            // Convert numbers with fractions and mathematical constants to Unicode characters
+            if (!output && numbers) {
+                // Numbers regular expression: https://regex101.com/r/7jUaSP/11
                 // Do not match version numbers: https://github.com/rugk/unicodify/issues/40
-                const numberRegex = /(?<!\.)\d+(?<fractionpart>\.\d+)?$/u;
+                const numberRegex = /(?<!\.\d*)\d+(?<fractionpart>\.\d+)?$/u;
                 const previousText = value.slice(0, caretposition);
                 const regexResult = numberRegex.exec(previousText);
                 if (regexResult && insert !== ".") {
                     const text = value.slice(0, caretposition) + inserted;
-                    const aregexResult = numberRegex.exec(text);
-                    if (!aregexResult) {
+                    if (!numberRegex.test(text)) {
                         const [number] = regexResult;
                         const label = outputLabel(number, regexResult.groups.fractionpart);
                         const index = firstDifferenceIndex(label, number);
@@ -380,7 +406,7 @@ function undoAutocorrect(event) {
     running = true;
     const { target } = event;
     const caretposition = getCaretPosition(target);
-    if (caretposition) {
+    if (caretposition != null) {
         if (target === lastTarget && caretposition === lastCaretPosition) {
             event.preventDefault();
 
@@ -412,6 +438,7 @@ function handleResponse(message, _sender) {
             enabled,
             quotes,
             fracts,
+            numbers,
             autocorrections,
             longest,
             symbolpatterns,
