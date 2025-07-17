@@ -133,10 +133,10 @@ export const menuStructure = Object.freeze({
     },
     [TRANSFORMATION_TYPE.CASING]: {
         [`${CASE_ID_PREFIX}Casing`]: [
-            `${CASE_ID_PREFIX}SentenceCase`,
             `${CASE_ID_PREFIX}Lowercase`,
             `${CASE_ID_PREFIX}Uppercase`,
             `${CASE_ID_PREFIX}CapitalizeEachWord`,
+            `${CASE_ID_PREFIX}SentenceCase`,
             `${CASE_ID_PREFIX}ToggleCase`
         ]
     },
