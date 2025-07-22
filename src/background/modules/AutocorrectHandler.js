@@ -43,11 +43,10 @@ function createRegEx(tree) {
     // Escape special characters
     const regExSpecialChars = /[.*+?^${}()|[\]\\]/gu;
 
-    for (const char in tree) {
+    for (const [char, atree] of Object.entries(tree)) {
         if (char) {
             const escaptedChar = RegExp.escape ? RegExp.escape(char) : char.replaceAll(regExSpecialChars, String.raw`\$&`);
 
-            const atree = tree[char];
             if (LEAF in atree && Object.keys(atree).length === 0) {
                 characterClass.push(escaptedChar);
             } else {
