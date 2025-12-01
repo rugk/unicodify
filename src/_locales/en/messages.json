@@ -123,7 +123,7 @@
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCaseSentenceCase": {
-    "message": "Sentence case.",
+    "message": "Sentence Case.",
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCaseLowercase": {
