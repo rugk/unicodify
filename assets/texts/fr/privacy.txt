@@ -1,6 +1,6 @@
 Cette extension ne transmet aucune donnée à son auteur ou à des tiers.
 
-Une explication de toutes les permissions nécessaires au fonctionnement de l'extension peut être trouvée ici : https://github.com/rugk/unicodify/blob/master/assets/texts/fr/permissions.md.
+Une explication de toutes les permissions nécessaires au fonctionnement de l'extension peut être trouvée ici : https://github.com/rugk/unicodify/blob/main/assets/texts/fr/permissions.md.
 
 == SERVICES TIERS ==
 

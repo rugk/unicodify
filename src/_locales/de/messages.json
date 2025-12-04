@@ -80,7 +80,7 @@
     "hash": "f22661cb0e9cdc8144d0c3cf59f854e3"
   },
   "tipTranslateAddonLink": {
-    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTING.md#translations",
+    "message": "https://github.com/rugk/unicodify/blob/main/CONTRIBUTING.md#translations",
     "description": "The link to a description of the translation service/way you can use.",
     "hash": "f470a3a2293959ea331f9bc3d669f9c6"
   },
@@ -482,7 +482,7 @@
     "hash": "b1434b8b42b1707f37d0531a8efdc7f8"
   },
   "contributorsThanksLink": {
-    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTORS.md",
+    "message": "https://github.com/rugk/unicodify/blob/main/CONTRIBUTORS.md",
     "description": "The link to the CONTRIBUTORS file.",
     "hash": "073019ce53aa124007bb99de9eb37e0f"
   },
