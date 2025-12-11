@@ -65,7 +65,7 @@
     "description": "A tip shown to users that potentially speak another language to translate this add-on."
   },
   "tipTranslateAddonLink": {
-    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTING.md#translations",
+    "message": "https://github.com/rugk/unicodify/blob/main/CONTRIBUTING.md#translations",
     "description": "The link to a description of the translation service/way you can use."
   },
   "tipLearnMore": {
@@ -531,7 +531,7 @@
     }
   },
   "contributorsThanksLink": {
-    "message": "https://github.com/rugk/unicodify/blob/master/CONTRIBUTORS.md",
+    "message": "https://github.com/rugk/unicodify/blob/main/CONTRIBUTORS.md",
     "description": "The link to the CONTRIBUTORS file."
   },
   "contributorsThanksLinkText": {
