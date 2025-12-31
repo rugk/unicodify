@@ -14,7 +14,9 @@ const notifications = new Map();
 browser.notifications.onClicked.addListener((notificationId) => {
     const url = notifications.get(notificationId);
 
-    if (url) {
+    if (url == null) {
+        browser.runtime.openOptionsPage();
+    } else if (url) {
         browser.tabs.create({ url });
     }
 });
@@ -38,7 +40,16 @@ function handleInstalled(details) {
     switch (details.reason) {
     case "install":
         // TODO(to: 'rugk'): This will need to be localized
-        Notifications.showNotification(`🎉 ${manifest.name} installed`, `Thank you for installing the “${manifest.name}” add-on!\nVersion: ${manifest.version}\n\nOpen the options/preferences page to configure this extension.`);
+        if (Notifications.SEND) {
+            browser.notifications.create({
+                type: "basic",
+                iconUrl: browser.runtime.getURL("icons/icon.svg"),
+                title: `🎉 ${manifest.name} installed`,
+                message: `Thank you for installing the “${manifest.name}” add-on!\nVersion: ${manifest.version}\n\nClick to open the options/preferences page to configure this extension.`
+            }).then((notificationId) => {
+                notifications.set(notificationId, null);
+            });
+        }
         break;
     case "update":
         if (Notifications.SEND) {
