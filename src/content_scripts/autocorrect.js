@@ -472,4 +472,4 @@ function handleError(error) {
 
 browser.runtime.sendMessage({ type: AUTOCORRECT_CONTENT }).then(handleResponse, handleError);
 browser.runtime.onMessage.addListener(handleResponse);
-console.log("Unicodify autocorrect module loaded.");
+// console.log("Unicodify autocorrect module loaded.");
