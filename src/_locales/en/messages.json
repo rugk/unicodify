@@ -1,5 +1,22 @@
 {
-  // manifest.json
+  "installNotificationTitle": {
+    "message": "🎉 $ADDON_NAME installed"
+  },
+  "installNotificationMessage": {
+    "message": "Thank you for installing the “$ADDON_NAME” add-on!\nVersion: $VERSION\n\nOpen the options/preferences page to configure this extension."
+  },
+  "updateNotificationTitle": {
+    "message": "✨ $ADDON_NAME updated"
+  },
+  "updateNotificationMessage": {
+    "message": "The “$ADDON_NAME” add-on has been updated to version $VERSION.\nClick to see the release notes.\n\n$AUTOCORRECTION_MESSAGE"
+  },
+  "autocorrectionDisabledNow": {
+    "message": "The experimental Unicode autocorrection feature has been disabled by default."
+  },
+  "autocorrectionDisabledEarlier": {
+    "message": "The experimental Unicode autocorrection feature was disabled by default in version 0.5.1."
+  },
   "extensionName": {
     "message": "Unicodify – Text transformer",
     "description": "Name of the extension."

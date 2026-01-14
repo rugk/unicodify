@@ -1,5 +1,22 @@
 {
-  // manifest.json
+   "installNotificationTitle": {
+    "message": "🎉 $ADDON_NAME yüklendi"
+  },
+  "installNotificationMessage": {
+    "message": "“$ADDON_NAME” eklentisini yüklediğiniz için teşekkürler!\nSürüm: $VERSION\n\nEklentiyi yapılandırmak için seçenekler sayfasını açın."
+  },
+  "updateNotificationTitle": {
+    "message": "✨ $ADDON_NAME güncellendi"
+  },
+  "updateNotificationMessage": {
+    "message": "“$ADDON_NAME” eklentisi $VERSION sürümüne güncellendi.\nSürüm notlarını görmek için tıklayın.\n\n$AUTOCORRECTION_MESSAGE"
+  },
+  "autocorrectionDisabledNow": {
+    "message": "Deneysel Unicode otomatik düzeltme özelliği varsayılan olarak devre dışı bırakıldı."
+  },
+  "autocorrectionDisabledEarlier": {
+    "message": "Deneysel Unicode otomatik düzeltme özelliği 0.5.1 sürümünde varsayılan olarak devre dışı bırakılmıştı."
+  },
   "extensionName": {
     "message": "Unicodify – Text transformer",
     "description": "Name of the extension."
