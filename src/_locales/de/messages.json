@@ -29,7 +29,7 @@
     }
   }
 },
-
+// manifest.json
 
   "extensionName": {
     "message": "Unicodify – Text transformer",

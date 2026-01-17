@@ -17,6 +17,7 @@
   "autocorrectionDisabledEarlier": {
     "message": "Deneysel Unicode otomatik düzeltme özelliği 0.5.1 sürümünde varsayılan olarak devre dışı bırakılmıştı."
   },
+  // manifest.json
   "extensionName": {
     "message": "Unicodify – Text transformer",
     "description": "Name of the extension."

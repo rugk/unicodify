@@ -17,6 +17,7 @@
   "autocorrectionDisabledEarlier": {
     "message": "La fonction expérimentale de correction Unicode était désactivée par défaut dans la version 0.5.1."
   },
+  // manifest.json
   "extensionName": {
     "message": "Unicodify – Text transformer",
     "description": "Name of the extension.",
