@@ -1,22 +1,35 @@
 {
   "installNotificationTitle": {
-    "message": "🎉 $ADDON_NAME installiert"
-  },
-  "installNotificationMessage": {
-    "message": "Danke, dass Sie die Erweiterung „$ADDON_NAME“ installiert haben!\nVersion: $VERSION\n\nÖffnen Sie die Optionen, um die Erweiterung zu konfigurieren."
-  },
-  "updateNotificationTitle": {
-    "message": "✨ $ADDON_NAME aktualisiert"
-  },
-  "updateNotificationMessage": {
-    "message": "Die Erweiterung „$ADDON_NAME“ wurde auf Version $VERSION aktualisiert.\nKlicken Sie, um die Versionshinweise zu sehen.\n\n$AUTOCORRECTION_MESSAGE"
-  },
-  "autocorrectionDisabledNow": {
-    "message": "Die experimentelle Unicode-Autokorrekturfunktion ist standardmäßig deaktiviert."
-  },
-  "autocorrectionDisabledEarlier": {
-    "message": "Die experimentelle Unicode-Autokorrekturfunktion war standardmäßig in Version 0.5.1 deaktiviert."
-  },
+  "message": "$ADDON_NAME installiert",
+  "placeholders": {
+    "addon_name": { "content": "$1", "example": "Unicodify" }
+  }
+},
+"installNotificationMessage": {
+  "message": "Danke, dass Sie die Erweiterung „$ADDON_NAME“ installiert haben!\nVersion: $VERSION\n\nÖffnen Sie die Optionen, um die Erweiterung zu konfigurieren.",
+  "placeholders": {
+    "addon_name": { "content": "$1", "example": "Unicodify" },
+    "version": { "content": "$2", "example": "1.2.3" }
+  }
+},
+"updateNotificationTitle": {
+  "message": "$ADDON_NAME aktualisiert",
+  "placeholders": {
+    "addon_name": { "content": "$1", "example": "Unicodify" }
+  }
+},
+"updateNotificationMessage": {
+  "message": "Die Erweiterung „$ADDON_NAME“ wurde auf Version $VERSION aktualisiert.\nKlicken Sie, um die Versionshinweise zu sehen.\n\n$AUTOCORRECTION_MESSAGE",
+  "placeholders": {
+    "addon_name": { "content": "$1", "example": "Unicodify" },
+    "version": { "content": "$2", "example": "1.2.3" },
+    "autocorrection_message": {
+      "content": "$3",
+      "example": "Die experimentelle Unicode-Autokorrekturfunktion ist standardmäßig deaktiviert."
+    }
+  }
+},
+
 
   "extensionName": {
     "message": "Unicodify – Text transformer",
