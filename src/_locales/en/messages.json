@@ -1,15 +1,51 @@
 {
   "installNotificationTitle": {
-    "message": " $ADDON_NAME installed"
+    "message": "$ADDON_NAME$ installed",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
   },
   "installNotificationMessage": {
-    "message": "Thank you for installing the “$ADDON_NAME” add-on!\nVersion: $VERSION\n\nOpen the options/preferences page to configure this extension."
+    "message": "Thank you for installing the “$ADDON_NAME$” add-on!\nVersion: $VERSION$\n\nOpen the options/preferences page to configure this extension.",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      }
+    }
   },
   "updateNotificationTitle": {
-    "message": " $ADDON_NAME updated"
+    "message": "$ADDON_NAME$ updated",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
   },
   "updateNotificationMessage": {
-    "message": "The “$ADDON_NAME” add-on has been updated to version $VERSION.\nClick to see the release notes.\n\n$AUTOCORRECTION_MESSAGE"
+    "message": "The “$ADDON_NAME$” add-on has been updated to version $VERSION$.\nClick to see the release notes.\n\n$AUTOCORRECTION_MESSAGE$",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      },
+      "autocorrection_message": {
+        "content": "$3",
+        "example": "The experimental Unicode autocorrection feature has been disabled by default."
+      }
+    }
   },
   "autocorrectionDisabledNow": {
     "message": "The experimental Unicode autocorrection feature has been disabled by default."
@@ -30,7 +66,6 @@
     "message": "Allows you to autocorrect common text sequences and convert text characters to a look like a special Unicode font.",
     "description": "Description of the extension."
   },
-
   // errors or other messages (mostly for settings)
   "errorShowingMessage": {
     "message": "Could not show this message.",
@@ -60,7 +95,6 @@
     "message": "Could not reset options!",
     "description": "The message shown, when the options of the settings could not have been reset."
   },
-
   // tips
   "tipYouLikeAddon": {
     "message": "You like this add-on?",
@@ -90,7 +124,6 @@
     "message": "Learn more",
     "description": "The common button for tips, where you can get more information on click."
   },
-
   // context menu
   "menuReadableTextWrapper": {
     "message": "$READABLE_TEXT$ – $TRANSFORMED_EXAMPLE$",
@@ -106,7 +139,6 @@
       }
     }
   },
-
   "menuCtrlKey": {
     "message": "Ctrl",
     "description": "The short key name used for the Control modifier key on typical Windows(-like) keyboards. For mac OS devices it automatically uses the Unicode symbol ⌘ instead."
@@ -135,7 +167,6 @@
       }
     }
   },
-
   "menuCaseCasing": {
     "message": "Change casing",
     "description": "An entry in the context menu. This is an entry for the case."
@@ -160,7 +191,6 @@
     "message": "Toggle Case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
-
   "menuCodeCaseCodeCasing": {
     "message": "Change code casing",
     "description": "An entry in the context menu. This is an entry for the case."
@@ -193,7 +223,6 @@
     "message": "Train case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
-
   "menuFontSuperscript": {
     "message": "Superscript",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
@@ -322,7 +351,6 @@
     "message": "Fullwidth",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
-
   "menuFormatFormatting": {
     "message": "Change formatting",
     "description": "An entry in the context menu. This is an entry for the Unicode format."
@@ -347,7 +375,6 @@
     "message": "Double underlined",
     "description": "An entry in the context menu. This is an entry for the Unicode format."
   },
-
   // options
   "someSettingsAreManaged": {
     "message": "Some settings are managed by your system administrator and cannot be changed.",
@@ -369,7 +396,6 @@
     "message": "Reset all settings to defaults",
     "description": "The button to delete all current settings and load the defaults, shown in the add-on settings."
   },
-
   "optionWarningAutocorrectFeature": {
     "message": "The Unicode autocorrect feature is experimental and may negatively affect some web pages.",
     "description": "The warning used to mark the autocorrection feature as experimental. Try to keep it short."
@@ -378,7 +404,6 @@
     "message": "https://github.com/rugk/unicodify/wiki/FAQ#why-is-the-autocorrect-feature-experimental",
     "description": "The link for more information about the optionWarningAutocorrectFeature warning."
   },
-
   "titleUnicodeAutocorrection": {
     "message": "Unicode autocorrection",
     "description": "A title in the add-on settings."
@@ -387,7 +412,6 @@
     "message": "Context menu",
     "description": "A title in the add-on settings."
   },
-
   "optionHelperTextAutocorrection": {
     "message": "You can configure the automatic corrections that are done when you are typing text here.$BR$All the autocorrections are done after typing the first nonmatching character following the character sequence, such as a space (␣). Press Backspace (⌫) to undo an autocorrection. Only the quotes replacement is done immediately.",
     "description": "Description for the section titleUnicodeAutocorrection explaining how the autocorrection works.",
@@ -424,7 +448,6 @@
     "message": "Write, select text and choose the corresponding option in the context menu to quickly change the character style or capitalization. This is useful on websites that do not support changing the font or text formatting.",
     "description": "Description for the section titleContextMenu explaining how the autocorrection works."
   },
-
   "optionAutocorrectSymbols": {
     "message": "Autocorrect Unicode symbols",
     "description": "This is an option shown in the add-on settings."
@@ -479,7 +502,6 @@
       }
     }
   },
-
   "optionMenuUnicodeFont": {
     "message": "Show Unicode font options",
     "description": "This is an option shown in the add-on settings."
@@ -496,7 +518,6 @@
     "message": "For example, “UPPER CASE”, “lower case”, “Capitalize Each Word” or “tOGGLE cASE”.",
     "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
   },
-
   "subtitleEntryPreview": {
     "message": "Preview",
     "description": "The heading/grouping title shown for options customizing the design of the context menu entry."
@@ -517,7 +538,6 @@
     "message": "Shows the effect of the transformation on the selected text instead of an example one.",
     "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting."
   },
-
   // option footer
   "translatorCredit": {
     "message": "This add-on has been translated into English by $TRANSLATORS$.",
@@ -537,7 +557,6 @@
     "message": "Teal Dulcet and rugk",
     "description": "The username that the translator wants to be referred to."
   },
-
   "contributorsThanks": {
     "message": "Also thanks to $CONTRIBUTORS$.",
     "description": "Text thanking all contributors and linking to the contributors file.",
@@ -556,7 +575,6 @@
     "message": "all other contributors",
     "description": "The link text linking to the contributors file. See contributorsThanks."
   },
-
   // ARIA labels/descriptions
   "dismissIconDescription": {
     "message": "Close this message",

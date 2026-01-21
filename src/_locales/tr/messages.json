@@ -1,15 +1,51 @@
 {
    "installNotificationTitle": {
-    "message": "🎉 $ADDON_NAME yüklendi"
+    "message": "🎉 $ADDON_NAME yüklendi",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
   },
   "installNotificationMessage": {
-    "message": "“$ADDON_NAME” eklentisini yüklediğiniz için teşekkürler!\nSürüm: $VERSION\n\nEklentiyi yapılandırmak için seçenekler sayfasını açın."
+    "message": "“$ADDON_NAME” eklentisini yüklediğiniz için teşekkürler!\nSürüm: $VERSION$\n\nEklentiyi yapılandırmak için seçenekler sayfasını açın.",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      }
+    }
   },
   "updateNotificationTitle": {
-    "message": "✨ $ADDON_NAME güncellendi"
+    "message": "✨ $ADDON_NAME güncellendi",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
   },
   "updateNotificationMessage": {
-    "message": "“$ADDON_NAME” eklentisi $VERSION sürümüne güncellendi.\nSürüm notlarını görmek için tıklayın.\n\n$AUTOCORRECTION_MESSAGE"
+    "message": "“$ADDON_NAME” eklentisi $VERSION$ sürümüne güncellendi.\nSürüm notlarını görmek için tıklayın.\n\n$AUTOCORRECTION_MESSAGE$",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      },
+      "autocorrection_message": {
+        "content": "$3",
+        "example": "Die experimentelle Unicode-Autokorrekturfunktion ist standardmäßig deaktiviert."
+      }
+    }
   },
   "autocorrectionDisabledNow": {
     "message": "Deneysel Unicode otomatik düzeltme özelliği varsayılan olarak devre dışı bırakıldı."

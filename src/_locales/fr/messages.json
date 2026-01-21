@@ -1,15 +1,51 @@
 {
   "installNotificationTitle": {
-    "message": "🎉 $ADDON_NAME installé"
+    "message": "🎉 $ADDON_NAME installé",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
   },
   "installNotificationMessage": {
-    "message": "Merci d'avoir installé l'extension “$ADDON_NAME” !\nVersion : $VERSION\n\nOuvrez les options pour configurer cette extension."
+    "message": "Merci d'avoir installé l'extension “$ADDON_NAME” !\nVersion : $VERSION$\n\nOuvrez les options pour configurer cette extension.",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      }
+    }
   },
   "updateNotificationTitle": {
-    "message": "✨ $ADDON_NAME mis à jour"
+    "message": "✨ $ADDON_NAME mis à jour",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
   },
   "updateNotificationMessage": {
-    "message": "L'extension “$ADDON_NAME” a été mise à jour vers la version $VERSION.\nCliquez pour voir les notes de version.\n\n$AUTOCORRECTION_MESSAGE"
+    "message": "L'extension “$ADDON_NAME” a été mise à jour vers la version $VERSION$.\nCliquez pour voir les notes de version.\n\n$AUTOCORRECTION_MESSAGE$",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      },
+      "autocorrection_message": {
+        "content": "$3",
+        "example": "Die experimentelle Unicode-Autokorrekturfunktion ist standardmäßig deaktiviert."
+      }
+    }
   },
   "autocorrectionDisabledNow": {
     "message": "La fonction expérimentale de correction Unicode a été désactivée par défaut."
