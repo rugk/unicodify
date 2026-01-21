@@ -8,13 +8,14 @@ import * as Notifications from "/common/modules/Notifications.js";
 import { getBrowserValue } from "/common/modules/BrowserCompat.js";
 
 
+const OPEN_OPTIONS_PAGE = Symbol("OPEN_OPTIONS_PAGE (for special install notification)");
 const notifications = new Map();
 
 
 browser.notifications.onClicked.addListener((notificationId) => {
     const url = notifications.get(notificationId);
 
-    if (url == null) {
+    if (url == OPEN_OPTIONS_PAGE) {
         browser.runtime.openOptionsPage();
     } else if (url) {
         browser.tabs.create({ url });
@@ -47,7 +48,7 @@ function handleInstalled(details) {
                 title: `🎉 ${manifest.name} installed`,
                 message: `Thank you for installing the “${manifest.name}” add-on!\nVersion: ${manifest.version}\n\nClick to open the options/preferences page to configure this extension.`
             }).then((notificationId) => {
-                notifications.set(notificationId, null);
+                notifications.set(notificationId, OPEN_OPTIONS_PAGE);
             });
         }
         break;
