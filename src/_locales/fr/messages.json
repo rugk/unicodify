@@ -1,4 +1,5 @@
 {
+  // notifications: install & update
   "installNotificationTitle": {
     "message": "🎉 $ADDON_NAME installé",
     "placeholders": {
@@ -64,7 +65,6 @@
     "description": "Name of the extension.",
     "hash": "e64f147712822c45d13476bb79638225"
   },
-
   // errors or other messages (mostly for settings)
   "errorShowingMessage": {
     "message": "Impossible d'afficher ce message.",
@@ -101,7 +101,6 @@
     "description": "The message shown, when the options of the settings could not have been reset.",
     "hash": "76e950d2db72a824482411ca6564fb1f"
   },
-
   // options
   "someSettingsAreManaged": {
     "message": "Certains paramètres sont gérés par l'administrateur de ton système et ne peuvent pas être changés.",
@@ -123,7 +122,6 @@
     "description": "The button to delete all current settings and load the defaults, shown in the add-on settings.",
     "hash": "4bb60c6c7e7b9e2ff987c244e76ee044"
   },
-
   // ARIA labels/descriptions
   "dismissIconDescription": {
     "message": "Fermer ce message",
@@ -155,6 +153,7 @@
     "description": "the aria label to label the message box as an warning message box",
     "hash": "8a5dd7528bead1ccd27cb7430d797bd2"
   },
-
-  "__WET_LOCALE__": { "message": "fr" }
+  "__WET_LOCALE__": {
+    "message": "fr"
+  }
 }

@@ -1,4 +1,5 @@
 {
+  // notifications: install & update
   "installNotificationTitle": {
     "message": "$ADDON_NAME$ installed",
     "placeholders": {
