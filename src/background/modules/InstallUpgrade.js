@@ -79,5 +79,4 @@ function handleInstalled(details) {
 
 browser.runtime.onInstalled.addListener(handleInstalled);
 
-// Previous exit survey
 browser.runtime.setUninstallURL("https://cryptpad.fr/form/#/2/form/view/TyXGnnNjCOo+iC2qrvPzfO8NMK4jMg3pRKxL0mrYNs8/");
