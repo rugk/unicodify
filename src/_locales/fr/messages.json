@@ -1,4 +1,59 @@
 {
+  // notifications: install & update
+  "installNotificationTitle": {
+    "message": "🎉 $ADDON_NAME installé",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
+  },
+  "installNotificationMessage": {
+    "message": "Merci d'avoir installé l'extension “$ADDON_NAME” !\nVersion : $VERSION$\n\nOuvrez les options pour configurer cette extension.",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      }
+    }
+  },
+  "updateNotificationTitle": {
+    "message": "✨ $ADDON_NAME mis à jour",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
+  },
+  "updateNotificationMessage": {
+    "message": "L'extension “$ADDON_NAME” a été mise à jour vers la version $VERSION$.\nCliquez pour voir les notes de version.\n\n$AUTOCORRECTION_MESSAGE$",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      },
+      "autocorrection_message": {
+        "content": "$3",
+        "example": "Die experimentelle Unicode-Autokorrekturfunktion ist standardmäßig deaktiviert."
+      }
+    }
+  },
+  "autocorrectionDisabledNow": {
+    "message": "La fonction expérimentale de correction Unicode a été désactivée par défaut."
+  },
+  "autocorrectionDisabledEarlier": {
+    "message": "La fonction expérimentale de correction Unicode était désactivée par défaut dans la version 0.5.1."
+  },
   // manifest.json
   "extensionName": {
     "message": "Unicodify – Text transformer",
@@ -10,7 +65,6 @@
     "description": "Name of the extension.",
     "hash": "e64f147712822c45d13476bb79638225"
   },
-
   // errors or other messages (mostly for settings)
   "errorShowingMessage": {
     "message": "Impossible d'afficher ce message.",
@@ -47,7 +101,6 @@
     "description": "The message shown, when the options of the settings could not have been reset.",
     "hash": "76e950d2db72a824482411ca6564fb1f"
   },
-
   // options
   "someSettingsAreManaged": {
     "message": "Certains paramètres sont gérés par l'administrateur de ton système et ne peuvent pas être changés.",
@@ -69,7 +122,6 @@
     "description": "The button to delete all current settings and load the defaults, shown in the add-on settings.",
     "hash": "4bb60c6c7e7b9e2ff987c244e76ee044"
   },
-
   // ARIA labels/descriptions
   "dismissIconDescription": {
     "message": "Fermer ce message",
@@ -101,6 +153,7 @@
     "description": "the aria label to label the message box as an warning message box",
     "hash": "8a5dd7528bead1ccd27cb7430d797bd2"
   },
-
-  "__WET_LOCALE__": { "message": "fr" }
+  "__WET_LOCALE__": {
+    "message": "fr"
+  }
 }

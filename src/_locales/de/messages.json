@@ -1,4 +1,60 @@
 {
+  // notifications: install & update
+  "installNotificationTitle": {
+    "message": "$ADDON_NAME$ installiert",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
+  },
+  "installNotificationMessage": {
+    "message": "Danke, dass Sie die Erweiterung „$ADDON_NAME$“ installiert haben!\nVersion: $VERSION$\n\nÖffnen Sie die Optionen, um die Erweiterung zu konfigurieren.",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      }
+    }
+  },
+  "updateNotificationTitle": {
+    "message": "$ADDON_NAME$ aktualisiert",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      }
+    }
+  },
+  "updateNotificationMessage": {
+    "message": "Die Erweiterung „$ADDON_NAME$“ wurde auf Version $VERSION$ aktualisiert.\nKlicken Sie, um die Versionshinweise zu sehen.\n\n$AUTOCORRECTION_MESSAGE$",
+    "placeholders": {
+      "addon_name": {
+        "content": "$1",
+        "example": "Unicodify"
+      },
+      "version": {
+        "content": "$2",
+        "example": "1.2.3"
+      },
+      "autocorrection_message": {
+        "content": "$3",
+        "example": "Die experimentelle Unicode-Autokorrekturfunktion ist standardmäßig deaktiviert."
+      }
+    }
+  },
+  "autocorrectionDisabledNow": {
+    "message": "Die experimentelle Unicode-Autokorrekturfunktion ist standardmäßig deaktiviert."
+  },
+  "autocorrectionDisabledEarlier": {
+    "message": "Die experimentelle Unicode-Autokorrekturfunktion wurde in Version 0.5.1 standardmäßig deaktiviert."
+  },
+
   // manifest.json
   "extensionName": {
     "message": "Unicodify – Text transformer",
@@ -15,7 +71,6 @@
     "description": "Description of the extension.",
     "hash": "2eac8bdced7f72d047ae904eeb231874"
   },
-
   // errors or other messages (mostly for settings)
   "errorShowingMessage": {
     "message": "Konnte Nachricht nicht anzeigen.",
@@ -52,7 +107,6 @@
     "description": "The message shown, when the options of the settings could not have been reset.",
     "hash": "76e950d2db72a824482411ca6564fb1f"
   },
-
   // tips
   "tipYouLikeAddon": {
     "message": "Magst du dieses Add-on?",
@@ -89,14 +143,19 @@
     "description": "The common button for tips, where you can get more information on click.",
     "hash": "9085b09f4748be12ab0c241d2e643b31"
   },
-
   // context menu
   "menuReadableTextWrapper": {
     "message": "$READABLE_TEXT$ – $TRANSFORMED_EXAMPLE$",
     "description": "The wrapper that is enabled if you enable the showReadableText option to also show the text without transformation. Usually does not need to be translated.",
     "placeholders": {
-      "readable_text": { "content": "$1", "example": "Superscript" },
-      "transformed_example": { "content": "$2", "example": "ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ" }
+      "readable_text": {
+        "content": "$1",
+        "example": "Superscript"
+      },
+      "transformed_example": {
+        "content": "$2",
+        "example": "ˢᵘᵖᵉʳˢᶜʳⁱᵖᵗ"
+      }
     },
     "hash": "1c445f650c073566200f4344d83d691e"
   },
@@ -109,7 +168,10 @@
     "message": "📋 Drück $CTRL_KEY$+V",
     "description": "The message title shown as a workaround to let users know to press Ctrl+V to insert the transformed text.",
     "placeholders": {
-      "ctrl_key": { "content": "$1", "example": "Ctrl" }
+      "ctrl_key": {
+        "content": "$1",
+        "example": "Ctrl"
+      }
     },
     "hash": "08949c893e2af8c0fe0a24fc432bfe69"
   },
@@ -117,8 +179,14 @@
     "message": "Add-ons in Thunderbird können aktuell nicht auf das ausgewählte Feld („$FIELD_NAME$”) zugreifen. Daher wurde der transformierte Text in deine Zwischenablage kopiert.\nBitte drück $CTRL_KEY$+V um die Transformation auszuführen.",
     "description": "The message title shown as a workaround to let users know to press Ctrl+V to insert the transformed text.",
     "placeholders": {
-      "ctrl_key": { "content": "$1", "example": "Ctrl" },
-      "field_name": { "content": "$2", "example": "Subject" }
+      "ctrl_key": {
+        "content": "$1",
+        "example": "Ctrl"
+      },
+      "field_name": {
+        "content": "$2",
+        "example": "Subject"
+      }
     },
     "hash": "8ad376e38e7645d34706b54ef7940c41"
   },
@@ -291,7 +359,6 @@
     "description": "An entry in the context menu. This is an entry for the Unicode font.",
     "hash": "90b339c7b3382662026cffa067db8742"
   },
-
   // options
   "someSettingsAreManaged": {
     "message": "Einige Einstellung werden von deinem Systemadministrator festgelegt und können nicht geändert werden.",
@@ -342,7 +409,10 @@
     "message": "Du kannst die automatischen Korrekturen, welche bei Eingabe von Text ausgeführt werden, hier konfigurieren.$BR$Alle Autokorreturen werden ausgeführt, sobald du das ersten nicht-passenden Zeichen, gefolgt von einer Zeichensequenz wie einem Leerzeichen (␣), schreibst. Drück die Rücktaste (⌫) um eine Autokorrektur rückgängig zu machen. Nur das Ersetzen der Anführungszeichen wird sofort ausgeführt.",
     "description": "Description for the section titleUnicodeAutocorrection explaining how the autocorrection works.",
     "placeholders": {
-      "br": { "content": "$1", "example": "<br>" }
+      "br": {
+        "content": "$1",
+        "example": "<br>"
+      }
     },
     "hash": "166be030523940c224538718a18e587b"
   },
@@ -350,8 +420,14 @@
     "message": "Um auch Emojis, inklusive $COLON$-Codes und Emoticons, automatisch zu korrigieren zu lassen, teste auch unser $LINK$ add-on.",
     "description": "Description for the section titleUnicodeAutocorrection advertising the Awesome Emoji Picker add-on.",
     "placeholders": {
-      "colon": { "content": "$1", "example": "<code>:colon:</code>" },
-      "link": { "content": "$2", "example": "<a href=\"https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/\">🤩&nbsp;Awesome Emoji Picker</a>" }
+      "colon": {
+        "content": "$1",
+        "example": "<code>:colon:</code>"
+      },
+      "link": {
+        "content": "$2",
+        "example": "<a href=\"https://addons.mozilla.org/firefox/addon/awesome-emoji-picker/\">🤩&nbsp;Awesome Emoji Picker</a>"
+      }
     },
     "hash": "cb0ba1f489c3ec17ad167d9b846ebd86"
   },
@@ -379,9 +455,18 @@
     "message": "Dies ersetzt bspw. $CODE_HYPHEN$ durch –, $CODE_ARROW$ durch ⟶ und $CODE_FRACTION$ mit ¼.",
     "description": "This is an option shown in the add-on settings. It describes the optionAutocorrectSymbols setting.",
     "placeholders": {
-      "code_hyphen": { "content": "$1", "example": "<code>--</code>" },
-      "code_arrow": { "content": "$2", "example": "<code>--></code>" },
-      "code_fraction": { "content": "$3", "example": "<code>1/4</code>" }
+      "code_hyphen": {
+        "content": "$1",
+        "example": "<code>--</code>"
+      },
+      "code_arrow": {
+        "content": "$2",
+        "example": "<code>--></code>"
+      },
+      "code_fraction": {
+        "content": "$3",
+        "example": "<code>1/4</code>"
+      }
     },
     "hash": "a02766192b86ddd6135a3c6dfc2977cc"
   },
@@ -404,7 +489,10 @@
     "message": "Dies wird bspw. $CODE_NUMBER$ mit 1234¼ ersetzen.",
     "description": "This is an option shown in the add-on settings. It describes the optionConvertFractions setting.",
     "placeholders": {
-      "code_number": { "content": "$1", "example": "<code>1234.25</code>" }
+      "code_number": {
+        "content": "$1",
+        "example": "<code>1234.25</code>"
+      }
     },
     "hash": "a19f4aca7eb018a878c1e257e86a925a"
   },
@@ -453,13 +541,15 @@
     "description": "This is an option shown in the add-on settings. It describes the optionMenuCasing setting.",
     "hash": "cafb6422747ff42bdab025b6fb1e681f"
   },
-
   // option footer
   "translatorCredit": {
     "message": "Dieses Add-on wurde von $TRANSLATORS$ ins Deutsche übersetzt.",
     "description": "The credit text for the translator. See https://github.com/TinyWebEx/common/blob/master/CONTRIBUTING.md#translator-credit-inside-of-add-on for how to translate this.",
     "placeholders": {
-      "translators": { "content": "$1", "example": "<a href=\"https://github.com/rugk/\">@rugk</a>" }
+      "translators": {
+        "content": "$1",
+        "example": "<a href=\"https://github.com/rugk/\">@rugk</a>"
+      }
     },
     "hash": "a6f5deecd624d5f8cd58350c72dd8fdf"
   },
@@ -477,7 +567,10 @@
     "message": "Ebenfalls vielen Dank an $CONTRIBUTORS$.",
     "description": "Text thanking all contributors and linking to the contributors file.",
     "placeholders": {
-      "contributors": { "content": "$1", "example": "<a href=\"https://github.com/rugk/…/CONTRIBUTORS.md\">all other contributors</a>" }
+      "contributors": {
+        "content": "$1",
+        "example": "<a href=\"https://github.com/rugk/…/CONTRIBUTORS.md\">all other contributors</a>"
+      }
     },
     "hash": "b1434b8b42b1707f37d0531a8efdc7f8"
   },
@@ -491,7 +584,6 @@
     "description": "The link text linking to the contributors file. See contributorsThanks.",
     "hash": "ce03e1f3b15df3bba66048b30c4f8de4"
   },
-
   // ARIA labels/descriptions
   "dismissIconDescription": {
     "message": "Diese Nachricht schließen",
@@ -523,6 +615,7 @@
     "description": "the aria label to label the message box as an warning message box",
     "hash": "8a5dd7528bead1ccd27cb7430d797bd2"
   },
-
-  "__WET_LOCALE__": { "message": "de" }
+  "__WET_LOCALE__": {
+    "message": "de"
+  }
 }
