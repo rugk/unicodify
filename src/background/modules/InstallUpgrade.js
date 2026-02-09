@@ -39,13 +39,12 @@ function handleInstalled(details) {
 
     switch (details.reason) {
     case "install":
-        // TODO(to: 'rugk'): This will need to be localized
         if (Notifications.SEND) {
             browser.notifications.create({
                 type: "basic",
                 iconUrl: browser.runtime.getURL("icons/icon.svg"),
-                title: `🎉 ${manifest.name} installed`,
-                message: `Thank you for installing the “${manifest.name}” add-on!\nVersion: ${manifest.version}\n\nClick to open the options/preferences page to configure this extension.`
+                title: browser.i18n.getMessage("installNotificationTitle", manifest.name),
+                message: browser.i18n.getMessage("installNotificationMessage", [manifest.name, manifest.version])
             }).then((notificationId) => {
                 notifications.set(notificationId, OPEN_OPTIONS_PAGE);
             });
