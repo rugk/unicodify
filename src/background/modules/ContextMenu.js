@@ -42,10 +42,10 @@ function fallback(text, fieldId) {
  *
  * @param {Object} info
  * @param {Object} tab
- * @returns {void}
+ * @returns {Promise<void>}
  * @throws {Error}
  */
-function handleMenuChoosen(info, tab) {
+async function handleMenuChoosen(info, tab) {
     let text = info.selectionText;
 
     if (!text) {
@@ -57,6 +57,13 @@ function handleMenuChoosen(info, tab) {
 
     // Thunderbird workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1641575
     if (info.fieldId) {
+        if (info.fieldId === "composeSubject") {
+            const details = await browser.compose.getComposeDetails(tab.id);
+            if (details.subject.split(info.selectionText).length === 2) {
+                browser.compose.setComposeDetails(tab.id, { subject: details.subject.replace(info.selectionText, output) });
+                return;
+            }
+        }
         fallback(output, info.fieldId);
         return;
     }

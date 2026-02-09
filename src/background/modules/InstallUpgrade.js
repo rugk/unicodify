@@ -7,11 +7,15 @@
 import * as Notifications from "/common/modules/Notifications.js";
 import { getBrowserValue } from "/common/modules/BrowserCompat.js";
 
+const OPEN_OPTIONS_PAGE = Symbol("OPEN_OPTIONS_PAGE (for special install notification)");
 const notifications = new Map();
 
 browser.notifications.onClicked.addListener((notificationId) => {
     const url = notifications.get(notificationId);
-    if (url) {
+
+    if (url == OPEN_OPTIONS_PAGE) {
+        browser.runtime.openOptionsPage();
+    } else if (url) {
         browser.tabs.create({ url });
     }
 });
@@ -34,12 +38,18 @@ function handleInstalled(details) {
     const manifest = browser.runtime.getManifest();
 
     switch (details.reason) {
-        case "install":
-            Notifications.showNotification(
-                browser.i18n.getMessage("installNotificationTitle", manifest.name),
-                browser.i18n.getMessage("installNotificationMessage", [manifest.name, manifest.version])
-            );
-            break;
+    case "install":
+        if (Notifications.SEND) {
+            browser.notifications.create({
+                type: "basic",
+                iconUrl: browser.runtime.getURL("icons/icon.svg"),
+                title: browser.i18n.getMessage("installNotificationTitle", manifest.name),
+                message: browser.i18n.getMessage("installNotificationMessage", [manifest.name, manifest.version])
+            }).then((notificationId) => {
+                notifications.set(notificationId, OPEN_OPTIONS_PAGE);
+            });
+        }
+        break;
 
         case "update":
             if (Notifications.SEND) {
