@@ -24,7 +24,7 @@ export let SEND = true;
  * @param {string} title the title
  * @param {string} content the message content
  * @param {string[] | string} [substitutions] the message parameters to pass for i18n.getMessage
- * @param {boolean} [requiredNotification=false]
+ * @param {boolean} [requiredNotification]
  * @returns {void}
  * @see {@link https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/notifications/create}
  */

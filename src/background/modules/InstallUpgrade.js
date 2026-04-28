@@ -13,7 +13,7 @@ const notifications = new Map();
 browser.notifications.onClicked.addListener((notificationId) => {
     const url = notifications.get(notificationId);
 
-    if (url == OPEN_OPTIONS_PAGE) {
+    if (url === OPEN_OPTIONS_PAGE) {
         browser.runtime.openOptionsPage();
     } else if (url) {
         browser.tabs.create({ url });
@@ -29,7 +29,7 @@ browser.notifications.onClosed.addListener((notificationId) => {
  *
  * @see {@link https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onInstalled}
  * @private
- * @param {Object} details
+ * @param {object} details
  * @returns {void}
  */
 function handleInstalled(details) {
@@ -38,18 +38,18 @@ function handleInstalled(details) {
     const manifest = browser.runtime.getManifest();
 
     switch (details.reason) {
-    case "install":
-        if (Notifications.SEND) {
-            browser.notifications.create({
-                type: "basic",
-                iconUrl: browser.runtime.getURL("icons/icon.svg"),
-                title: browser.i18n.getMessage("installNotificationTitle", manifest.name),
-                message: browser.i18n.getMessage("installNotificationMessage", [manifest.name, manifest.version])
-            }).then((notificationId) => {
-                notifications.set(notificationId, OPEN_OPTIONS_PAGE);
-            });
-        }
-        break;
+        case "install":
+            if (Notifications.SEND) {
+                browser.notifications.create({
+                    type: "basic",
+                    iconUrl: browser.runtime.getURL("icons/icon.svg"),
+                    title: browser.i18n.getMessage("installNotificationTitle", manifest.name),
+                    message: browser.i18n.getMessage("installNotificationMessage", [manifest.name, manifest.version])
+                }).then((notificationId) => {
+                    notifications.set(notificationId, OPEN_OPTIONS_PAGE);
+                });
+            }
+            break;
 
         case "update":
             if (Notifications.SEND) {
@@ -58,7 +58,7 @@ function handleInstalled(details) {
                     .map((x) => Number.parseInt(x, 10));
 
                 // The autocorrection feature was disabled by default in version 0.5.1
-                const disabled = major === 0 && (minor < 5 || (minor === 5 && patch === 0));
+                const disabled = major === 0 && (minor < 5 || minor === 5 && patch === 0);
 
                 const autocorrectionMessage = browser.i18n.getMessage(
                     disabled ? "autocorrectionDisabledNow" : "autocorrectionDisabledEarlier"

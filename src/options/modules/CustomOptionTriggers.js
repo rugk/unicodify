@@ -11,9 +11,9 @@ import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunic
  * Apply the new autocorrect settings.
  *
  * @private
- * @param  {Object} optionValue
+ * @param  {object} optionValue
  * @param  {string} [option]
- * @param  {Object} [event]
+ * @param  {object} [event]
  * @returns {Promise<void>|void}
  */
 function applyAutocorrectPermissions(optionValue, _option, _event) {
@@ -40,9 +40,9 @@ function applyAutocorrectPermissions(optionValue, _option, _event) {
  * Apply the new Unicode font settings.
  *
  * @private
- * @param  {Object} optionValue
+ * @param  {object} optionValue
  * @param  {string} [option]
- * @param  {Object} [event]
+ * @param  {object} [event]
  * @returns {void}
  */
 function applyUnicodeFontSettings(optionValue) {
@@ -57,9 +57,9 @@ function applyUnicodeFontSettings(optionValue) {
  * Apply the new Notification settings.
  *
  * @private
- * @param  {Object} optionValue
+ * @param  {object} optionValue
  * @param  {string} [option]
- * @param  {Object} [event]
+ * @param  {object} [event]
  * @returns {void}
  */
 function applyNotificationSettings(optionValue) {

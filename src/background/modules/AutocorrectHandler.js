@@ -1,4 +1,4 @@
-"use strict";
+
 
 import * as AddonSettings from "/common/modules/AddonSettings/AddonSettings.js";
 import * as BrowserCommunication from "/common/modules/BrowserCommunication/BrowserCommunication.js";
@@ -33,7 +33,7 @@ const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 /**
  * Traverse Trie tree of objects to create RegEx.
  *
- * @param {Object.<string, Object|boolean>} tree
+ * @param {Object.<string, object | boolean>} tree
  * @returns {string}
  */
 function createRegEx(tree) {
@@ -142,9 +142,9 @@ function applySettings() {
             if (aindex !== -1) {
                 if (aindex < index) {
                     index = aindex;
-                    length = y.length;
+                    ({ length } = y);
                 } else if (aindex === index && y.length > length) {
-                    length = y.length;
+                    ({ length } = y);
                 }
             }
         }
@@ -180,7 +180,7 @@ function onError(error) {
 /**
  * Set autocorrect settings.
  *
- * @param {Object} autocorrect
+ * @param {object} autocorrect
  * @returns {void}
  */
 function setSettings(autocorrect) {
@@ -198,7 +198,7 @@ function setSettings(autocorrect) {
 /**
  * Send autocorrect settings to content scripts.
  *
- * @param {Object} autocorrect
+ * @param {object} autocorrect
  * @returns {void}
  */
 function sendSettings(autocorrect) {

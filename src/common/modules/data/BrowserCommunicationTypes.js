@@ -9,7 +9,7 @@
  * An object of all available communication types.
  *
  * @public
- * @const
+ * @constant
  * @type {Object.<string, string>}
  */
 export const COMMUNICATION_MESSAGE_TYPE = Object.freeze({

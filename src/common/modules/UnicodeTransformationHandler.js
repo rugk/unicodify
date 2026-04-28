@@ -14,23 +14,23 @@ const segmenterSentence = new Intl.Segmenter([], { granularity: "sentence" });
  * @throws {Error}
  */
 export function transformText(text, transformationId) {
-    let output = null;
+    let output;
     const transformationType = getTransformationType(transformationId);
     switch (transformationType) {
-    case TRANSFORMATION_TYPE.CASING:
-        output = changeCase[transformationId.slice(CASE_ID_PREFIX.length)](text);
-        break;
-    case TRANSFORMATION_TYPE.CODE_CASING:
-        output = changeCodeCase[transformationId.slice(CODE_CASE_ID_PREFIX.length)](text);
-        break;
-    case TRANSFORMATION_TYPE.FONT:
-        output = changeFont(text, transformationId);
-        break;
-    case TRANSFORMATION_TYPE.FORMAT:
-        output = changeFormat(text, transformationId);
-        break;
-    default:
-        throw new Error(`Transformation with id=${transformationId} is unknown and could not be processed.`);
+        case TRANSFORMATION_TYPE.CASING:
+            output = changeCase[transformationId.slice(CASE_ID_PREFIX.length)](text);
+            break;
+        case TRANSFORMATION_TYPE.CODE_CASING:
+            output = changeCodeCase[transformationId.slice(CODE_CASE_ID_PREFIX.length)](text);
+            break;
+        case TRANSFORMATION_TYPE.FONT:
+            output = changeFont(text, transformationId);
+            break;
+        case TRANSFORMATION_TYPE.FORMAT:
+            output = changeFormat(text, transformationId);
+            break;
+        default:
+            throw new Error(`Transformation with id=${transformationId} is unknown and could not be processed.`);
     }
 
     if (!output) {
@@ -178,7 +178,7 @@ function toggleCase(atext) {
 /**
  * Change Case
  *
- * @const
+ * @constant
  * @type {Object.<string, function(string): string>}
  */
 const changeCase = Object.freeze({
@@ -282,7 +282,7 @@ function trainCase(atext) {
 /**
  * Change Coding Case
  *
- * @const
+ * @constant
  * @type {Object.<string, function(string): string>}
  */
 const changeCodeCase = Object.freeze({
