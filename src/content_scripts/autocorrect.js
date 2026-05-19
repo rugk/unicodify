@@ -1,4 +1,3 @@
-"use strict";
 
 const afractions = Object.freeze({
     "¼": [1, 4],
@@ -428,8 +427,8 @@ function undoAutocorrect(event) {
 /**
  * Handle response from the autocorrect module.
  *
- * @param {Object} message
- * @param {Object} sender
+ * @param {object} message
+ * @param {object} sender
  * @returns {void}
  */
 function handleResponse(message, _sender) {

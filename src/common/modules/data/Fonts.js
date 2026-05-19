@@ -1,4 +1,4 @@
-"use strict";
+
 
 // Adapted from: https://entropymine.wordpress.com/2018/05/26/the-curious-case-of-small-caps-in-unicode/
 // https://en.wikipedia.org/wiki/Small_caps#Unicode
@@ -8,7 +8,7 @@ const smallCaps = "ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘꞯʀꜱᴛᴜᴠ�
  * Types of transformations
  *
  * @public
- * @const
+ * @constant
  * @type {Object.<string, symbol>}
  */
 export const TRANSFORMATION_TYPE = Object.freeze({
@@ -22,7 +22,7 @@ export const TRANSFORMATION_TYPE = Object.freeze({
  * Separater string
  *
  * @public
- * @const
+ * @constant
  * @type {string}
  */
 export const SEPARATOR_ID_PREFIX = "separator";
@@ -31,7 +31,7 @@ export const SEPARATOR_ID_PREFIX = "separator";
  * Unique prefix for all IDs related to casing.
  *
  * @public
- * @const
+ * @constant
  * @type {string}
  */
 export const CASE_ID_PREFIX = "menuCase";
@@ -40,7 +40,7 @@ export const CASE_ID_PREFIX = "menuCase";
  * Unique prefix for all IDs related to code casing.
  *
  * @public
- * @const
+ * @constant
  * @type {string}
  */
 export const CODE_CASE_ID_PREFIX = "menuCodeCase";
@@ -49,7 +49,7 @@ export const CODE_CASE_ID_PREFIX = "menuCodeCase";
  * Unique prefix for all IDs related to fonts.
  *
  * @public
- * @const
+ * @constant
  * @type {string}
  */
 export const FONT_ID_PREFIX = "menuFont";
@@ -58,7 +58,7 @@ export const FONT_ID_PREFIX = "menuFont";
  * Unique prefix for all IDs related to fonts.
  *
  * @public
- * @const
+ * @constant
  * @type {string}
  */
 export const FORMAT_ID_PREFIX = "menuFormat";
@@ -67,7 +67,7 @@ export const FORMAT_ID_PREFIX = "menuFormat";
  * The structure of the context menu.
  *
  * @public
- * @const
+ * @constant
  * @type {Object.<symbol, Object.<string|symbol, Array.<string|symbol>>>}
  */
 export const menuStructure = Object.freeze({
@@ -161,7 +161,7 @@ export const menuStructure = Object.freeze({
  * https://en.wikipedia.org/wiki/Enclosed_Alphanumeric_Supplement
  *
  * @private
- * @const
+ * @constant
  * @type {Object.<string, string>}
  */
 const fonts = Object.freeze({
@@ -203,7 +203,7 @@ const fonts = Object.freeze({
  * The most similar looking are choosen in such a case.
  *
  * @public
- * @const
+ * @constant
  * @type {Object.<string, string[]>}
  */
 export const fontLetters = Object.freeze(
@@ -220,7 +220,7 @@ export const fontLetters = Object.freeze(
  * https://en.wikipedia.org/wiki/Combining_Diacritical_Marks
  *
  * @public
- * @const
+ * @constant
  * @type {Object.<string, string>}
  */
 export const formats = Object.freeze({

@@ -40,8 +40,8 @@ function fallback(text, fieldId) {
  *
  * This will trigger the actual action of transforming the selected text.
  *
- * @param {Object} info
- * @param {Object} tab
+ * @param {object} info
+ * @param {object} tab
  * @returns {Promise<void>}
  * @throws {Error}
  */
@@ -78,11 +78,11 @@ async function handleMenuChoosen(info, tab) {
  * Potentially adjust context menu display if it is shown.
  *
  * This does not always change some things, but it e.g.
- * * hides the menu when no text is selected
- * * and shows the result of the text transformation if the live preview feature is enabled
+ * hides the menu when no text is selected
+ * and shows the result of the text transformation if the live preview feature is enabled
  *
- * @param {Object} info
- * @param {Object} tab
+ * @param {object} info
+ * @param {object} tab
  * @returns {Promise<void>}
  * @throws {Error}
  */
@@ -123,8 +123,8 @@ async function handleMenuShown(info) {
 /**
  * Apply (new) menu item settings by (re)creating or updating/refreshing the context menu.
  *
- * @param {Object} unicodeFontSettings
- * @param {string?} [exampleText=null]
+ * @param {object} unicodeFontSettings
+ * @param {string?} [exampleText]
  * @returns {Promise<void>}
  */
 async function buildMenu(unicodeFontSettings, exampleText = null) {
@@ -179,7 +179,7 @@ async function buildMenu(unicodeFontSettings, exampleText = null) {
  *
  * @param {string|null} transformationId
  * @param {string[]} menuItems
- * @param {Object} unicodeFontSettings
+ * @param {object} unicodeFontSettings
  * @param {string?} exampleText
  * @returns {Promise<void>}
  */
@@ -212,8 +212,8 @@ async function createMenu(transformationId, menuItems, unicodeFontSettings, exam
  * Add Unicode menu items.
  *
  * @param {Object.<string, string[]>} menuItems
- * @param {Object} [unicodeFontSettings]
- * @param {string?} [exampleText=null]
+ * @param {object} [unicodeFontSettings]
+ * @param {string?} [exampleText]
  * @returns {Promise<void>}
  */
 async function addMenuItems(menuItems, unicodeFontSettings = lastCachedUnicodeFontSettings, exampleText = null) {

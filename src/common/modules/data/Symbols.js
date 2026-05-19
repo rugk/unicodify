@@ -1,10 +1,10 @@
-"use strict";
+
 
 /**
  * Symbols
  *
  * @public
- * @const
+ * @constant
  * @type {Object.<string, string>}
  */
 export const symbols = Object.freeze({
