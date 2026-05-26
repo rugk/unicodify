@@ -119,7 +119,7 @@
   },
 
   "menuCaseCasing": {
-    "message": "Change casing",
+    "message": "Change Casing",
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCaseSentenceCase": {
@@ -144,35 +144,35 @@
   },
 
   "menuCodeCaseCodeCasing": {
-    "message": "Change code casing",
+    "message": "Change Code Casing",
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCodeCaseCamelCase": {
-    "message": "Camel case",
+    "message": "Camel Case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCodeCaseUpperCamelCase": {
-    "message": "Upper camel case",
+    "message": "Upper Camel Case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCodeCaseSnakeCase": {
-    "message": "Snake case",
+    "message": "Snake Case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCodeCaseConstantCase": {
-    "message": "Constant case",
+    "message": "Constant Case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCodeCaseAdaCase": {
-    "message": "Ada case",
+    "message": "Ada Case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCodeCaseKebabCase": {
-    "message": "Kebab case",
+    "message": "Kebab Case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
   "menuCodeCaseTrainCase": {
-    "message": "Train case",
+    "message": "Train Case",
     "description": "An entry in the context menu. This is an entry for the case."
   },
 
@@ -205,35 +205,35 @@
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSerifBold": {
-    "message": "Serif bold",
+    "message": "Serif Bold",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSerifItalic": {
-    "message": "Serif italic",
+    "message": "Serif Italic",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSerifBoldItalic": {
-    "message": "Serif bold italic",
+    "message": "Serif Bold Italic",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSansSerifSansSerif": {
-    "message": "Sans-serif",
+    "message": "Sans-Serif",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSansSerif": {
-    "message": "Sans-serif",
+    "message": "Sans-Serif",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSansSerifBold": {
-    "message": "Sans-serif bold",
+    "message": "Sans-Serif Bold",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSansSerifItalic": {
-    "message": "Sans-serif italic",
+    "message": "Sans-Serif Italic",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSansSerifBoldItalic": {
-    "message": "Sans-serif bold italic",
+    "message": "Sans-Serif Bold Italic",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontScriptScript": {
@@ -245,7 +245,7 @@
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontScriptBold": {
-    "message": "Script bold",
+    "message": "Script Bold",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontFrakturFraktur": {
@@ -257,7 +257,7 @@
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontFrakturBold": {
-    "message": "Fraktur bold",
+    "message": "Fraktur Bold",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontMonospace": {
@@ -265,11 +265,11 @@
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontDoubleStruckDoubleStruck": {
-    "message": "Double-struck",
+    "message": "Double-Struck",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontDoubleStruck": {
-    "message": "Double-struck",
+    "message": "Double-Struck",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontOutlined": {
@@ -285,7 +285,7 @@
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontCircledBlack": {
-    "message": "Circled (black)",
+    "message": "Circled (Black)",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSquared": {
@@ -293,7 +293,7 @@
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontSquaredBlack": {
-    "message": "Squared (black)",
+    "message": "Squared (Black)",
     "description": "An entry in the context menu. This is an entry for the Unicode font."
   },
   "menuFontParenthesized": {
@@ -306,7 +306,7 @@
   },
 
   "menuFormatFormatting": {
-    "message": "Change formatting",
+    "message": "Change Formatting",
     "description": "An entry in the context menu. This is an entry for the Unicode format."
   },
   "menuFormatOverlined": {
@@ -314,7 +314,7 @@
     "description": "An entry in the context menu. This is an entry for the Unicode format."
   },
   "menuFormatDoubleOverlined": {
-    "message": "Double overlined",
+    "message": "Double Overlined",
     "description": "An entry in the context menu. This is an entry for the Unicode format."
   },
   "menuFormatStrikethrough": {
@@ -326,7 +326,7 @@
     "description": "An entry in the context menu. This is an entry for the Unicode format."
   },
   "menuFormatDoubleUnderlined": {
-    "message": "Double underlined",
+    "message": "Double Underlined",
     "description": "An entry in the context menu. This is an entry for the Unicode format."
   },
 
