@@ -256,18 +256,20 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_BACKGROU
 
 browser.runtime.onMessage.addListener((message) => {
     // console.log(message);
-    if (message.type === COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
-        const response = {
-            type: COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
-            enabled: settings.enabled,
-            quotes: settings.quotes,
-            fracts: settings.fracts,
-            numbers: settings.numbers,
-            autocorrections,
-            longest,
-            symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
-            antipatterns: IS_CHROME ? antipatterns.source : antipatterns
-        };
-        return Promise.resolve(response);
+    if (message.type !== COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
+    	return;
     }
+
+    const response = {
+        type: COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
+        enabled: settings.enabled,
+        quotes: settings.quotes,
+        fracts: settings.fracts,
+        numbers: settings.numbers,
+        autocorrections,
+        longest,
+        symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
+        antipatterns: IS_CHROME ? antipatterns.source : antipatterns
+    };
+    return Promise.resolve(response);
 });

@@ -148,7 +148,7 @@ function insertIntoPage(atext) {
  */
 function countChars(str) {
     // removing the Unicode joiner chars \u200D
-    return Array.from(segmenter.segment(str.replaceAll("\u200D", ""))).length;
+    return Array.from(segmenter.segment(str.replaceAll("\u{200D}", ""))).length;
 }
 
 /**
@@ -333,7 +333,7 @@ function autocorrect(event) {
                             [label] = result;
                         } else {
                             // Fraction slash character: https://en.wikipedia.org/wiki/Numerals_in_Unicode#Fractions
-                            label = `${numerator}\u2044${denominator}`;
+                            label = `${numerator}\u{2044}${denominator}`;
                         }
                         const index = firstDifferenceIndex(label, fraction);
                         if (index >= 0) {

@@ -304,7 +304,7 @@ export async function init() {
     }
     menus.onClicked.addListener(handleMenuChoosen);
 
-    pasteSymbol = platformInfo.os === "mac" ? "\u2318" : browser.i18n.getMessage("menuCtrlKey");
+    pasteSymbol = platformInfo.os === "mac" ? "\u{2318}" : browser.i18n.getMessage("menuCtrlKey");
 }
 
 BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.UNICODE_FONT, async (request) => {
