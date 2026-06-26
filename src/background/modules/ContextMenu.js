@@ -7,6 +7,9 @@ import * as Notifications from "/common/modules/Notifications.js";
 import { COMMUNICATION_MESSAGE_TYPE } from "/common/modules/data/BrowserCommunicationTypes.js";
 import { menuStructure, SEPARATOR_ID_PREFIX, TRANSFORMATION_TYPE } from "/common/modules/data/Fonts.js";
 
+// Thunderbird
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1641573
+const IS_THUNDERBIRD = Boolean(globalThis.messenger);
 const menus = browser.menus || browser.contextMenus; // fallback for Thunderbird
 const PREVIEW_STRING_CUT_LENGTH = 100; // a setting that may improve performance by not calculating invisible parts of the context menu
 
@@ -20,15 +23,15 @@ let pasteSymbol = null;
  * Thunderbird workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1641575
  *
  * @param {string} text
- * @param {string} fieldId
+ * @param {string} [fieldId]
  * @returns {void}
  */
 function fallback(text, fieldId) {
     navigator.clipboard.writeText(text);
-    const fieldName = fieldId.startsWith("compose") ? fieldId.slice("compose".length) : fieldId;
+    const fieldName = fieldId?.startsWith("compose") ? fieldId.slice("compose".length) : fieldId;
     Notifications.showNotification(
         "menuNotificationPressCtrlVTitle",
-        "menuNotificationPressCtrlVContent",
+        IS_THUNDERBIRD ? "menuNotificationPressCtrlVContent" : `The add-on was unable to access this tab directly, so the transformed text has been copied to your clipboard.\nPlease press ${pasteSymbol}-V to do the transformation.`,
         [
             pasteSymbol,
             fieldName
@@ -46,21 +49,20 @@ function fallback(text, fieldId) {
  * @throws {Error}
  */
 async function handleMenuChoosen(info, tab) {
-    let text = info.selectionText;
+    const text = info.selectionText;
 
     if (!text) {
         return;
     }
 
-    text = text.normalize();
-    const output = UnicodeTransformationHandler.transformText(text, info.menuItemId);
+    const output = UnicodeTransformationHandler.transformText(text.normalize(), info.menuItemId);
 
     // Thunderbird workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1641575
     if (info.fieldId) {
         if (info.fieldId === "composeSubject") {
             const details = await browser.compose.getComposeDetails(tab.id);
-            if (details.subject.split(info.selectionText).length === 2) {
-                browser.compose.setComposeDetails(tab.id, { subject: details.subject.replace(info.selectionText, output) });
+            if (details.subject.split(text).length === 2) {
+                browser.compose.setComposeDetails(tab.id, { subject: details.subject.replace(text, output) });
                 return;
             }
         }
@@ -71,7 +73,10 @@ async function handleMenuChoosen(info, tab) {
     browser.tabs.sendMessage(tab.id, {
         type: COMMUNICATION_MESSAGE_TYPE.INSERT,
         text: output
-    }, { frameId: info.frameId });
+    }, { frameId: info.frameId }).catch((error) => {
+        console.error(`Error: ${error}`);
+        fallback(output);
+    });
 }
 
 /**
