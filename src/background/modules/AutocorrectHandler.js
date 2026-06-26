@@ -117,19 +117,13 @@ function applySettings() {
     }
 
     // Longest autocorrection
-    longest = 0;
-
-    for (const symbol in autocorrections) {
-        if (symbol.length > longest) {
-            longest = symbol.length;
-        }
-    }
+    longest = Math.max(...Object.keys(autocorrections).map((s) => s.length), 0);
     console.log("Longest autocorrection", longest);
 
-    symbolpatterns = createTree(Object.keys(autocorrections));
+    const symbolpatternsRegexpString = createTree(Object.keys(autocorrections));
 
     // Do not autocorrect for these patterns
-    antipatterns = [];
+    let antipatternsList = [];
     for (const x in autocorrections) {
         let length = 0;
         let index = x.length;
@@ -152,29 +146,19 @@ function applySettings() {
         if (length) {
             length = x.length - (index + length);
             if (length > 1) {
-                antipatterns.push(x.slice(0, -(length - 1)));
+                antipatternsList.push(x.slice(0, -(length - 1)));
             }
         }
     }
-    antipatterns = antipatterns.filter((item, pos) => antipatterns.indexOf(item) === pos);
-    console.log("Do not autocorrect for these patterns", antipatterns);
+    antipatternsList = antipatternsList.filter((item, pos) => antipatternsList.indexOf(item) === pos);
+    console.log("Do not autocorrect for these patterns", antipatternsList);
 
-    antipatterns = createTree(antipatterns);
+    const antipatternsRegexpString = createTree(antipatternsList);
 
-    symbolpatterns = new RegExp(`(${symbolpatterns})$`, "u");
-    antipatterns = new RegExp(`(${antipatterns})$`, "u");
+    symbolpatterns = new RegExp(`(${symbolpatternsRegexpString})$`, "u");
+    antipatterns = new RegExp(`(${antipatternsRegexpString})$`, "u");
     const end = performance.now();
     console.log(`The new autocorrect settings were applied in ${end - start} ms.`);
-}
-
-/**
- * On error.
- *
- * @param {string} error
- * @returns {void}
- */
-function onError(error) {
-    console.error(`Error: ${error}`);
 }
 
 /**
@@ -206,7 +190,6 @@ function sendSettings(autocorrect) {
 
     browser.tabs.query({}).then((tabs) => {
         for (const tab of tabs) {
-            // This requires Thunderbird 78.4: https://bugzilla.mozilla.org/show_bug.cgi?id=1641576
             browser.tabs.sendMessage(
                 tab.id,
                 {
@@ -220,9 +203,13 @@ function sendSettings(autocorrect) {
                     symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
                     antipatterns: IS_CHROME ? antipatterns.source : antipatterns
                 }
-            ).catch(onError);
+            ).catch((error) => {
+                console.error(`Error: ${error}`);
+            });
         }
-    }).catch(onError);
+    }).catch((error) => {
+        console.error(`Error: ${error}`);
+    });
 }
 
 /**
@@ -256,18 +243,20 @@ BrowserCommunication.addListener(COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_BACKGROU
 
 browser.runtime.onMessage.addListener((message) => {
     // console.log(message);
-    if (message.type === COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
-        const response = {
-            type: COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
-            enabled: settings.enabled,
-            quotes: settings.quotes,
-            fracts: settings.fracts,
-            numbers: settings.numbers,
-            autocorrections,
-            longest,
-            symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
-            antipatterns: IS_CHROME ? antipatterns.source : antipatterns
-        };
-        return Promise.resolve(response);
+    if (message.type !== COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT) {
+    	return;
     }
+
+    const response = {
+        type: COMMUNICATION_MESSAGE_TYPE.AUTOCORRECT_CONTENT,
+        enabled: settings.enabled,
+        quotes: settings.quotes,
+        fracts: settings.fracts,
+        numbers: settings.numbers,
+        autocorrections,
+        longest,
+        symbolpatterns: IS_CHROME ? symbolpatterns.source : symbolpatterns,
+        antipatterns: IS_CHROME ? antipatterns.source : antipatterns
+    };
+    return Promise.resolve(response);
 });
