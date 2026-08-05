@@ -87,7 +87,17 @@ function capitalizeEachWord(text) {
  * @returns {string}
  */
 function sentenceCase(text) {
-    return Array.from(segmenterSentence.segment(text), ({ segment: [head, ...tail] }) => head.toLocaleUpperCase() + tail.join("")).join("");
+    return Array.from(segmenterSentence.segment(text), ({ segment }) => {
+        let found = false;
+        return Array.from(segmenterWord.segment(segment), ({ segment, isWordLike }) => {
+            if (!found && isWordLike) {
+                found = true;
+                const [head, ...tail] = segment;
+                return head.toLocaleUpperCase() + tail.join("");
+            }
+            return segment;
+        }).join("");
+    }).join("");
 }
 
 /**

@@ -1,4 +1,3 @@
-
 const afractions = Object.freeze({
     "¼": [1, 4],
     "½": [1, 2],
@@ -32,8 +31,6 @@ const constants = Object.freeze({
 const AUTOCORRECT_CONTENT = "autocorrectContent";
 const INSERT = "insert";
 
-const segmenter = new Intl.Segmenter();
-
 let insertedText; // Last insert text
 let deletedText; // Last deleted text
 let lastTarget; // Last target
@@ -60,73 +57,112 @@ let running = false;
 const IS_CHROME = Object.getPrototypeOf(browser) !== Object.prototype;
 
 /**
- * Get caret position.
+ * Get the root editable element for a contenteditable/designMode edit.
  *
- * @param {HTMLElement} target
- * @returns {number|null}
+ * @param {EventTarget} target
+ * @returns {HTMLElement|null}
  */
-function getCaretPosition(target) {
+function getEditingRoot(target) {
+    if (document.designMode === "on") {
+        return document.body || document.documentElement;
+    }
+
+    if (!target.isContentEditable) {
+        return null;
+    }
+
+    let element = target;
+    while (element.parentElement?.isContentEditable) {
+        element = element.parentElement;
+    }
+    return element;
+}
+
+/**
+ * Get a stable collapsed caret range without mutating the editing host.
+ *
+ * @param {InputEvent} event
+ * @returns {Range|null}
+ */
+function getCaretRange(event) {
+    if (event.inputType.startsWith("insert") && event.getTargetRanges) {
+        const ranges = event.getTargetRanges();
+        if (ranges.length === 1) {
+            const [range] = ranges;
+            const arange = document.createRange();
+            arange.setStart(range.startContainer, range.startOffset);
+            arange.setEnd(range.endContainer, range.endOffset);
+            if (!arange.collapsed) {
+                return null;
+            }
+            return arange;
+        }
+    }
+
+    const selection = document.getSelection();
+    if (!selection || selection.rangeCount !== 1) {
+        return null;
+    }
+
+    const range = selection.getRangeAt(0);
+    if (!range.collapsed) {
+        return null;
+    }
+
+    return range.cloneRange();
+}
+
+/**
+ * Get the text before the caret without mutating the page DOM.
+ *
+ * @param {HTMLElement|HTMLInputElement|HTMLTextAreaElement} target
+ * @param {InputEvent} event
+ * @returns {string|null}
+ */
+function getTextBeforeCaret(target, event) {
     // ContentEditable elements
-    if (target.isContentEditable || document.designMode === "on") {
-        target.focus();
-        const selection = document.getSelection();
-        if (selection.rangeCount !== 1) {
+    const root = getEditingRoot(target);
+    if (root) {
+        const caretRange = getCaretRange(event);
+        if (!caretRange) {
             return null;
         }
-        const arange = selection.getRangeAt(0);
-        if (!arange.collapsed) {
-            return null;
-        }
-        const range = arange.cloneRange();
-        const temp = document.createTextNode("\0");
-        range.insertNode(temp);
-        const caretposition = target.innerText.indexOf("\0");
-        temp.remove();
-        return caretposition;
+
+        const range = document.createRange();
+        range.selectNodeContents(root);
+        range.setEnd(caretRange.endContainer, caretRange.endOffset);
+        return range.toString();
     }
     // input and textarea fields
     if (target.selectionStart !== target.selectionEnd) {
         return null;
     }
-    return target.selectionStart;
+    return target.value.slice(0, target.selectionStart);
 }
 
 /**
- * Insert at caret in the given element.
+ * Insert at the current selection/caret in the given element.
  * Adapted from: https://www.everythingfrontend.com/posts/insert-text-into-textarea-at-cursor-position.html
  *
  * @param {HTMLElement} target
  * @param {string} atext
- * @throws {Error} if nothing is selected
- * @returns {void}
+ * @returns {boolean}
  */
 function insertAtCaret(target, atext) {
     // document.execCommand is deprecated, although there is not yet an alternative: https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand
     // insertReplacementText
     if (document.execCommand("insertText", false, atext)) {
-        return;
+        return true;
     }
 
     // Firefox input and textarea fields: https://bugzilla.mozilla.org/show_bug.cgi?id=1220696
-    if (target.setRangeText) {
-        const start = target.selectionStart;
-        const end = target.selectionEnd;
-
-        if (start != null && end != null) {
-            target.setRangeText(atext);
-
-            target.selectionStart = target.selectionEnd = start + atext.length;
-
-            // Notify any possible listeners of the change
-            const event = document.createEvent("UIEvent");
-            event.initEvent("input", true, false);
-            target.dispatchEvent(event);
-
-            return;
-        }
+    if (target.setRangeText && target.selectionStart != null && target.selectionEnd != null) {
+        target.setRangeText(atext, target.selectionStart, target.selectionEnd, "end");
+        target.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText", data: atext }));
+        return true;
     }
 
-    throw new Error("nothing selected");
+    return false;
 }
 
 /**
@@ -136,51 +172,112 @@ function insertAtCaret(target, atext) {
  * @returns {void}
  */
 function insertIntoPage(atext) {
-    return insertAtCaret(document.activeElement, atext);
+    if (!insertAtCaret(document.activeElement, atext)) {
+        throw new Error("nothing selected");
+    }
 }
 
 /**
- * Count Unicode characters.
- * Adapted from: https://blog.jonnew.com/posts/poo-dot-length-equals-two
+ * Return a DOM range covering the given number of UTF-16 code units before the caret.
  *
- * @param {string} str
- * @returns {number}
+ * @param {HTMLElement} root
+ * @param {Range} caretRange
+ * @param {number} length
+ * @returns {Range|null}
  */
-function countChars(str) {
-    // removing the Unicode joiner chars \u200D
-    return Array.from(segmenter.segment(str.replaceAll("\u200D", ""))).length;
-}
+function getRangeBeforeCaret(root, caretRange, length) {
+    const range = document.createRange();
+    range.setEnd(caretRange.startContainer, caretRange.startOffset);
 
-/**
- * Delete at caret.
- *
- * @param {HTMLElement} target
- * @param {string} atext
- * @returns {void}
- */
-function deleteCaret(target, atext) {
-    const count = countChars(atext);
-    if (count > 0) {
-        // document.execCommand is deprecated, although there is not yet an alternative: https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand
-        if (document.execCommand("delete", false)) {
-            for (let i = 0; i < count - 1; ++i) {
-                document.execCommand("delete", false);
+    if (!length) {
+        range.collapse(false);
+        return range;
+    }
+
+    let remaining = length;
+    const textNodes = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        let endOffset;
+        if (node === caretRange.startContainer) {
+            endOffset = caretRange.startOffset;
+        } else {
+            const position = caretRange.comparePoint(node, node.length);
+            if (position > 0) {
+                break;
             }
+            endOffset = node.length;
         }
-        // Firefox input and textarea fields: https://bugzilla.mozilla.org/show_bug.cgi?id=1220696
-        else if (target.setRangeText) {
-            const start = target.selectionStart;
 
-            target.selectionStart = start - atext.length;
-            target.selectionEnd = start;
-            target.setRangeText("");
-
-            // Notify any possible listeners of the change
-            const e = document.createEvent("UIEvent");
-            e.initEvent("input", true, false);
-            target.dispatchEvent(e);
+        if (endOffset > 0) {
+            textNodes.push([node, endOffset]);
         }
     }
+
+    for (const [node, endOffset] of textNodes.reverse()) {
+        const take = Math.min(remaining, endOffset);
+        remaining -= take;
+        if (!remaining) {
+            range.setStart(node, endOffset - take);
+            return range;
+        }
+    }
+
+    return null;
+}
+
+/**
+ * Apply a prepared text replacement.
+ *
+ * @param {HTMLElement|HTMLInputElement|HTMLTextAreaElement} target
+ * @param {InputEvent} event
+ * @param {string} deleteText
+ * @param {string} insertText
+ * @returns {boolean}
+ */
+function applyReplacement(target, event, deleteText, insertText) {
+    const root = getEditingRoot(target);
+    if (root) {
+        const caretRange = getCaretRange(event);
+        if (!caretRange) {
+            return false;
+        }
+
+        const range = getRangeBeforeCaret(root, caretRange, deleteText.length);
+        if (!range || range.toString() !== deleteText) {
+            return false;
+        }
+
+        const selection = document.getSelection();
+        if (!selection) {
+            return false;
+        }
+
+        event.preventDefault();
+
+        selection.removeAllRanges();
+        selection.addRange(range);
+        return insertAtCaret(root, insertText);
+    }
+
+    if (target.selectionStart !== target.selectionEnd) {
+        return false;
+    }
+
+    const start = target.selectionStart - deleteText.length;
+    if (start < 0 || target.value.slice(start, target.selectionStart) !== deleteText) {
+        return false;
+    }
+
+    event.preventDefault();
+
+    const end = target.selectionStart;
+    target.selectionStart = start;
+    target.selectionEnd = end;
+
+    // "insertReplacementText"
+    return insertAtCaret(target, insertText);
 }
 
 /**
@@ -271,7 +368,7 @@ function firstDifferenceIndex(a, b) {
  */
 function autocorrect(event) {
     // console.log('beforeinput', event.inputType, event.data);
-    if (!["insertText", "insertCompositionText", "insertParagraph", "insertLineBreak"].includes(event.inputType)) {
+    if (event.isComposing || event.cancelable === false || !["insertText", "insertParagraph", "insertLineBreak"].includes(event.inputType)) {
         return;
     }
     if (!symbolpatterns) {
@@ -281,17 +378,20 @@ function autocorrect(event) {
         return;
     }
     running = true;
-    const { target } = event;
-    const caretposition = getCaretPosition(target);
-    if (caretposition != null) {
-        const value = target.value || target.innerText;
+    try {
+        const { target } = event;
+        const value = getTextBeforeCaret(target, event);
+        if (value == null) {
+            return;
+        }
+        const caretposition = value.length;
         let deletecount = 0;
         let insert = ["insertLineBreak", "insertParagraph"].includes(event.inputType) ? "\n" : event.data;
         const inserted = insert;
         let output = false;
         // Use Unicode smart quotes
         if (quotes && (insert === "'" || insert === '"')) {
-            const previouschar = value.slice(caretposition < 1 ? 0 : caretposition - 1, caretposition);
+            const previouschar = value.slice(-1);
             // White space
             const re = /^\s*$/u;
             if (insert === "'") {
@@ -301,12 +401,12 @@ function autocorrect(event) {
             }
             output = true;
         }
-        const previousText = value.slice(caretposition < longest ? 0 : caretposition - longest, caretposition);
+        const previousText = value.slice(-longest);
         const regexResult = symbolpatterns.exec(previousText);
         // Autocorrect Unicode Symbols
         if (regexResult) {
             const length = longest - 1;
-            const text = value.slice(caretposition < length ? 0 : caretposition - length, caretposition) + inserted;
+            const text = value.slice(-length) + inserted;
             const aregexResult = symbolpatterns.exec(text);
             if (!antipatterns.test(text) && (!aregexResult || (caretposition <= longest ? regexResult.index < aregexResult.index : regexResult.index <= aregexResult.index))) {
                 const [autocorrection] = regexResult;
@@ -319,10 +419,10 @@ function autocorrect(event) {
             if (!output && fracts) {
                 // Fractions regular expression: https://regex101.com/r/RtUMrA/1
                 const fractionRegex = /(?<!\/\d*)(?<numerator>\d+)\/(?<denominator>\d+)$/u;
-                const previousText = value.slice(0, caretposition);
+                const previousText = value;
                 const regexResult = fractionRegex.exec(previousText);
                 if (regexResult && insert !== "/") {
-                    const text = value.slice(0, caretposition) + inserted;
+                    const text = value + inserted;
                     if (!fractionRegex.test(text)) {
                         const [fraction] = regexResult;
                         const numerator = Number.parseInt(regexResult.groups.numerator, 10);
@@ -333,7 +433,7 @@ function autocorrect(event) {
                             [label] = result;
                         } else {
                             // Fraction slash character: https://en.wikipedia.org/wiki/Numerals_in_Unicode#Fractions
-                            label = `${numerator}\u2044${denominator}`;
+                            label = `${numerator}\u{2044}${denominator}`;
                         }
                         const index = firstDifferenceIndex(label, fraction);
                         if (index >= 0) {
@@ -349,10 +449,10 @@ function autocorrect(event) {
                 // Numbers regular expression: https://regex101.com/r/7jUaSP/11
                 // Do not match version numbers: https://github.com/rugk/unicodify/issues/40
                 const numberRegex = /(?<!\.\d*)\d+(?<fractionpart>\.\d+)?$/u;
-                const previousText = value.slice(0, caretposition);
+                const previousText = value;
                 const regexResult = numberRegex.exec(previousText);
                 if (regexResult && insert !== ".") {
-                    const text = value.slice(0, caretposition) + inserted;
+                    const text = value + inserted;
                     if (!numberRegex.test(text)) {
                         const [number] = regexResult;
                         const label = outputLabel(number, regexResult.groups.fractionpart);
@@ -367,14 +467,10 @@ function autocorrect(event) {
             }
         }
         if (output) {
-            event.preventDefault();
-
-            const text = deletecount ? value.slice(caretposition - deletecount, caretposition) : "";
-            if (text) {
-                lastTarget = null;
-                deleteCaret(target, text);
+            const text = deletecount ? value.slice(caretposition - deletecount) : "";
+            if (!applyReplacement(target, event, text, insert)) {
+                return;
             }
-            insertAtCaret(target, insert);
 
             insertedText = insert;
             deletedText = text + inserted;
@@ -383,8 +479,9 @@ function autocorrect(event) {
             lastTarget = target;
             lastCaretPosition = caretposition - deletecount + insert.length;
         }
+    } finally {
+        running = false;
     }
-    running = false;
 }
 
 /**
@@ -396,32 +493,30 @@ function autocorrect(event) {
 function undoAutocorrect(event) {
     // console.log('beforeinput', event.inputType, event.data);
     // Backspace
-    if (event.inputType !== "deleteContentBackward") {
+    if (event.isComposing || event.cancelable === false || event.inputType !== "deleteContentBackward") {
         return;
     }
     if (running) {
         return;
     }
     running = true;
-    const { target } = event;
-    const caretposition = getCaretPosition(target);
-    if (caretposition != null) {
-        if (target === lastTarget && caretposition === lastCaretPosition) {
-            event.preventDefault();
-
-            if (insertedText) {
-                lastTarget = null;
-                deleteCaret(target, insertedText);
+    try {
+        const { target } = event;
+        const value = getTextBeforeCaret(target, event);
+        if (value == null) {
+            return;
+        }
+        const caretposition = value.length;
+        if (target === lastTarget && caretposition === lastCaretPosition && (!insertedText || value.endsWith(insertedText))) {
+            if (applyReplacement(target, event, insertedText, deletedText)) {
+                console.debug("Undo autocorrect: “%s” was replaced with “%s”.", insertedText, deletedText);
             }
-            if (deletedText) {
-                insertAtCaret(target, deletedText);
-            }
-            console.debug("Undo autocorrect: “%s” was replaced with “%s”.", insertedText, deletedText);
         }
 
         lastTarget = null;
+    } finally {
+        running = false;
     }
-    running = false;
 }
 
 /**
@@ -459,15 +554,7 @@ function handleResponse(message, _sender) {
     }
 }
 
-/**
- * Handle errors from messages and responses.
- *
- * @param {string} error
- * @returns {void}
- */
-function handleError(error) {
+browser.runtime.sendMessage({ type: AUTOCORRECT_CONTENT }).then(handleResponse, (error) => {
     console.error(`Error: ${error}`);
-}
-
-browser.runtime.sendMessage({ type: AUTOCORRECT_CONTENT }).then(handleResponse, handleError);
+});
 browser.runtime.onMessage.addListener(handleResponse);

@@ -224,9 +224,9 @@ export const fontLetters = Object.freeze(
  * @type {Object.<string, string>}
  */
 export const formats = Object.freeze({
-    Overlined: "\u0305",
-    DoubleOverlined: "\u033F",
-    Strikethrough: "\u0336",
-    Underlined: "\u0332",
-    DoubleUnderlined: "\u0333"
+    Overlined: "\u{305}",
+    DoubleOverlined: "\u{33F}",
+    Strikethrough: "\u{336}",
+    Underlined: "\u{332}",
+    DoubleUnderlined: "\u{333}"
 });
